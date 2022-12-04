@@ -3,9 +3,10 @@ import pygame
 gödi_list = []
 
 class Gödi:
-    def __init__(self, x = 10, y = 1, r = 0.5):
+    def __init__(self, x , y, sprite, r = 0.5):
         self.x = x
         self.y = y
+        self.sprite = sprite
         self.r = r
 
         self.vert = 1 # 0 = right, 1 = left
@@ -51,12 +52,12 @@ class Gödi:
                 if grid[int(self.x+1)][int(self.y)] == 1:
                     self.y = int(self.y) + 0.99999
 
-    def draw(self, surface, camera, sprite):
+    def draw(self, surface, camera):
         #   rotate gödi image by self.ang then draw that image
         #   rotate around the center of the image
 
         #   get the rotated image
-        rotated_image = pygame.transform.rotate(sprite.image, self.ang)
+        rotated_image = pygame.transform.rotate(self.sprite.image, self.ang)
 
         #   get the rectangle of the rotated image
         rect = rotated_image.get_rect()
