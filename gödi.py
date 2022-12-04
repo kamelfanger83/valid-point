@@ -1,56 +1,84 @@
 import pygame
+import sprites
 
 gödi_list = []
 
 class Gödi:
-    def __init__(self, x , y, sprite, r = 0.5):
+    def __init__(self, x , y, sprite_path, tile_size, r = 0.499):
         self.x = x
         self.y = y
-        self.sprite = sprite
-        self.r = r
+        self.sprite = sprites.Sprite(sprite_path, 2*r, 2*r, tile_size)
+        self.x_hit = r
+        self.y_hit = r
 
         self.vert = 1 # 0 = right, 1 = left
         self.speed = 0.1
         self.ang = 0
         self.ang_speed = 10
 
+        self.climbing = False
+        self.up_speed = 0
+        self.gravity = 0.02
+
         gödi_list.append(self)
 
+    def is_valid(self, grid):
+        if grid[int(self.x - self.x_hit)][int(self.y - self.y_hit)] == 0 and \
+           grid[int(self.x + self.x_hit)][int(self.y - self.y_hit)] == 0 and \
+           grid[int(self.x - self.x_hit)][int(self.y + self.y_hit)] == 0 and \
+           grid[int(self.x + self.x_hit)][int(self.y + self.y_hit)] == 0:
+            return True
+        return False
+
+
     def step(self, grid):
-        # check if there is a block in front of the gödi
-        # if yes, go up
-        # if it wants to go up but there is a block, turn around
-        # if no, go ahead
+        self.climbing = False
+
         if self.vert == 1:
             if(self.x - self.speed < 0):
                 gödil.remove(self)
             self.ang += self.ang_speed
-            if grid[int(self.x-self.speed)][int(self.y+self.speed)] == 1:
-                if grid[int(self.x)][int(self.y + self.speed)+1] == 1:
+
+            self.x -= self.speed
+
+            if not self.is_valid(grid):
+                self.x += self.speed
+                self.y += self.speed
+                if not self.is_valid(grid):
+                    self.y -= self.speed
                     self.vert = 0
                 else:
-                    self.y += self.speed
-            elif grid[int(self.x-self.speed)][int(self.y)] == 1 or grid[int(self.x-self.speed)+1][int(self.y)] == 1:
-                self.x -= self.speed
-            else:
-                self.y -= self.speed
-                if grid[int(self.x)][int(self.y)] == 1:
-                    self.y = int(self.y) + 0.99999
+                    self.climbing = True
+
+            self.up_speed -= self.gravity
+            self.y += self.up_speed
+
+            if not self.is_valid(grid) or self.climbing:
+                self.y -= self.up_speed
+                self.up_speed = 0
+
         else:
-            if(self.x + self.speed > grid.width-2):
+            if(self.x + self.speed > grid.width-1):
                 gödi_list.remove(self)
             self.ang -= self.ang_speed
-            if grid[int(self.x+self.r*2+self.speed)][int(self.y+self.speed)] == 1:
-                if grid[int(self.x+1)][int(self.y + self.speed)+1] == 1:
+
+            self.x += self.speed
+
+            if not self.is_valid(grid):
+                self.x -= self.speed
+                self.y += self.speed
+                if not self.is_valid(grid):
+                    self.y -= self.speed
                     self.vert = 1
                 else:
-                    self.y += self.speed
-            elif grid[int(self.x+self.speed)][int(self.y)] == 1 or grid[int(self.x+self.speed)+1][int(self.y)] == 1:
-                self.x += self.speed
-            else:
-                self.y -= self.speed
-                if grid[int(self.x+1)][int(self.y)] == 1:
-                    self.y = int(self.y) + 0.99999
+                    self.climbing = True
+
+            self.up_speed -= self.gravity
+            self.y += self.up_speed
+
+            if not self.is_valid(grid) or self.climbing:
+                self.y -= self.up_speed
+                self.up_speed = 0
 
     def draw(self, surface, camera):
         #   rotate gödi image by self.ang then draw that image
@@ -63,7 +91,7 @@ class Gödi:
         rect = rotated_image.get_rect()
 
         #   set the center of the rectangle to the center of the image
-        rect.center = camera.coords_to_screen(self.x + 1/2, self.y + 1/2, surface)
+        rect.center = camera.coords_to_screen(self.x, self.y, surface)
 
         #   draw the rotated image
         surface.blit(rotated_image, rect)

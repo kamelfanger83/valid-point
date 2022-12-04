@@ -26,13 +26,16 @@ for column in range(width):
 grid[0][1] = 1
 grid[0][2] = 1
 
+grid[9][1] = 1
+
 #grid[8][1] = 1
 grid[8][2] = 1
+grid[8][3] = 1
+grid[8][4] = 1
+grid[8][5] = 1
 
 grid[1][3] = 1
 #grid[7][3] = 1
-
-
 
 tile_size = 100
 
@@ -47,11 +50,8 @@ player = player_module.Player(5, 2)
 player.load_sprites(tile_size)
 
 
-# load gödi image
-gödi_sprite = sprites.Sprite(".\sprites\\gödi.png", 1, 1, tile_size)
-
-gödi.Gödi(10, 1, gödi_sprite)
-
+# create test gödi
+gödi.Gödi(11, 1.5, ".\sprites\\gödi.png", tile_size)
 
 
 while True:

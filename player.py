@@ -3,7 +3,7 @@ import sprites
 import copy
 
 class Player:
-    def __init__(self, x, y, x_hit = 0.2, y_hit = 1):
+    def __init__(self, x, y, x_hit = 0.2, y_hit = 0.999):
         self.x = x
         self.y = y
         self.x_hit = x_hit
@@ -71,12 +71,26 @@ class Player:
                 return True
         return False
 
+    def on_ground(self, grid):
+        self.y -= 10**-10
+        if not self.is_valid(grid):
+            self.y += 10**-10
+            return True
+        self.y += 10**-10
+        return False
+
     def get_events(self, grid):
         # get the pressed keys
         pressed_keys = pygame.key.get_pressed()
 
+        o_player = Player(self.x, self.y)
+        o_player.isCrouching = self.isCrouching
+
         self.isWalking = False
         self.isCrouching = False
+
+        if not self.is_valid(grid):
+            self.isCrouching = o_player.isCrouching
 
         nlwpressed = False
         if pressed_keys[pygame.K_w]:
@@ -86,14 +100,11 @@ class Player:
             elif not self.doubleJumped:
                 self.velocity_up = 2 / 3 * self.jump_speed
                 self.doubleJumped = True
-            elif (grid[int(self.x - self.x_hit)][int(self.y - self.y_hit - 10**-10)] == 1 or grid[int(self.x + self.x_hit)][int(self.y - self.y_hit - 10**-10)] == 1) and self.y == int(self.y):
+            elif self.on_ground(grid):
                 self.velocity_up = self.jump_speed
                 self.doubleJumped = False
 
         self.lwpressed = nlwpressed
-
-        o_player = Player(self.x, self.y)
-        o_player.isCrouching = self.isCrouching
 
         if pressed_keys[pygame.K_s]:
             self.isCrouching = True
@@ -124,10 +135,9 @@ class Player:
         self.velocity_up -= self.gravity
         self.y += self.velocity_up
 
-        # check if player is on the ground
-        if grid[int(self.x-self.x_hit)][int(self.y - self.y_hit)] == 1 or grid[int(self.x+self.x_hit)][int(self.y - self.y_hit)] == 1:
+        if self.on_ground(grid):
             self.velocity_up = 0
-            self.y = int(self.y) + self.y_hit
+            self.y = int(self.y) + self.y_hit + 10**-11
             self.doubleJumped = True
 
         if not self.is_valid(grid):
