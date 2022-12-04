@@ -44,6 +44,9 @@ grid[9][8] = 1
 grid[1][3] = 1
 #grid[7][3] = 1
 
+
+grid.store(".\maps\\test.gr")
+
 tile_size = 100
 
 camera = camera_module.Camera(tile_size)
