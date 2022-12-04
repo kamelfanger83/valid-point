@@ -6,6 +6,7 @@ import player as player_module
 import camera as camera_module
 import sprites
 import gödi
+import mouse
 
 # initialize a fullscreen pygame window
 pygame.init()
@@ -44,6 +45,7 @@ grid[9][8] = 1
 grid[1][3] = 1
 #grid[7][3] = 1
 
+
 grid.store(".\maps\\test.gr")
 
 tile_size = 100
@@ -75,13 +77,21 @@ def death_screen():
 
 def game_loop():
     while True:
-        # EVENT HANDLING
+     # EVENT HANDLING
 
-        # pygame events
+    # pygame events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit(0)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                ev_button = event.button
+                if ev_button == 1:
+                    mouse.mouseclickleft(grid, camera, screen)
+                elif ev_button == 2:
+                    mouse.mouseclickmiddle(grid)
+                elif ev_button == 3:
+                    mouse.mouseclickright(camera, screen, tile_size)
 
         # player controls
         player.get_events(grid)
