@@ -23,7 +23,8 @@ class Player:
         self.gravity = 0.02
         self.jump_speed = 0.35
 
-        self.doubleJumped = True
+        self.singleJumped = False
+        self.doubleJumped = False
 
         self.walkinframe = 1
         self.thisframe = 0
@@ -72,11 +73,9 @@ class Player:
         return False
 
     def on_ground(self, grid):
-        self.y -= 10**-10
-        if not self.is_valid(grid):
-            self.y += 10**-10
-            return True
-        self.y += 10**-10
+        if grid[int(self.x - self.x_hit)][int(self.y - self.y_hit - 10**-10)] == 1 or \
+           grid[int(self.x + self.x_hit)][int(self.y - self.y_hit - 10**-10)] == 1:
+                return True
         return False
 
     def get_events(self, grid):
@@ -97,14 +96,14 @@ class Player:
             nlwpressed = True
             if self.lwpressed:
                 pass
-            elif not self.doubleJumped:
-                self.velocity_up += 2 / 3 * self.jump_speed
-                self.y += self.velocity_up
-                self.doubleJumped = True
-            elif self.on_ground(grid):
+            elif not self.singleJumped:
                 self.velocity_up = self.jump_speed
                 self.y += self.velocity_up
-                self.doubleJumped = False
+                self.singleJumped = True
+            elif not self.doubleJumped:
+                self.velocity_up = 2 / 3 * self.jump_speed
+                self.y += self.velocity_up
+                self.doubleJumped = True
 
         if not self.is_valid(grid):
             self.x = o_player.x
@@ -144,7 +143,8 @@ class Player:
         if self.on_ground(grid):
             self.velocity_up = 0
             self.y = int(self.y) + self.y_hit + 10**-11
-            self.doubleJumped = True
+            self.singleJumped = False
+            self.doubleJumped = False
 
         if not self.is_valid(grid):
             self = o_player
