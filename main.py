@@ -44,7 +44,6 @@ grid[9][8] = 1
 grid[1][3] = 1
 #grid[7][3] = 1
 
-
 grid.store(".\maps\\test.gr")
 
 tile_size = 100
@@ -54,7 +53,7 @@ camera = camera_module.Camera(tile_size)
 # load grid images
 ground = sprites.Sprite(".\sprites\\tile.jpg", 1, 1, tile_size)
 bg = sprites.Sprite(".\sprites\\bg.jpg", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
-
+death_pic = sprites.Sprite(".\sprites\\death_screen.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
 
 player = player_module.Player(5, 2)
 player.load_sprites(tile_size)
@@ -63,43 +62,59 @@ player.load_sprites(tile_size)
 # create test gödi
 gödi.Gödi(13, 1.5, ".\sprites\\gödi.png", tile_size)
 
-
-while True:
-    # EVENT HANDLING
-
+def death_screen():
     # pygame events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             exit(0)
+    death_pic.draw(screen, (0, 0))
 
-    # player controls
-    player.get_events(grid)
-
-    # UPDATE
-
-    for g in gödi.gödi_list:
-        g.step(grid)
-
-    # DRAWING
-
-    camera.xcen = player.x
-
-    bg.draw(screen, (0, 0))
-
-    # draw the grid
-    for row in range(height):
-        for column in range(width):
-            if grid[column][row] == 1:
-                ground.draw(screen, camera.coords_to_screen(column, row+1, screen))
-
-    # draw the player
-    player.draw(screen, camera)
-
-    # draw the gödis
-    for g in gödi.gödi_list:
-        g.draw(screen, camera)
-
-    # update the screen
     pygame.display.update()
     pygame.time.Clock().tick(60)
+
+def game_loop():
+    while True:
+        # EVENT HANDLING
+
+        # pygame events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit(0)
+
+        # player controls
+        player.get_events(grid)
+
+        # UPDATE
+
+        for g in gödi.gödi_list:
+            g.step(grid)
+
+            if g.y - g.y_hit < player.y + player.y_hit and g.y + g.y_hit > player.y - player.y_hit and g.x - g.x_hit < player.x + player.x_hit and g.x + g.x_hit > player.x - player.x_hit:
+                death_screen()
+
+        # DRAWING
+
+        camera.xcen = player.x
+
+        bg.draw(screen, (0, 0))
+
+        # draw the grid
+        for row in range(height):
+            for column in range(width):
+                if grid[column][row] == 1:
+                    ground.draw(screen, camera.coords_to_screen(column, row+1, screen))
+
+        # draw the player
+        player.draw(screen, camera)
+
+        # draw the gödis
+        for g in gödi.gödi_list:
+            g.draw(screen, camera)
+
+        # update the screen
+        pygame.display.update()
+        pygame.time.Clock().tick(60)
+
+game_loop()
