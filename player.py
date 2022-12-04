@@ -98,11 +98,18 @@ class Player:
             if self.lwpressed:
                 pass
             elif not self.doubleJumped:
-                self.velocity_up = 2 / 3 * self.jump_speed
+                self.velocity_up += 2 / 3 * self.jump_speed
+                self.y += self.velocity_up
                 self.doubleJumped = True
             elif self.on_ground(grid):
                 self.velocity_up = self.jump_speed
+                self.y += self.velocity_up
                 self.doubleJumped = False
+
+        if not self.is_valid(grid):
+            self.x = o_player.x
+            self.y = o_player.y
+            self.velocity_up = 0
 
         self.lwpressed = nlwpressed
 
@@ -128,7 +135,6 @@ class Player:
         if not self.is_valid(grid):
             self.x = o_player.x
             self.y = o_player.y
-            self.isCrouching = o_player.isCrouching
 
         o_player = Player(self.x, self.y)
 
