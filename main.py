@@ -15,38 +15,8 @@ pygame.display.set_caption("Platformer Game")
 
 # Create grid
 
-width = 100
-height = 20
-
-grid = world.Grid(width, height)
-
-for column in range(width):
-    grid[column][0] = 1
-
-grid[0][1] = 1
-grid[0][2] = 1
-
-#grid[8][1] = 1
-grid[8][2] = 1
-grid[8][3] = 1
-grid[8][4] = 1
-grid[8][5] = 1
-
-grid[10][1] = 1
-grid[10][2] = 1
-grid[10][3] = 1
-grid[10][4] = 1
-grid[10][5] = 1
-grid[10][6] = 1
-grid[10][7] = 1
-
-grid[9][8] = 1
-
-grid[1][3] = 1
-#grid[7][3] = 1
-
-
-grid.store(".\maps\\test.gr")
+grid = None
+player = None
 
 tile_size = 100
 
@@ -56,26 +26,79 @@ camera = camera_module.Camera(tile_size)
 ground = sprites.Sprite(".\sprites\\tile.jpg", 1, 1, tile_size)
 bg = sprites.Sprite(".\sprites\\bg.jpg", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
 death_pic = sprites.Sprite(".\sprites\\death_screen.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
+menu_pic = sprites.Sprite(".\sprites\\menu.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
 
-player = player_module.Player(5, 2)
-player.load_sprites(tile_size)
+def main_menu():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit(0)
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    init_game()
+                    game_loop()
 
+        menu_pic.draw(screen, (0, 0))
+        pygame.display.update()
 
-# create test gödi
-gödi.Gödi(15, 4, ".\sprites\\gödi.png", tile_size, 2)
-f = gödi.Gödi(12, 1.5, ".\sprites\\gödi.png", tile_size, 0.5)
-f.speed = 0.5
 
 def death_screen():
-    # pygame events
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit(0)
-    death_pic.draw(screen, (0, 0))
+    for _ in range(240):
+        # pygame events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit(0)
 
-    pygame.display.update()
-    pygame.time.Clock().tick(60)
+        death_pic.draw(screen, (0, 0))
+
+        pygame.display.update()
+        pygame.time.Clock().tick(60)
+
+def init_game():
+    global grid
+    global player
+    gödi.gödi_list = []
+    width = 100
+    height = 20
+
+    grid = world.Grid(width, height)
+
+    for column in range(width):
+        grid[column][0] = 1
+
+    grid[0][1] = 1
+    grid[0][2] = 1
+
+    # grid[8][1] = 1
+    grid[8][2] = 1
+    grid[8][3] = 1
+    grid[8][4] = 1
+    grid[8][5] = 1
+
+    grid[10][1] = 1
+    grid[10][2] = 1
+    grid[10][3] = 1
+    grid[10][4] = 1
+    grid[10][5] = 1
+    grid[10][6] = 1
+    grid[10][7] = 1
+
+    grid[9][8] = 1
+
+    grid[1][3] = 1
+    # grid[7][3] = 1
+
+    player = player_module.Player(5, 2)
+    player.load_sprites(tile_size)
+
+    # create test gödi
+    gödi.Gödi(15, 4, ".\sprites\\gödi.png", tile_size, 2)
+    f = gödi.Gödi(12, 1.5, ".\sprites\\gödi.png", tile_size, 0.5)
+    f.speed = 0.5
+
+    game_loop()
 
 def game_loop():
     while True:
@@ -105,6 +128,7 @@ def game_loop():
 
             if g.y - g.y_hit < player.y + player.y_hit and g.y + g.y_hit > player.y - player.y_hit and g.x - g.x_hit < player.x + player.x_hit and g.x + g.x_hit > player.x - player.x_hit:
                 death_screen()
+                return
 
         # DRAWING
 
@@ -113,8 +137,8 @@ def game_loop():
         bg.draw(screen, (0, 0))
 
         # draw the grid
-        for row in range(height):
-            for column in range(width):
+        for row in range(len(grid[0])):
+            for column in range(len(grid)):
                 if grid[column][row] == 1:
                     ground.draw(screen, camera.coords_to_screen(column, row+1, screen))
 
@@ -129,4 +153,4 @@ def game_loop():
         pygame.display.update()
         pygame.time.Clock().tick(60)
 
-game_loop()
+main_menu()

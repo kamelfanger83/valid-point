@@ -10,6 +10,9 @@ class Grid:
     def __setitem__(self, column, value):
         self.data[column] = value
 
+    def __len__(self):
+        return len(self.data)
+
     def store(self, path):
         with open(path, "w") as f:
             f.write(str(self.width) + " " + str(self.height) + "\n")
