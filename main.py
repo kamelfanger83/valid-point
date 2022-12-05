@@ -105,7 +105,7 @@ def init_game():
     player.y = 2
 
     # create test spawner
-    spawner.Spawner(13, 5, 120, tile_size, ud_list)
+    spawner.Spawner(13, 5, 120, tile_size, grid, ud_list)
 
 
 def game_loop():
@@ -136,7 +136,7 @@ def game_loop():
         # UPDATE
 
         for thing in ud_list:
-            thing.update(grid)
+            thing.update(grid, ud_list)
 
         if player.dead():
             death_screen()
@@ -156,6 +156,8 @@ def game_loop():
                     ground.draw(screen, camera.coords_to_screen(column, row+1, screen))
                 if grid[column][row] == 2 and sand.is_valid(column,row, grid, tile_size) == True:
                     sand_block.draw(screen, camera.coords_to_screen(column, row+1, screen))
+                if grid[column][row] == 3:
+                    pass
 
         for s in sand.sand_list:
             if s.fall(grid) == False:

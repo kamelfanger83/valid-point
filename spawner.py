@@ -3,12 +3,17 @@ import sprites
 
 spawner_list = []
 class Spawner:
-    def __init__(self, x, y, interval, tile_size, ud_list):
+    def __init__(self, x, y, interval, tile_size, grid, ud_list):
         self.x = x
         self.y = y
         self.interval = interval
         self.spawn_interval = 30
         self.tile_size = tile_size
+
+        grid[x][y] = 3
+        grid[x][y+1] = 3
+        grid[x+1][y] = 3
+        grid[x+1][y+1] = 3
 
         self.ticks = 0
 
@@ -22,11 +27,11 @@ class Spawner:
 
     def draw(self, surface, camera):
         if self.spawning:
-            self.sprite_spawn.draw(surface, camera.coords_to_screen(self.x, self.y, surface))
+            self.sprite_spawn.draw(surface, camera.coords_to_screen(self.x, self.y + 2, surface))
         else:
-            self.sprite_idle.draw(surface, camera.coords_to_screen(self.x, self.y, surface))
+            self.sprite_idle.draw(surface, camera.coords_to_screen(self.x, self.y + 2, surface))
 
-    def update(self, grid):
+    def update(self, grid, ud_list):
         self.ticks += 1
         if self.ticks == self.interval:
             self.spawning = True

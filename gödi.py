@@ -27,12 +27,13 @@ class Gödi(object.Object):
         gödi_list.append(self)
         ud_list.append(self)
 
-    def update(self, grid):
+    def update(self, grid, ud_list):
         self.climbing = False
 
         if self.vert == 1:
             if(self.x - self.speed < 0):
                 gödi_list.remove(self)
+                ud_list.remove(self)
             self.ang += self.ang_speed
 
             self.x -= self.speed
@@ -56,6 +57,7 @@ class Gödi(object.Object):
         else:
             if(self.x + self.speed > grid.width-1):
                 gödi_list.remove(self)
+                ud_list.remove(self)
             self.ang -= self.ang_speed
 
             self.x += self.speed
