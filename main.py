@@ -98,27 +98,30 @@ def init_game():
     f = gödi.Gödi(12, 1.5, ".\sprites\\gödi.png", tile_size, 0.5)
     f.speed = 0.5
 
-    game_loop()
 
 def game_loop():
+    x_y_previous = [-1,-1]
     while True:
      # EVENT HANDLING
 
     # pygame events
         for event in pygame.event.get():
+            mouse_buttons_pressed = pygame.mouse.get_pressed(num_buttons = 3)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit(0)
-            elif event.type == pygame.MOUSEBUTTONDOWN:
+            elif mouse_buttons_pressed[0] == True:
+                x_y_previous = mouse.mouseclickleft(grid, camera, screen, x_y_previous)
+            elif event.type == pygame.MOUSEBUTTONUP:
                 ev_button = event.button
                 if ev_button == 1:
-                    mouse.mouseclickleft(grid, camera, screen)
+                    x_y_previous = [-1,-1]
                 elif ev_button == 2:
                     mouse.mouseclickmiddle(grid)
                 elif ev_button == 3:
                     mouse.mouseclickright(camera, screen, tile_size)
 
-        # player controls
+      # player controls
         player.get_events(grid)
 
         # UPDATE
