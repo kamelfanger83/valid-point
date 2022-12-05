@@ -54,3 +54,4 @@ class Spawner:
             self.ospawning.speed = 0.1
             self.ospawning.gravity = 0.02
             self.ospawning.vert = 1
+            self.ospawning.update_r()
