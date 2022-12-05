@@ -1,15 +1,18 @@
 import pygame
 import sprites
+import object
 
 gödi_list = []
 
-class Gödi:
+class Gödi(object.Object):
     def __init__(self, x , y, sprite_path, tile_size, r = 0.499):
         self.x = x
         self.y = y
         self.sprite = sprites.Sprite(sprite_path, 2*r, 2*r, tile_size)
+
         self.x_hit = r
         self.y_hit = r
+        self.hitbox = object.RectangularHitbox(r, r, 0.5)
 
         self.vert = 1 # 0 = right, 1 = left
         self.speed = 0.1
@@ -21,15 +24,6 @@ class Gödi:
         self.gravity = 0.02
 
         gödi_list.append(self)
-
-    def is_valid(self, grid):
-        if grid[int(self.x - self.x_hit)][int(self.y - self.y_hit)] == 0 and \
-           grid[int(self.x + self.x_hit)][int(self.y - self.y_hit)] == 0 and \
-           grid[int(self.x - self.x_hit)][int(self.y + self.y_hit)] == 0 and \
-           grid[int(self.x + self.x_hit)][int(self.y + self.y_hit)] == 0:
-            return True
-        return False
-
 
     def step(self, grid):
         self.climbing = False

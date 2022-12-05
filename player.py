@@ -10,7 +10,6 @@ class Player(object.Object):
         self.x_hit = x_hit
         self.y_hit = y_hit
         self.hitbox = object.RectangularHitbox(x_hit, y_hit, 0.5)
-        print(self.hitbox.points)
 
         self.speed = 0.1
         self.crouchSpeed = 0.2
