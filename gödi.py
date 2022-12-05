@@ -36,7 +36,7 @@ class Gödi:
 
         if self.vert == 1:
             if(self.x - self.speed < 0):
-                gödil.remove(self)
+                gödi_list.remove(self)
             self.ang += self.ang_speed
 
             self.x -= self.speed

@@ -1,13 +1,15 @@
 import pygame
 import sprites
-import copy
+import object
 
-class Player:
+class Player(object.Object):
     def __init__(self, x, y, x_hit = 0.2, y_hit = 0.999):
         self.x = x
         self.y = y
+
         self.x_hit = x_hit
         self.y_hit = y_hit
+        self.hitbox = object.RectangularHitbox(x_hit, y_hit, 0.5)
 
         self.speed = 0.1
         self.crouchSpeed = 0.2
@@ -55,29 +57,6 @@ class Player:
         self.crouch_walk_right_1 = sprites.Sprite(".\sprites\\crouch_walk_r_1.png", 1, 2, tile_size)
         self.crouch_walk_right_2 = sprites.Sprite(".\sprites\\crouch_walk_r_2.png", 1, 2, tile_size)
 
-    def is_valid(self, grid):
-        if self.isCrouching:
-            if grid[int(self.x - self.x_hit)][int(self.y - self.y_hit)] == 0 and \
-               grid[int(self.x + self.x_hit)][int(self.y - self.y_hit)] == 0 and \
-               grid[int(self.x - self.x_hit)][int(self.y - 10**-10)] == 0 and \
-               grid[int(self.x + self.x_hit)][int(self.y - 10**-10)] == 0:
-                return True
-        else:
-            if grid[int(self.x - self.x_hit)][int(self.y - self.y_hit)] == 0 and \
-               grid[int(self.x + self.x_hit)][int(self.y - self.y_hit)] == 0 and \
-               grid[int(self.x - self.x_hit)][int(self.y)] == 0 and \
-               grid[int(self.x + self.x_hit)][int(self.y)] == 0 and \
-               grid[int(self.x - self.x_hit)][int(self.y + self.y_hit)] == 0 and \
-               grid[int(self.x + self.x_hit)][int(self.y + self.y_hit)] == 0:
-                return True
-        return False
-
-    def on_ground(self, grid):
-        if grid[int(self.x - self.x_hit)][int(self.y - self.y_hit - 10**-10)] == 1 or \
-           grid[int(self.x + self.x_hit)][int(self.y - self.y_hit - 10**-10)] == 1:
-                return True
-        return False
-
     def get_events(self, grid):
         # get the pressed keys
         pressed_keys = pygame.key.get_pressed()
@@ -86,10 +65,6 @@ class Player:
         o_player.isCrouching = self.isCrouching
 
         self.isWalking = False
-        self.isCrouching = False
-
-        if not self.is_valid(grid):
-            self.isCrouching = o_player.isCrouching
 
         nlwpressed = False
         if pressed_keys[pygame.K_w]:
@@ -113,7 +88,16 @@ class Player:
         self.lwpressed = nlwpressed
 
         if pressed_keys[pygame.K_s]:
+            if not self.isCrouching:
+                self.hitbox = object.RectangularHitbox(self.x_hit, self.y_hit/2, 0.5, 0, -self.y_hit/2)
             self.isCrouching = True
+        else:
+            if self.isCrouching:
+                self.hitbox = object.RectangularHitbox(self.x_hit, self.y_hit, 0.5)
+                self.isCrouching = False
+                if not self.is_valid(grid):
+                    self.hitbox = object.RectangularHitbox(self.x_hit, self.y_hit / 2, 0.5, 0, -self.y_hit / 2)
+                    self.isCrouching = True
 
         if pressed_keys[pygame.K_a]:
             if self.isCrouching:
