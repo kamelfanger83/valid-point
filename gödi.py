@@ -1,11 +1,12 @@
 import pygame
 import sprites
 import object
+import math
 
 gödi_list = []
 
 class Gödi(object.Object):
-    def __init__(self, x , y, sprite_path, tile_size, r = 0.499):
+    def __init__(self, x , y, sprite_path, tile_size, r = 2):
         self.x = x
         self.y = y
         self.sprite = sprites.Sprite(sprite_path, 2*r, 2*r, tile_size)
@@ -17,7 +18,7 @@ class Gödi(object.Object):
         self.vert = 1 # 0 = right, 1 = left
         self.speed = 0.1
         self.ang = 0
-        self.ang_speed = 10
+        self.ang_speed = 360 / (r*2*math.pi) * self.speed
 
         self.climbing = False
         self.up_speed = 0

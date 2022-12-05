@@ -62,7 +62,7 @@ player.load_sprites(tile_size)
 
 
 # create test gödi
-gödi.Gödi(13, 1.5, ".\sprites\\gödi.png", tile_size)
+gödi.Gödi(15, 4, ".\sprites\\gödi.png", tile_size)
 
 def death_screen():
     # pygame events
