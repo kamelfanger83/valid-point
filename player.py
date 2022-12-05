@@ -10,6 +10,7 @@ class Player(object.Object):
         self.x_hit = x_hit
         self.y_hit = y_hit
         self.hitbox = object.RectangularHitbox(x_hit, y_hit, 0.5)
+        print(self.hitbox.points)
 
         self.speed = 0.1
         self.crouchSpeed = 0.2
@@ -61,8 +62,8 @@ class Player(object.Object):
         # get the pressed keys
         pressed_keys = pygame.key.get_pressed()
 
-        o_player = Player(self.x, self.y)
-        o_player.isCrouching = self.isCrouching
+        o_x = self.x
+        o_y = self.y
 
         self.isWalking = False
 
@@ -81,9 +82,12 @@ class Player(object.Object):
                 self.doubleJumped = True
 
         if not self.is_valid(grid):
-            self.x = o_player.x
-            self.y = o_player.y
+            self.x = o_x
+            self.y = o_y
             self.velocity_up = 0
+
+        o_x = self.x
+        o_y = self.y
 
         self.lwpressed = nlwpressed
 
@@ -116,22 +120,24 @@ class Player(object.Object):
             self.isWalking = True
 
         if not self.is_valid(grid):
-            self.x = o_player.x
-            self.y = o_player.y
+            self.x = o_x
+            self.y = o_y
 
-        o_player = Player(self.x, self.y)
+        o_x = self.x
+        o_y = self.y
 
         self.velocity_up -= self.gravity
         self.y += self.velocity_up
 
         if self.on_ground(grid):
             self.velocity_up = 0
-            self.y = int(self.y) + self.y_hit + 10**-11
+            self.y = int(self.y) + self.y_hit + 10**-10
             self.singleJumped = False
             self.doubleJumped = False
 
         if not self.is_valid(grid):
-            self = o_player
+            self.x = o_x
+            self.y = o_y
             self.velocity_up = 0
 
     def draw(self, surface, camera):
