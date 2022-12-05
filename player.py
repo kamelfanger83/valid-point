@@ -3,7 +3,7 @@ import sprites
 import object
 
 class Player(object.Object):
-    def __init__(self, x, y, x_hit = 1, y_hit = 0.9):
+    def __init__(self, x, y, x_hit = 0.2, y_hit = 0.9):
         self.x = x
         self.y = y
 
@@ -95,14 +95,14 @@ class Player(object.Object):
 
         if pressed_keys[pygame.K_s]:
             if not self.isCrouching:
-                self.hitbox = object.RectangularHitbox(2.5*self.x_hit, self.y_hit/2, 0.5, 0, -self.y_hit/2)
+                self.hitbox = object.RectangularHitbox(1*self.x_hit, self.y_hit/2, 0.5, 0, -self.y_hit/2)
             self.isCrouching = True
         else:
             if self.isCrouching:
                 self.hitbox = object.RectangularHitbox(self.x_hit, self.y_hit, 0.5)
                 self.isCrouching = False
                 if not self.is_valid(grid):
-                    self.hitbox = object.RectangularHitbox(2.5*self.x_hit, self.y_hit / 2, 0.5, 0, -self.y_hit / 2)
+                    self.hitbox = object.RectangularHitbox(1*self.x_hit, self.y_hit / 2, 0.5, 0, -self.y_hit / 2)
                     self.isCrouching = True
 
         if pressed_keys[pygame.K_a]:
@@ -150,38 +150,38 @@ class Player(object.Object):
                 if self.walkinframe == 1:
                     if self.direction == 1:
                         self.crouch_walk_left_1.draw(surface,
-                                                camera.coords_to_screen(self.x - self.x_hit, self.y + self.y_hit, surface))
+                                                camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
                     else:
                         self.crouch_walk_right_1.draw(surface,
-                                                 camera.coords_to_screen(self.x - self.x_hit, self.y + self.y_hit, surface))
+                                                 camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
                 else:
                     if self.direction == 1:
                         self.crouch_walk_left_2.draw(surface,
-                                                camera.coords_to_screen(self.x - self.x_hit, self.y + self.y_hit, surface))
+                                                camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
                     else:
                         self.crouch_walk_right_2.draw(surface,
-                                                 camera.coords_to_screen(self.x - self.x_hit, self.y + self.y_hit, surface))
+                                                 camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
                 if self.thisframe == 10:
                     self.walkinframe = 3 - self.walkinframe
                     self.thisframe = 0
                 self.thisframe += 1
             else:
                 if self.direction == 1:
-                    self.crouch_left.draw(surface, camera.coords_to_screen(self.x - self.x_hit, self.y + self.y_hit, surface))
+                    self.crouch_left.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
                 else:
-                    self.crouch_right.draw(surface, camera.coords_to_screen(self.x - self.x_hit, self.y + self.y_hit, surface))
+                    self.crouch_right.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
 
         elif self.isWalking:
             if self.direction == 1:
                 if self.walkinframe == 1:
-                    self.walk_left_1.draw(surface, camera.coords_to_screen(self.x - self.x_hit, self.y + self.y_hit, surface))
+                    self.walk_left_1.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
                 else:
-                    self.walk_left_2.draw(surface, camera.coords_to_screen(self.x - self.x_hit, self.y + self.y_hit, surface))
+                    self.walk_left_2.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
             else:
                 if self.walkinframe == 1:
-                    self.walk_right_1.draw(surface, camera.coords_to_screen(self.x - self.x_hit, self.y + self.y_hit, surface))
+                    self.walk_right_1.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
                 else:
-                    self.walk_right_2.draw(surface, camera.coords_to_screen(self.x - self.x_hit, self.y + self.y_hit, surface))
+                    self.walk_right_2.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
             if self.thisframe == 10:
                 self.walkinframe = 3 - self.walkinframe
                 self.thisframe = 0
@@ -189,11 +189,11 @@ class Player(object.Object):
 
         elif not self.onFloor:
             if self.direction == 1:
-                self.jump_left.draw(surface, camera.coords_to_screen(self.x - self.x_hit, self.y + self.y_hit, surface))
+                self.jump_left.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
             else:
-                self.jump_right.draw(surface, camera.coords_to_screen(self.x - self.x_hit, self.y + self.y_hit, surface))
+                self.jump_right.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
         else:
             if self.direction == 0:
-                self.stand_right.draw(surface, camera.coords_to_screen(self.x - self.x_hit, self.y + self.y_hit, surface))
+                self.stand_right.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
             else:
-                self.stand_left.draw(surface, camera.coords_to_screen(self.x - self.x_hit, self.y + self.y_hit, surface))
+                self.stand_left.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
