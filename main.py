@@ -7,16 +7,12 @@ import camera as camera_module
 import sprites
 import gödi
 import mouse
+import time
 
 # initialize a fullscreen pygame window
 pygame.init()
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("Platformer Game")
-
-# Create grid
-
-grid = None
-player = None
 
 tile_size = 100
 
@@ -27,6 +23,10 @@ ground = sprites.Sprite(".\sprites\\tile.jpg", 1, 1, tile_size)
 bg = sprites.Sprite(".\sprites\\bg.jpg", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
 death_pic = sprites.Sprite(".\sprites\\death_screen.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
 menu_pic = sprites.Sprite(".\sprites\\menu.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
+
+grid = None
+player = player_module.Player(5, 2)
+player.load_sprites(tile_size)
 
 def main_menu():
     while True:
@@ -44,7 +44,9 @@ def main_menu():
 
 
 def death_screen():
-    for _ in range(240):
+    start = time.time()
+    
+    while time.time() - start < 3:
         # pygame events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -90,8 +92,8 @@ def init_game():
     grid[1][3] = 1
     # grid[7][3] = 1
 
-    player = player_module.Player(5, 2)
-    player.load_sprites(tile_size)
+    player.x = 5
+    player.y = 2
 
     # create test gödi
     gödi.Gödi(15, 4, ".\sprites\\gödi.png", tile_size, 2)
