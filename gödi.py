@@ -9,6 +9,8 @@ class Gödi(object.Object):
     def __init__(self, x , y, sprite_path, tile_size, ud_list, r = 0.75):
         self.x = x
         self.y = y
+        self.sprite_path = sprite_path
+        self.tile_size = tile_size
         self.sprite = sprites.Sprite(sprite_path, 2*r, 2*r, tile_size)
 
         self.x_hit = r
@@ -26,6 +28,15 @@ class Gödi(object.Object):
 
         gödi_list.append(self)
         ud_list.append(self)
+
+    def update_r(self):
+        self.sprite = sprites.Sprite(self.sprite_path, 2 * self.r, 2 * self.r, self.tile_size)
+
+        self.x_hit = self.r
+        self.y_hit = self.r
+        self.hitbox = object.RectangularHitbox(self.r, self.r, 0.5)
+
+        self.ang_speed = 360 / (self.r * 2 * math.pi) * self.speed
 
     def update(self, grid, ud_list):
         self.climbing = False
