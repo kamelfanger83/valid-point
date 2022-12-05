@@ -8,6 +8,7 @@ import sprites
 import gödi
 import mouse
 import time
+import spawner
 import sand
 
 # initialize a fullscreen pygame window
@@ -20,15 +21,17 @@ tile_size = 100
 camera = camera_module.Camera(tile_size)
 
 # load grid images
-ground = sprites.Sprite(".\sprites\\tile.jpg", 1, 1, tile_size)
-sand_block = sprites.Sprite(".\sprites\\sand.jpg", 1, 1, tile_size)
-bg = sprites.Sprite(".\sprites\\bg.jpg", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
-death_pic = sprites.Sprite(".\sprites\\death_screen.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
-menu_pic = sprites.Sprite(".\sprites\\menu.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
+ground = sprites.Sprite(".\\sprites\\tile.jpg", 1, 1, tile_size)
+sand_pic = sprites.Sprite(".\\sprites\\tile.jpg", 1, 1, tile_size)
+bg = sprites.Sprite(".\\sprites\\bg.jpg", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
+death_pic = sprites.Sprite(".\\sprites\\death_screen.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
+menu_pic = sprites.Sprite(".\\sprites\\menu.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
 
 grid = None
 player = player_module.Player(5, 2)
 player.load_sprites(tile_size)
+
+ud_list = []
 
 def main_menu():
     while True:
@@ -63,7 +66,11 @@ def death_screen():
 def init_game():
     global grid
     global player
+    global ud_list
+
     gödi.gödi_list = []
+    ud_list = []
+
     width = 100
     height = 20
 
@@ -97,10 +104,8 @@ def init_game():
     player.x = 5
     player.y = 2
 
-    # create test gödi
-    gödi.Gödi(15, 4, ".\sprites\\gödi.png", tile_size, 2)
-    f = gödi.Gödi(12, 1.5, ".\sprites\\gödi.png", tile_size, 0.5)
-    f.speed = 0.5
+    # create test spawner
+    spawner.Spawner(13, 5, 120, tile_size, ud_list)
 
 
 def game_loop():
@@ -123,19 +128,19 @@ def game_loop():
                 elif ev_button == 2:
                     mouse.mouseclickmiddle(grid)
                 elif ev_button == 3:
-                    mouse.mouseclickright(camera, screen, tile_size)
+                    mouse.mouseclickright(camera, screen, tile_size, ud_list)
 
       # player controls
         player.get_events(grid)
 
         # UPDATE
 
-        for g in gödi.gödi_list:
-            g.step(grid)
+        for thing in ud_list:
+            thing.update(grid)
 
-            if g.y - g.y_hit < player.y + player.y_hit and g.y + g.y_hit > player.y - player.y_hit and g.x - g.x_hit < player.x + player.x_hit and g.x + g.x_hit > player.x - player.x_hit:
-                death_screen()
-                return
+        if player.dead():
+            death_screen()
+            return
 
 
         # DRAWING
@@ -154,14 +159,14 @@ def game_loop():
 
         for s in sand.sand_list:
             if s.fall(grid) == False:
-                sand_block.draw(screen, camera.coords_to_screen(s.x, s.y+1, screen))
+                sand_pic.draw(screen, camera.coords_to_screen(s.x, s.y+1, screen))
 
         # draw the player
         player.draw(screen, camera)
 
         # draw the gödis
-        for g in gödi.gödi_list:
-            g.draw(screen, camera)
+        for thing in ud_list:
+            thing.draw(screen, camera)
 
         # update the screen
         pygame.display.update()

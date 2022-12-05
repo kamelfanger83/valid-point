@@ -17,12 +17,12 @@ def mouseclickmiddle(grid):
     grid.load(".\maps\\test.gr")
     gödi.gödi_list = []
 
-def mouseclickright(camera,screen,tile_size):
+def mouseclickright(camera,screen,tile_size, ud_list):
     pos = pygame.mouse.get_pos()
     xy = camera.screen_to_coords(pos[0], pos[1], screen)
     x, y = xy[0], xy[1]
 
-    gödi.Gödi(x, y, ".\sprites\\gödi.png", tile_size)
+    gödi.Gödi(x, y, ".\\sprites\\gödi.png", tile_size, ud_list)
 
 
 

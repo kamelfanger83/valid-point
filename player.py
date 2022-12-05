@@ -1,6 +1,7 @@
 import pygame
 import sprites
 import object
+import gödi
 
 class Player(object.Object):
     def __init__(self, x, y, x_hit = 0.2, y_hit = 0.9):
@@ -142,6 +143,12 @@ class Player(object.Object):
             self.x = o_x
             self.y = o_y
             self.velocity_up = 0
+
+    def dead(self):
+        for g in gödi.gödi_list:
+            if g.y - g.y_hit < self.y + self.y_hit and g.y + g.y_hit > self.y - self.y_hit and g.x - g.x_hit < self.x + self.x_hit and g.x + g.x_hit > self.x - self.x_hit:
+                return True
+        return False
 
     def draw(self, surface, camera):
         # draw the player
