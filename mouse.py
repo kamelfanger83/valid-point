@@ -7,7 +7,7 @@ def mouseclickleft(grid,camera,screen, x_y_prev):
     x,y = int(xy[0]), int(xy[1])
     x_y_prev[0],x_y_prev[1] = int(x_y_prev[0]), int(x_y_prev[1])
     if [x,y] != x_y_prev:
-        grid[x][y] = (grid[x][y]+1)%2
+        grid[x][y] = (grid[x][y]+1)%3
         return [x,y]
     else:
         return x_y_prev

@@ -46,6 +46,6 @@ class Object:
         min_y = min([point[1] for point in self.hitbox.points])
         for point in self.hitbox.points:
             if abs(point[1] - min_y) < 10**-11:
-                if grid[int(self.x + point[0])][int(self.y + point[1] - 10**-10)] == 1:
+                if grid[int(self.x + point[0])][int(self.y + point[1] - 10**-10)] != 0:
                     return True
         return False

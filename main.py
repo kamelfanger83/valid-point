@@ -8,6 +8,7 @@ import sprites
 import gödi
 import mouse
 import time
+import sand
 
 # initialize a fullscreen pygame window
 pygame.init()
@@ -20,7 +21,7 @@ camera = camera_module.Camera(tile_size)
 
 # load grid images
 ground = sprites.Sprite(".\sprites\\tile.jpg", 1, 1, tile_size)
-sand = sprites.Sprite(".\sprites\\tile.jpg", 1, 1, tile_size)
+sand_block = sprites.Sprite(".\sprites\\sand.jpg", 1, 1, tile_size)
 bg = sprites.Sprite(".\sprites\\bg.jpg", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
 death_pic = sprites.Sprite(".\sprites\\death_screen.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
 menu_pic = sprites.Sprite(".\sprites\\menu.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
@@ -136,6 +137,7 @@ def game_loop():
                 death_screen()
                 return
 
+
         # DRAWING
 
         camera.xcen = player.x
@@ -147,8 +149,13 @@ def game_loop():
             for column in range(len(grid)):
                 if grid[column][row] == 1:
                     ground.draw(screen, camera.coords_to_screen(column, row+1, screen))
-                if grid[column][row] == 2:
-                    sand.draw(screen, camera.coords_to_screen(column, row+1, screen))
+                if grid[column][row] == 2 and sand.is_valid(column,row, grid, tile_size) == True:
+                    sand_block.draw(screen, camera.coords_to_screen(column, row+1, screen))
+
+        for s in sand.sand_list:
+            if s.fall(grid) == False:
+                sand_block.draw(screen, camera.coords_to_screen(s.x, s.y+1, screen))
+
         # draw the player
         player.draw(screen, camera)
 
