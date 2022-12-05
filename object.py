@@ -36,12 +36,6 @@ class Object:
     def __init__(self, hitbox):
         self.hitbox = hitbox
 
-    def is_valid_big(self, grid):
-        for point in self.hitbox.points:
-            if grid[int(self.x + point[0] + 10**-11 * sgn(point[0]))][int(self.y + point[1] + 10**-11 * sgn(point[1]))] != 0:
-                return False
-        return True
-
     def is_valid(self, grid):
         for point in self.hitbox.points:
             if grid[int(self.x + point[0])][int(self.y + point[1])] != 0:

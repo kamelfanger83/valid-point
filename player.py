@@ -29,6 +29,8 @@ class Player(object.Object):
         self.singleJumped = False
         self.doubleJumped = False
 
+        self.onFloor = False
+
         self.walkinframe = 1
         self.thisframe = 0
         self.lwpressed = False
@@ -66,6 +68,7 @@ class Player(object.Object):
         o_y = self.y
 
         self.isWalking = False
+        self.onFloor = False
 
         nlwpressed = False
         if pressed_keys[pygame.K_w]:
@@ -130,6 +133,7 @@ class Player(object.Object):
         self.y += self.velocity_up
 
         if self.on_ground(grid):
+            self.onFloor = True
             self.velocity_up = 0
             self.y = int(self.y) + self.y_hit + 10**-10
             self.singleJumped = False
@@ -184,7 +188,7 @@ class Player(object.Object):
                 self.thisframe = 0
             self.thisframe += 1
 
-        elif self.velocity_up != 0:
+        elif not self.onFloor:
             if self.direction == 1:
                 self.jump_left.draw(surface, camera.coords_to_screen(self.x - 1 / 2, self.y + 1, surface))
             else:
