@@ -35,18 +35,18 @@ class Player(object.Object):
         self.thisframe = 0
         self.lwpressed = False
 
-    def load_sprites(self, tile_size):
+    def load(self, tile_size, bigSprite):
         # load player image, left and right
-        self.stand_left = sprites.Sprite(".\sprites\\player_l.png", 5*self.x_hit, 2*self.y_hit, tile_size)
-        self.stand_right = sprites.Sprite(".\sprites\\player_r.png", 5*self.x_hit, 2*self.y_hit, tile_size)
+        bigSprite.load_sprite(".\sprites\\player_l.png", 5*self.x_hit, 2*self.y_hit, tile_size, "player_l")
+        bigSprite.load_sprite(".\sprites\\player_r.png", 5*self.x_hit, 2*self.y_hit, tile_size, "player_r")
 
         # load crouch image, left and right
-        self.crouch_left = sprites.Sprite(".\sprites\\crouch_l.png", 5*self.x_hit, 2*self.y_hit, tile_size)
-        self.crouch_right = sprites.Sprite(".\sprites\\crouch_r.png", 5*self.x_hit, 2*self.y_hit, tile_size)
+        bigSprite.load_sprite(".\sprites\\crouch_l.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_l")
+        bigSprite.load_sprite(".\sprites\\crouch_r.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_r")
 
         # load jump image, left and right
-        self.jump_left = sprites.Sprite(".\sprites\\jump_l.png", 5*self.x_hit, 2*self.y_hit, tile_size)
-        self.jump_right = sprites.Sprite(".\sprites\\jump_r.png", 5*self.x_hit, 2*self.y_hit, tile_size)
+        bigSprite.load_sprite(".\sprites\\jump_l.png", 5*self.x_hit, 2*self.y_hit, tile_size, "jump_l")
+        bigSprite.load_sprite(".\sprites\\jump_r.png", 5*self.x_hit, 2*self.y_hit, tile_size, "jump_r")
 
         # load walk images, left and right, 1-2
         self.walk_left_1 = sprites.Sprite(".\sprites\\walk_l_1.png", 5*self.x_hit, 2*self.y_hit, tile_size)

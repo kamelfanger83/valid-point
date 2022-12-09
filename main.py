@@ -20,12 +20,14 @@ tile_size = 100
 
 camera = camera_module.Camera(tile_size)
 
+bigSprite = sprites.Sprites()
+
 # load grid images
-ground = sprites.Sprite(".\\sprites\\tile.jpg", 1, 1, tile_size)
-sand_pic = sprites.Sprite(".\\sprites\\sand.jpg", 1, 1, tile_size)
-bg = sprites.Sprite(".\\sprites\\bg.jpg", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
-death_pic = sprites.Sprite(".\\sprites\\death_screen.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
-menu_pic = sprites.Sprite(".\\sprites\\menu.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size)
+bigSprite.load_sprite(".\\sprites\\tile.jpg", 1, 1, tile_size, "tile")
+bigSprite.load_sprite(".\\sprites\\sand.jpg", 1, 1, tile_size, "sand")
+bigSprite.load_sprite(".\\sprites\\bg.jpg", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size, "bg")
+bigSprite.load_sprite(".\\sprites\\death_screen.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size, "death_screen")
+bigSprite.load_sprite(".\\sprites\\menu.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size, "menu")
 
 grid = None
 player = player_module.Player(5, 2)
@@ -44,8 +46,10 @@ def main_menu():
                     init_game()
                     game_loop()
 
-        menu_pic.draw(screen, (0, 0))
+        bigSprite["menu"].draw(screen, (0, 0))
+
         pygame.display.update()
+        pygame.time.Clock().tick(60)
 
 
 def death_screen():
@@ -58,7 +62,7 @@ def death_screen():
                 pygame.quit()
                 exit(0)
 
-        death_pic.draw(screen, (0, 0))
+        bigSprite["death_screen"].draw(screen, (0, 0))
 
         pygame.display.update()
         pygame.time.Clock().tick(60)
@@ -126,7 +130,7 @@ def game_loop():
                 if ev_button == 1:
                     x_y_previous = [-1,-1]
                 elif ev_button == 2:
-                    mouse.mouseclickmiddle(grid)
+                    mouse.mouseclickmiddle(grid, ud_list)
                 elif ev_button == 3:
                     mouse.mouseclickright(camera, screen, tile_size, ud_list)
 
@@ -142,20 +146,19 @@ def game_loop():
             death_screen()
             return
 
-
         # DRAWING
 
         camera.xcen = player.x
 
-        bg.draw(screen, (0, 0))
+        bigSprite["bg"].draw(screen, (0, 0))
 
         # draw the grid
         for row in range(len(grid[0])):
             for column in range(len(grid)):
                 if grid[column][row] == 1:
-                    ground.draw(screen, camera.coords_to_screen(column, row+1, screen))
+                    bigSprite["tile"].draw(screen, camera.coords_to_screen(column, row+1, screen))
                 if grid[column][row] == 2 and sand.is_valid(column,row, grid, tile_size, ud_list) == True:
-                    sand_pic.draw(screen, camera.coords_to_screen(column, row+1, screen))
+                    bigSprite["sand"].draw(screen, camera.coords_to_screen(column, row+1, screen))
                 if grid[column][row] == 3:
                     pass
 

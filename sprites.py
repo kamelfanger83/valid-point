@@ -12,3 +12,20 @@ class Sprite:
 
     def draw(self, surface, location):
         surface.blit(self.image, location)
+
+class Sprites:
+    def __init__(self):
+        self.loaded_name = {}
+        self.loaded_tuple = {}
+
+    def load_sprite(self, path, size_x, size_y, tile_size, name = ""):
+        sprite = Sprite(path, size_x, size_y, tile_size)
+        self.loaded_tuple[(path, size_x, size_y)] = sprite
+        if name != "":
+            self.loaded_name[name] = sprite
+
+    def __getitem__(self, name):
+        return self.loaded_name[name]
+
+    def get_by_tuple(self, path, size_x, size_y):
+        return self.loaded_tuple[(path, size_x, size_y)]

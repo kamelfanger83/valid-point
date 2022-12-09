@@ -13,9 +13,10 @@ def mouseclickleft(grid,camera,screen, x_y_prev):
         return x_y_prev
 
 
-def mouseclickmiddle(grid):
+def mouseclickmiddle(grid, ud_list):
     grid.load(".\maps\\test.gr")
     gödi.gödi_list = []
+    ud_list.clear()
 
 def mouseclickright(camera,screen,tile_size, ud_list):
     pos = pygame.mouse.get_pos()
