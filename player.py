@@ -49,16 +49,16 @@ class Player(object.Object):
         bigSprite.load_sprite(".\sprites\\jump_r.png", 5*self.x_hit, 2*self.y_hit, tile_size, "jump_r")
 
         # load walk images, left and right, 1-2
-        self.walk_left_1 = sprites.Sprite(".\sprites\\walk_l_1.png", 5*self.x_hit, 2*self.y_hit, tile_size)
-        self.walk_left_2 = sprites.Sprite(".\sprites\\walk_l_2.png", 5*self.x_hit, 2*self.y_hit, tile_size)
-        self.walk_right_1 = sprites.Sprite(".\sprites\\walk_r_1.png", 5*self.x_hit, 2*self.y_hit, tile_size)
-        self.walk_right_2 = sprites.Sprite(".\sprites\\walk_r_2.png", 5*self.x_hit, 2*self.y_hit, tile_size)
+        bigSprite.load_sprite(".\sprites\\walk_l_1.png", 5*self.x_hit, 2*self.y_hit, tile_size, "walk_l_1")
+        bigSprite.load_sprite(".\sprites\\walk_l_2.png", 5*self.x_hit, 2*self.y_hit, tile_size, "walk_l_2")
+        bigSprite.load_sprite(".\sprites\\walk_r_1.png", 5*self.x_hit, 2*self.y_hit, tile_size, "walk_r_1")
+        bigSprite.load_sprite(".\sprites\\walk_r_2.png", 5*self.x_hit, 2*self.y_hit, tile_size, "walk_r_2")
 
         # load crouch walk images, left and right, 1-2
-        self.crouch_walk_left_1 = sprites.Sprite(".\sprites\\crouch_walk_l_1.png", 5*self.x_hit, 2*self.y_hit, tile_size)
-        self.crouch_walk_left_2 = sprites.Sprite(".\sprites\\crouch_walk_l_2.png", 5*self.x_hit, 2*self.y_hit, tile_size)
-        self.crouch_walk_right_1 = sprites.Sprite(".\sprites\\crouch_walk_r_1.png", 5*self.x_hit, 2*self.y_hit, tile_size)
-        self.crouch_walk_right_2 = sprites.Sprite(".\sprites\\crouch_walk_r_2.png", 5*self.x_hit, 2*self.y_hit, tile_size)
+        bigSprite.load_sprite(".\sprites\\crouch_walk_l_1.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_walk_l_1")
+        bigSprite.load_sprite(".\sprites\\crouch_walk_l_2.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_walk_l_2")
+        bigSprite.load_sprite(".\sprites\\crouch_walk_r_1.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_walk_r_1")
+        bigSprite.load_sprite(".\sprites\\crouch_walk_r_2.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_walk_r_2")
 
     def get_events(self, grid):
         # get the pressed keys
@@ -150,45 +150,41 @@ class Player(object.Object):
                 return True
         return False
 
-    def draw(self, surface, camera):
+    def draw(self, surface, camera, bigSprite):
         # draw the player
         if self.isCrouching:
             if self.isWalking:
                 if self.walkinframe == 1:
                     if self.direction == 1:
-                        self.crouch_walk_left_1.draw(surface,
-                                                camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
+                        bigSprite["crouch_walk_l_1"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
                     else:
-                        self.crouch_walk_right_1.draw(surface,
-                                                 camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
+                        bigSprite["crouch_walk_r_1"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
                 else:
                     if self.direction == 1:
-                        self.crouch_walk_left_2.draw(surface,
-                                                camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
+                        bigSprite["crouch_walk_l_2"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
                     else:
-                        self.crouch_walk_right_2.draw(surface,
-                                                 camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
+                        bigSprite["crouch_walk_r_2"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
                 if self.thisframe == 10:
                     self.walkinframe = 3 - self.walkinframe
                     self.thisframe = 0
                 self.thisframe += 1
             else:
                 if self.direction == 1:
-                    self.crouch_left.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
+                    bigSprite["crouch_l"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
                 else:
-                    self.crouch_right.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
+                    bigSprite["crouch_r"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
 
         elif self.isWalking:
             if self.direction == 1:
                 if self.walkinframe == 1:
-                    self.walk_left_1.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
+                    bigSprite["walk_l_1"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
                 else:
-                    self.walk_left_2.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
+                    bigSprite["walk_l_2"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
             else:
                 if self.walkinframe == 1:
-                    self.walk_right_1.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
+                    bigSprite["walk_r_1"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
                 else:
-                    self.walk_right_2.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
+                    bigSprite["walk_r_2"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
             if self.thisframe == 10:
                 self.walkinframe = 3 - self.walkinframe
                 self.thisframe = 0
@@ -196,11 +192,11 @@ class Player(object.Object):
 
         elif not self.onFloor:
             if self.direction == 1:
-                self.jump_left.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
+                bigSprite["jump_l"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
             else:
-                self.jump_right.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
+                bigSprite["jump_r"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
         else:
             if self.direction == 0:
-                self.stand_right.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
+                bigSprite["player_r"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
             else:
-                self.stand_left.draw(surface, camera.coords_to_screen(self.x - self.x_hit * 2.5, self.y + self.y_hit, surface))
+                bigSprite["player_l"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))

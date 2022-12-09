@@ -31,7 +31,7 @@ bigSprite.load_sprite(".\\sprites\\menu.png", screen.get_width()/tile_size, scre
 
 grid = None
 player = player_module.Player(5, 2)
-player.load_sprites(tile_size)
+player.load(tile_size, bigSprite)
 
 ud_list = []
 
@@ -164,7 +164,7 @@ def game_loop():
 
 
         # draw the player
-        player.draw(screen, camera)
+        player.draw(screen, camera, bigSprite)
 
         # draw the gödis
         for thing in ud_list:
