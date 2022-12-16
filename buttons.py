@@ -1,10 +1,12 @@
 import pygame
 import sprites
 
+#main_menu, creative, survival
+
 button_list = []
 all_buttons = []
 dim = ["square", "rectangle"]
-dimensions = [[1, 1],[2, 0.5]]
+dimensions = [[1, 1],[3, 0.75]]
 
 class Button:
     def __init__(self, x, y, form, menu):
@@ -19,5 +21,5 @@ class Button:
 
 
 def loadsprites(tile_size, bigSprite):
-    bigSprite.load_sprite(".\\sprites\\item_bg.jpg", 1, 1, tile_size, "square")
-    bigSprite.load_sprite(".\\sprites\\item_bg.jpg", 2, 0.5, tile_size, "rectangle")
+    bigSprite.load_sprite(".\\sprites\\item_bg.jpg", dimensions[0][0], dimensions[0][1], tile_size, dim[0])
+    bigSprite.load_sprite(".\\sprites\\item_bg.jpg", dimensions[1][0], dimensions[1][1], tile_size, dim[1])
