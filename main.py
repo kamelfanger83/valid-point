@@ -98,9 +98,9 @@ def init_game():
 
     #load buttons
 
-    buttons.Button(0, 0, 0, "creative")
-    buttons.Button(11, 2, 0, "creative")
-    buttons.Button(6, 5, 1, "startscreen")
+    #buttons.Button(0, 0, 0, "creative")
+    #buttons.Button(11, 2, 0, "creative")
+    #buttons.Button(6, 5, 1, "startscreen")
 
     # load spawner
     for x in range(height):
