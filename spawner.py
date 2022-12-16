@@ -3,11 +3,14 @@ import sprites
 
 spawner_list = []
 class Spawner:
-    def __init__(self, x, y, interval, tile_size, grid, ud_list):
+    def __init__(self, x=None, y=None, interval=None, tile_size=None, grid=None, ud_list=None):
+        self.spawn_interval = 30
+        if x == None:
+            return
+
         self.x = x
         self.y = y
         self.interval = interval
-        self.spawn_interval = 30
         self.tile_size = tile_size
 
         grid[x][y] = 3
@@ -27,17 +30,26 @@ class Spawner:
         ud_list.append(self)
         self.ud_list = ud_list
 
-    def draw(self, surface, camera):
+    def load(self, tile_size, bigSprite):
+        bigSprite.load_sprite(".\\sprites\\spawner_idle.png", 2, 2, tile_size, "spawner_idle")
+        bigSprite.load_sprite(".\\sprites\\spawner_spawn.png", 2, 2, tile_size, "spawner_spawn")
+
+        for spawning_frame in range(self.spawn_interval):
+            x = spawning_frame / self.spawn_interval
+            r = (1-x) * 0.05 + x * 0.75
+            bigSprite.load_sprite(".\\sprites\\gödi.png", 2*r, 2*r, tile_size)
+
+    def draw(self, surface, camera, bigSprite):
         if self.spawning:
-            self.sprite_spawn.draw(surface, camera.coords_to_screen(self.x, self.y + 2, surface))
+            bigSprite["spawner_spawn"].draw(surface, camera.coords_to_screen(self.x, self.y, surface))
         else:
-            self.sprite_idle.draw(surface, camera.coords_to_screen(self.x, self.y + 2, surface))
+            bigSprite["spawner_idle"].draw(surface, camera.coords_to_screen(self.x, self.y, surface))
 
     def update(self, grid, ud_list):
         self.ticks += 1
         if self.ticks == self.interval:
             self.spawning = True
-            self.ospawning = gödi.Gödi(self.x+0.1, self.y+0.5, ".\\sprites\\gödi.png", self.tile_size, self.ud_list, 0.05)
+            self.ospawning = gödi.Gödi(self.x+0.1, self.y-1.5, ".\\sprites\\gödi.png", self.ud_list, 0.05)
             self.ospawning.speed = 0
             self.ospawning.ang_speed = 0
             self.ospawning.gravity = 0

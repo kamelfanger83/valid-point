@@ -6,12 +6,10 @@ import math
 gödi_list = []
 
 class Gödi(object.Object):
-    def __init__(self, x , y, sprite_path, tile_size, ud_list, r = 0.75):
+    def __init__(self, x = 0, y = 0, filePath = "", ud_list = [], r = 0.75):
         self.x = x
         self.y = y
-        self.sprite_path = sprite_path
-        self.tile_size = tile_size
-        self.sprite = sprites.Sprite(sprite_path, 2*r, 2*r, tile_size)
+        self.path = filePath
 
         self.x_hit = r
         self.y_hit = r
@@ -29,9 +27,10 @@ class Gödi(object.Object):
         gödi_list.append(self)
         ud_list.append(self)
 
-    def update_r(self):
-        self.sprite = sprites.Sprite(self.sprite_path, 2 * self.r, 2 * self.r, self.tile_size)
+    def load(self, tile_size, bigSprite):
+        bigSprite.load_sprite(".\\sprites\\gödi.png", self.x_hit, self.y_hit, tile_size, "gödi")
 
+    def update_r(self):
         self.x_hit = self.r
         self.y_hit = self.r
         self.hitbox = object.RectangularHitbox(self.r, self.r, 0.5)
@@ -89,12 +88,12 @@ class Gödi(object.Object):
                 self.y -= self.up_speed
                 self.up_speed = 0
 
-    def draw(self, surface, camera):
+    def draw(self, surface, camera, bigSprite):
         #   rotate gödi image by self.ang then draw that image
         #   rotate around the center of the image
 
         #   get the rotated image
-        rotated_image = pygame.transform.rotate(self.sprite.image, self.ang)
+        rotated_image = pygame.transform.rotate(bigSprite.get_by_tuple(self.path, 2*self.x_hit, 2*self.y_hit).image, self.ang)
 
         #   get the rectangle of the rotated image
         rect = rotated_image.get_rect()

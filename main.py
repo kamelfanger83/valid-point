@@ -30,10 +30,14 @@ bigSprite.load_sprite(".\\sprites\\death_screen.png", screen.get_width()/tile_si
 bigSprite.load_sprite(".\\sprites\\menu.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size, "menu")
 
 grid = None
-player = player_module.Player(5, 2)
-player.load(tile_size, bigSprite)
+player = None
 
 ud_list = []
+
+def load():
+    player_module.Player().load(tile_size, bigSprite)
+    gödi.Gödi().load(tile_size, bigSprite)
+    spawner.Spawner().load(tile_size, bigSprite)
 
 def main_menu():
     while True:
@@ -105,8 +109,7 @@ def init_game():
     grid[1][3] = 1
     # grid[7][3] = 1
 
-    player.x = 5
-    player.y = 2
+    player = player_module.Player(5, 2)
 
     # create test spawner
     spawner.Spawner(13, 5, 120, tile_size, grid, ud_list)
@@ -166,12 +169,13 @@ def game_loop():
         # draw the player
         player.draw(screen, camera, bigSprite)
 
-        # draw the gödis
+        # draw the things in ud_list
         for thing in ud_list:
-            thing.draw(screen, camera)
+            thing.draw(screen, camera, bigSprite)
 
         # update the screen
         pygame.display.update()
         pygame.time.Clock().tick(60)
 
+load()
 main_menu()

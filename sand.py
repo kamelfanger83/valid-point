@@ -31,7 +31,7 @@ class Sand(object.Object):
             self.y = self.y - self.speed
             self.speed += self.gravity
 
-    def draw(self, screen, camera):
+    def draw(self, screen, camera, bigSprite):
         self.sprite.draw(screen, camera.coords_to_screen(self.x, self.y + 1, screen))
 
 
