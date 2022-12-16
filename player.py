@@ -2,6 +2,7 @@ import pygame
 import sprites
 import object
 import gödi
+import sand
 
 class Player(object.Object):
     def __init__(self, x = 0, y = 0, x_hit = 0.2, y_hit = 0.9):
@@ -148,6 +149,10 @@ class Player(object.Object):
         for g in gödi.gödi_list:
             if self.collide(g):
                 return True
+        for s in sand.sand_list:
+            if self.collide(s):
+                if s.y > self.y + self.y_hit/2:
+                    return True
         return False
 
     def draw(self, surface, camera, bigSprite):

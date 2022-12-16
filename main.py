@@ -80,6 +80,7 @@ def init_game():
     global ud_list
 
     gödi.gödi_list = []
+    sand.sand_list = []
     ud_list = []
 
     width = 100
