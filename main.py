@@ -31,6 +31,7 @@ bigSprite.load_sprite(".\\sprites\\menu.png", screen.get_width()/tile_size, scre
 
 grid = None
 player = None
+creative_player = None
 
 ud_list = []
 
