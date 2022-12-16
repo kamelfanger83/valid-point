@@ -92,9 +92,14 @@ def init_game():
 
     player = player_module.Player(5, 2)
 
-    # create test spawner
-    spawner.Spawner(13, 5, 120, tile_size, grid, ud_list)
-
+    # load spawner
+    for x in range(height):
+        for y in range(width):
+            try:
+                if grid[x][y] == 3:
+                    spawner.Spawner(x, y, 120, tile_size, grid, ud_list)
+            except:
+                pass
 
 def game_loop():
     global creative
