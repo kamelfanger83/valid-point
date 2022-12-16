@@ -15,6 +15,8 @@ class RectangularHitbox(Hitbox):
         self.points = []
         self.half_width = half_width
         self.half_height = half_height
+        self.x_offset = x_offset
+        self.y_offset = y_offset
 
         x = -half_width
         while x < half_width:
@@ -57,8 +59,8 @@ class Object:
     def collide(self, other):
         if type(self.hitbox) == RectangularHitbox:
             if type(other.hitbox) == RectangularHitbox:
-                if abs(other.x - self.x) < self.hitbox.half_width + other.hitbox.half_width and \
-                abs(other.y - self.y) < self.hitbox.half_height + other.hitbox.half_height:
+                if abs((other.x + other.hitbox.x_offset) - (self.x + self.hitbox.x_offset)) < self.hitbox.half_width + other.hitbox.half_width and \
+                abs((other.y + other.hitbox.y_offset) - (self.y + self.hitbox.y_offset)) < self.hitbox.half_height + other.hitbox.half_height:
                     return True
                 else:
                     return False
