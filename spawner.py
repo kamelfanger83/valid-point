@@ -41,15 +41,15 @@ class Spawner:
 
     def draw(self, surface, camera, bigSprite):
         if self.spawning:
-            bigSprite["spawner_spawn"].draw(surface, camera.coords_to_screen(self.x, self.y, surface))
+            bigSprite["spawner_spawn"].draw(surface, camera.coords_to_screen(self.x, self.y + 2, surface))
         else:
-            bigSprite["spawner_idle"].draw(surface, camera.coords_to_screen(self.x, self.y, surface))
+            bigSprite["spawner_idle"].draw(surface, camera.coords_to_screen(self.x, self.y + 2, surface))
 
     def update(self, grid, ud_list):
         self.ticks += 1
         if self.ticks == self.interval:
             self.spawning = True
-            self.ospawning = gödi.Gödi(self.x+0.1, self.y-1.5, ".\\sprites\\gödi.png", self.ud_list, 0.05)
+            self.ospawning = gödi.Gödi(self.x+0.1, self.y+0.5, ".\\sprites\\gödi.png", self.ud_list, 0.05)
             self.ospawning.speed = 0
             self.ospawning.ang_speed = 0
             self.ospawning.gravity = 0
