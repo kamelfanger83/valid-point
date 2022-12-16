@@ -9,6 +9,7 @@ import gödi
 import mouse
 import time
 import spawner
+import buttons
 import sand
 
 # initialize a fullscreen pygame window
@@ -16,7 +17,7 @@ pygame.init()
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("Platformer Game")
 
-tile_size = 100
+tile_size = screen.get_width()/12
 
 camera = camera_module.Camera(tile_size)
 
@@ -41,6 +42,8 @@ def load():
     player_module.Player().load(tile_size, bigSprite)
     gödi.Gödi().load(tile_size, bigSprite)
     spawner.Spawner().load(tile_size, bigSprite)
+    sand.Sand().load(tile_size, bigSprite)
+    buttons.loadsprites(tile_size, bigSprite)
 
 def main_menu():
     while True:
@@ -82,6 +85,7 @@ def init_game():
     gödi.gödi_list = []
     sand.sand_list = []
     ud_list = []
+    buttons.button_list = []
 
     width = 100
     height = 20
@@ -91,6 +95,21 @@ def init_game():
     grid.load(".\\maps\\test.gr", tile_size, ud_list)
 
     player = player_module.Player(5, 2)
+
+    #load buttons
+
+    buttons.Button(0, 0, 0, "creative")
+    buttons.Button(11, 2, 0, "creative")
+    buttons.Button(6, 5, 1, "startscreen")
+
+    # load spawner
+    for x in range(height):
+        for y in range(width):
+            try:
+                if grid[x][y] == 3:
+                    spawner.Spawner(x, y, 120, tile_size, grid, ud_list)
+            except:
+                pass
 
 def game_loop():
     global creative
@@ -126,6 +145,13 @@ def game_loop():
 
         if keys[pygame.K_p] and not lkeys[pygame.K_p]:
             creative = not creative
+            if creative:
+                for i in range(len(buttons.all_buttons)):
+                    if buttons.all_buttons[i].menu == "creative":
+                        buttons.button_list.append(buttons.all_buttons[i])
+            else:
+                buttons.all_buttons = []
+
         if keys[pygame.K_b] and not lkeys[pygame.K_b]:
             debug = not debug
         if keys[pygame.K_r] and not lkeys[pygame.K_r]:
@@ -185,6 +211,11 @@ def game_loop():
         # draw the things in ud_list
         for thing in ud_list:
             thing.draw(screen, camera, bigSprite)
+
+        #draw buttons
+        if creative:
+            for i in range(len(buttons.button_list)):
+                buttons.button_list[i].draw(screen, bigSprite, tile_size)
 
         # update the screen
         pygame.display.update()

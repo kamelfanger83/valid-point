@@ -5,11 +5,13 @@ import math
 
 sand_list = []
 
+
 class Sand(object.Object):
-    def __init__(self, x , y, sprite_path, tile_size, ud_list):
+    def __init__(self, x=None, y=None, tile_size=None, ud_list=None):
+        if x == None:
+            return
         self.x = x
         self.y = y
-        self.sprite = sprites.Sprite(sprite_path, 1, 1, tile_size)
 
         self.ud_list = ud_list
         sand_list.append(self)
@@ -30,15 +32,18 @@ class Sand(object.Object):
         else:
             self.y = self.y - self.speed
             self.speed += self.gravity
+            
+    def load(self, tile_size, bigSprite):
+        bigSprite.load_sprite(".\\sprites\\sand.jpg", 1, 1, tile_size, "sand")
 
     def draw(self, screen, camera, bigSprite):
-        self.sprite.draw(screen, camera.coords_to_screen(self.x, self.y + 1, screen))
+        bigSprite["sand"].draw(screen, camera.coords_to_screen(self.x, self.y + 1, screen))
 
 
 def is_valid(x, y, grid, tile_size, ud_list):
     if grid[x][y-1] != 0:
         return True
     else:
-        Sand(x, y, ".\sprites\\sand.jpg", tile_size, ud_list)
+        Sand(x, y, tile_size, ud_list)
         grid[x][y] = 0
         return False

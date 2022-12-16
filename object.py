@@ -18,6 +18,7 @@ class RectangularHitbox(Hitbox):
         self.x_offset = x_offset
         self.y_offset = y_offset
 
+
         x = -half_width
         while x < half_width:
             self.points.append((x + x_offset, half_height + y_offset))
