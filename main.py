@@ -117,7 +117,7 @@ def game_loop():
     global player
 
     debug = False
-    respawn = True
+    respawn = False
 
     lkeys = pygame.key.get_pressed()
 
