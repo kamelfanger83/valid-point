@@ -23,9 +23,6 @@ class Grid:
 
     def load(self, path):
         with open(path, "r") as file:
-            width = 10
-            height = 10
-
             lines = file.readlines()
 
             for line in lines:
