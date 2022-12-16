@@ -107,7 +107,7 @@ def game_loop():
     global player
 
     debug = False
-    respawn = True
+    respawn = False
 
     lkeys = pygame.key.get_pressed()
 
@@ -143,9 +143,9 @@ def game_loop():
             else:
                 buttons.all_buttons = []
 
-        if keys[pygame.K_b] and not lkeys[pygame.K_b]:
+        if keys[pygame.K_b] and not lkeys[pygame.K_b] and creative:
             debug = not debug
-        if keys[pygame.K_r] and not lkeys[pygame.K_r]:
+        if keys[pygame.K_r] and not lkeys[pygame.K_r] and creative:
             respawn = not respawn
 
         lkeys = keys
