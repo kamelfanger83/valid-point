@@ -15,8 +15,8 @@ def mouseclickleft(grid, camera, screen, x_y_prev):
         return x_y_prev
 
 
-def mouseclickmiddle(grid, ud_list):
-    grid.load(".\maps\\test.gr")
+def mouseclickmiddle(grid, tile_size, ud_list):
+    grid.load(".\maps\\test.gr", tile_size, ud_list)
     gödi.gödi_list = []
     ud_list.clear()
 

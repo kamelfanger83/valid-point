@@ -118,7 +118,7 @@ def game_loop():
                 if ev_button == 1:
                     x_y_previous = [-1,-1]
                 elif ev_button == 2:
-                    mouse.mouseclickmiddle(grid, ud_list)
+                    mouse.mouseclickmiddle(grid, tile_size, ud_list)
                 elif ev_button == 3:
                     mouse.mouseclickright(camera, screen, tile_size, ud_list)
 
