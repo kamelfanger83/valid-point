@@ -31,7 +31,9 @@ bigSprite.load_sprite(".\\sprites\\menu.png", screen.get_width()/tile_size, scre
 
 grid = None
 player = None
-creative_player = None
+creative = False
+
+creative_speed = 0.1
 
 ud_list = []
 
@@ -117,11 +119,14 @@ def init_game():
 
 
 def game_loop():
+    global creative
+    p_previous = False
     x_y_previous = [-1,-1]
     while True:
-     # EVENT HANDLING
+        np_previous = False
+        # EVENT HANDLING
 
-    # pygame events
+        # pygame events
         for event in pygame.event.get():
             mouse_buttons_pressed = pygame.mouse.get_pressed(num_buttons = 3)
             if event.type == pygame.QUIT:
@@ -138,8 +143,30 @@ def game_loop():
                 elif ev_button == 3:
                     mouse.mouseclickright(camera, screen, tile_size, ud_list)
 
-      # player controls
-        player.get_events(grid)
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_p]:
+            if p_previous == False:
+                creative = not creative
+            np_previous = True
+        p_previous = np_previous
+
+        # player controls
+        if creative:
+            # get keys and move camera xcen and ycen with wasd
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_w]:
+                camera.ycen += creative_speed
+            if keys[pygame.K_s]:
+                camera.ycen -= creative_speed
+            if keys[pygame.K_a]:
+                camera.xcen -= creative_speed
+            if keys[pygame.K_d]:
+                camera.xcen += creative_speed
+
+        else:
+            player.get_events(grid)
+            camera.xcen = player.x
+            camera.ycen = player.y - 1.8
 
         # UPDATE
 
@@ -151,8 +178,6 @@ def game_loop():
             return
 
         # DRAWING
-
-        camera.xcen = player.x
 
         bigSprite["bg"].draw(screen, (0, 0))
 
