@@ -103,6 +103,7 @@ def init_game():
 
 def game_loop():
     global creative
+
     p_previous = False
     x_y_previous = [-1,-1]
     while True:
@@ -115,9 +116,9 @@ def game_loop():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit(0)
-            elif mouse_buttons_pressed[0] == True:
+            elif mouse_buttons_pressed[0] == True and creative:
                 x_y_previous = mouse.mouseclickleft(grid, camera, screen, x_y_previous)
-            elif event.type == pygame.MOUSEBUTTONUP:
+            elif event.type == pygame.MOUSEBUTTONUP and creative:
                 ev_button = event.button
                 if ev_button == 1:
                     x_y_previous = [-1,-1]
