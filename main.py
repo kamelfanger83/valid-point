@@ -88,18 +88,9 @@ def init_game():
 
     grid = world.Grid(width, height)
 
-    grid.load(".\\maps\\test.gr")
+    grid.load(".\\maps\\test.gr", tile_size, ud_list)
 
     player = player_module.Player(5, 2)
-
-    # load spawner
-    for x in range(height):
-        for y in range(width):
-            try:
-                if grid[x][y] == 3:
-                    spawner.Spawner(x, y, 120, tile_size, grid, ud_list)
-            except:
-                pass
 
 def game_loop():
     global creative
@@ -112,13 +103,6 @@ def game_loop():
 
     x_y_previous = [-1,-1]
     while True:
-        # No mouse in survival
-        if creative:
-            pygame.mouse.set_visible(True)
-        else:
-            pygame.mouse.set_visible(False)
-
-        np_previous = False
         # EVENT HANDLING
 
         # pygame events

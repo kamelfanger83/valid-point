@@ -19,9 +19,6 @@ class Spawner:
         grid[x+1][y+1] = 3
 
         self.ticks = 0
-
-        self.sprite_idle = sprites.Sprite(".\\sprites\\spawner_idle.png", 2, 2, tile_size)
-        self.sprite_spawn = sprites.Sprite(".\\sprites\\spawner_spawn.png", 2, 2, tile_size)
         self.spawning = False
 
         self.ospawning = None

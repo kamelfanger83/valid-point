@@ -1,3 +1,6 @@
+import spawner
+
+
 class Grid:
     def __init__(self, width, height):
         self.width = width
@@ -21,10 +24,10 @@ class Grid:
                     f.write(str(self.data[x][y]))
                 f.write("\n")
 
-    def load(self, path):
+    def load(self, path, tile_size, ud_list):
         with open(path, "r") as file:
             lines = file.readlines()
-            
+
             self.width = int(lines[0].split(" ")[0])
             self.height = int(lines[0].split(" ")[1])
 
@@ -36,8 +39,12 @@ class Grid:
                     y = int(line.split(" ")[1])
 
                     type = int(line.split(" ")[2])
-
                     self.data[x][y] = type
+
+                    if type == 3:
+                        spawner.Spawner(x, y, 100, tile_size, self, ud_list)
+                    else:
+                        self.data[x][y] = type
 
             for x in range(10):
                 self.data[x][0] = 1
