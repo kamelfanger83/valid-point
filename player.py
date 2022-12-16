@@ -161,7 +161,7 @@ class Player(object.Object):
                         return True
         return False
 
-    def draw(self, surface, camera, bigSprite):
+    def draw(self, surface, camera, bigSprite, debug = False):
         # draw the player
         if self.isCrouching:
             if self.isWalking:
@@ -211,3 +211,7 @@ class Player(object.Object):
                 bigSprite["player_r"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
             else:
                 bigSprite["player_l"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
+
+        if debug:
+            for p in self.hitbox.points:
+                pygame.draw.circle(surface, (255, 0, 0), camera.coords_to_screen(self.x + p[0],self.y + p[1], surface), 2)

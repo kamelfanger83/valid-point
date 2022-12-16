@@ -17,7 +17,7 @@ class Sand(object.Object):
 
         self.x_hit = 1
         self.y_hit = 1
-        self.hitbox = object.RectangularHitbox(1, 1, 0.5)
+        self.hitbox = object.RectangularHitbox(0.5, 0.5, 0.2)
 
         self.speed = 0.05
         self.gravity = 0.02
@@ -42,5 +42,3 @@ def is_valid(x, y, grid, tile_size, ud_list):
         Sand(x, y, ".\sprites\\sand.jpg", tile_size, ud_list)
         grid[x][y] = 0
         return False
-
-

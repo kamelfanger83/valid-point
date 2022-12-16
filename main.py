@@ -103,8 +103,13 @@ def init_game():
 
 def game_loop():
     global creative
+    global player
 
-    p_previous = False
+    debug = False
+    respawn = True
+
+    lkeys = pygame.key.get_pressed()
+
     x_y_previous = [-1,-1]
     while True:
         # No mouse in survival
@@ -134,11 +139,15 @@ def game_loop():
                     mouse.mouseclickright(camera, screen, tile_size, ud_list)
 
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_p]:
-            if p_previous == False:
-                creative = not creative
-            np_previous = True
-        p_previous = np_previous
+
+        if keys[pygame.K_p] and not lkeys[pygame.K_p]:
+            creative = not creative
+        if keys[pygame.K_b] and not lkeys[pygame.K_b]:
+            debug = not debug
+        if keys[pygame.K_r] and not lkeys[pygame.K_r]:
+            respawn = not respawn
+
+        lkeys = keys
 
         # player controls
         if creative:
@@ -163,10 +172,12 @@ def game_loop():
         if not creative:
             for thing in ud_list:
                 thing.update(grid, ud_list)
-
             if player.dead():
-                death_screen()
-                return
+                if respawn:
+                    player = player_module.Player(5, 2)
+                else:
+                    death_screen()
+                    return
 
         # DRAWING
 
@@ -175,16 +186,17 @@ def game_loop():
         # draw the grid
         for row in range(len(grid[0])):
             for column in range(len(grid)):
+                if not creative and grid[column][row] == 2:
+                    sand.is_valid(column, row, grid, tile_size, ud_list)
                 if grid[column][row] == 1:
                     bigSprite["tile"].draw(screen, camera.coords_to_screen(column, row+1, screen))
-                if grid[column][row] == 2 and sand.is_valid(column,row, grid, tile_size, ud_list) == True:
+                if grid[column][row] == 2:
                     bigSprite["sand"].draw(screen, camera.coords_to_screen(column, row+1, screen))
                 if grid[column][row] == 3:
                     pass
 
-
         # draw the player
-        player.draw(screen, camera, bigSprite)
+        player.draw(screen, camera, bigSprite, debug)
 
         # draw the things in ud_list
         for thing in ud_list:
