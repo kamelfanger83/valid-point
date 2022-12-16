@@ -160,15 +160,13 @@ def game_loop():
 
         # UPDATE
 
-        for thing in ud_list:
-            if creative:
-                pass
-            else:
+        if not creative:
+            for thing in ud_list:
                 thing.update(grid, ud_list)
 
-        if player.dead() and not creative:
-            death_screen()
-            return
+            if player.dead():
+                death_screen()
+                return
 
         # DRAWING
 
