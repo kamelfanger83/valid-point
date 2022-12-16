@@ -102,15 +102,6 @@ def init_game():
     buttons.Button(11, 2, 0, "creative")
     buttons.Button(6, 5, 1, "startscreen")
 
-    # load spawner
-    for x in range(height):
-        for y in range(width):
-            try:
-                if grid[x][y] == 3:
-                    spawner.Spawner(x, y, 120, tile_size, grid, ud_list)
-            except:
-                pass
-
 def game_loop():
     global creative
     global player
