@@ -31,7 +31,8 @@ class Grid:
             self.data = [[0 for x in range(self.height)] for y in range(self.width)]
 
             for line in lines:
-                if len(line.split(" ")) > 2:
+                if line != lines[0]:
+                    print(line)
                     x = int(line.split(" ")[0])
                     y = int(line.split(" ")[1])
 
@@ -39,5 +40,5 @@ class Grid:
 
                     self.data[x][y] = type
 
-            self.width = width
-            self.height = height
+            for x in range(10):
+                self.data[x][0] = 1
