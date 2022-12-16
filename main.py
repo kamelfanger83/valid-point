@@ -92,7 +92,7 @@ def init_game():
 
     grid = world.Grid(width, height)
 
-    grid.load(".\\maps\\test.gr", tile_size, ud_list)
+    grid.load(".\\maps\\jumpandgian.gr", tile_size, ud_list)
 
     player = player_module.Player(5, 2)
 
