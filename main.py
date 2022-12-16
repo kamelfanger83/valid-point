@@ -107,6 +107,11 @@ def game_loop():
     p_previous = False
     x_y_previous = [-1,-1]
     while True:
+        # No mouse in survival
+        if creative:
+            pygame.mouse.set_visible(True)
+        else:
+            pygame.mouse.set_visible(False)
 
         np_previous = False
         # EVENT HANDLING
@@ -158,7 +163,7 @@ def game_loop():
         for thing in ud_list:
             thing.update(grid, ud_list)
 
-        if player.dead():
+        if player.dead() and not creative:
             death_screen()
             return
 
