@@ -39,7 +39,6 @@ class Grid:
                     y = int(line.split(" ")[1])
 
                     type = int(line.split(" ")[2])
-                    self.data[x][y] = type
 
                     if type == 3:
                         spawner.Spawner(x, y, 100, tile_size, self, ud_list)
