@@ -32,7 +32,6 @@ class Grid:
 
             for line in lines:
                 if line != lines[0]:
-                    print(line)
                     x = int(line.split(" ")[0])
                     y = int(line.split(" ")[1])
 
