@@ -175,6 +175,7 @@ def game_loop():
                 thing.update(grid, ud_list)
             if player.dead():
                 if respawn:
+                    mouse.mouseclickmiddle(grid, tile_size, ud_list)
                     player = player_module.Player(5, 2)
                 else:
                     death_screen()
