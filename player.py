@@ -151,8 +151,12 @@ class Player(object.Object):
                 return True
         for s in sand.sand_list:
             if self.collide(s):
-                if s.y > self.y + self.y_hit/2:
-                    return True
+                if not self.isCrouching:
+                    if s.y > self.y + self.y_hit/2:
+                        return True
+                else:
+                    if s.y > self.y - self.y_hit/4:
+                        return True
         return False
 
     def draw(self, surface, camera, bigSprite):
