@@ -147,6 +147,15 @@ def game_loop():
             debug = not debug
         if keys[pygame.K_r] and not lkeys[pygame.K_r] and creative:
             respawn = not respawn
+        if keys[pygame.K_q] and not lkeys[pygame.K_q] and creative:
+            output = ""
+
+            for x in range(len(grid)):
+                for y in range(len(grid[x])):
+                    if grid[x][y] != 0:
+                        output += str(x)+" "+str(y)+" "+str(grid[x][y])+"\n"
+
+            print(output)
 
         lkeys = keys
 
