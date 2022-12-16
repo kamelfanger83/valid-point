@@ -24,19 +24,11 @@ class Grid:
     def load(self, path):
         with open(path, "r") as file:
             lines = file.readlines()
+            
+            self.width = int(lines[0].split(" ")[0])
+            self.height = int(lines[0].split(" ")[1])
 
-            for line in lines:
-                if len(line.split(" ")) > 2:
-                    x = int(line.split(" ")[0])
-                    y = int(line.split(" ")[1])
-
-                    if x > width:
-                        width = x
-
-                    if y > height:
-                        height = y
-
-            self.data = [[0 for x in range(height)] for y in range(width)]
+            self.data = [[0 for x in range(self.height)] for y in range(self.width)]
 
             for line in lines:
                 if len(line.split(" ")) > 2:
