@@ -22,10 +22,33 @@ class Grid:
                 f.write("\n")
 
     def load(self, path):
-        with open(path, "r") as f:
-            self.width, self.height = [int(x) for x in f.readline().split()]
-            self.data = [[0 for x in range(self.height)] for y in range(self.width)]
-            for y in range(self.height):
-                line = f.readline()
-                for x in range(self.width):
-                    self.data[x][y] = int(line[x])
+        with open(path, "r") as file:
+            width = 10
+            height = 10
+
+            lines = file.readlines()
+
+            for line in lines:
+                if len(line.split(" ")) > 2:
+                    x = int(line.split(" ")[0])
+                    y = int(line.split(" ")[1])
+
+                    if x > width:
+                        width = x
+
+                    if y > height:
+                        height = y
+
+            self.data = [[0 for x in range(height)] for y in range(width)]
+
+            for line in lines:
+                if len(line.split(" ")) > 2:
+                    x = int(line.split(" ")[0])
+                    y = int(line.split(" ")[1])
+
+                    type = int(line.split(" ")[2])
+
+                    self.data[x][y] = type
+
+            self.width = width
+            self.height = height
