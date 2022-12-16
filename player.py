@@ -4,7 +4,7 @@ import object
 import gödi
 
 class Player(object.Object):
-    def __init__(self, x, y, x_hit = 0.2, y_hit = 0.9):
+    def __init__(self, x = 0, y = 0, x_hit = 0.2, y_hit = 0.9):
         self.x = x
         self.y = y
 
