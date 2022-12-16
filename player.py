@@ -87,7 +87,7 @@ class Player(object.Object):
         if not self.is_valid(grid):
             self.x = o_x
             self.y = o_y
-            self.velocity_up = 0
+            self.velocity_up = self.gravity
 
         o_x = self.x
         o_y = self.y
@@ -142,11 +142,11 @@ class Player(object.Object):
         if not self.is_valid(grid):
             self.x = o_x
             self.y = o_y
-            self.velocity_up = 0
+            self.velocity_up = self.gravity
 
     def dead(self):
         for g in gödi.gödi_list:
-            if g.y - g.y_hit < self.y + self.y_hit and g.y + g.y_hit > self.y - self.y_hit and g.x - g.x_hit < self.x + self.x_hit and g.x + g.x_hit > self.x - self.x_hit:
+            if self.collide(g):
                 return True
         return False
 

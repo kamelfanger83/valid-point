@@ -13,6 +13,8 @@ class Hitbox:
 class RectangularHitbox(Hitbox):
     def __init__(self, half_width, half_height, distance, x_offset = 0, y_offset = 0):
         self.points = []
+        self.half_width = half_width
+        self.half_height = half_height
 
         x = -half_width
         while x < half_width:
@@ -33,8 +35,10 @@ class RectangularHitbox(Hitbox):
         self.points.append((-half_width + x_offset, half_height + y_offset))
 
 class Object:
-    def __init__(self, hitbox):
+    def __init__(self, hitbox=None, x=None, y=None):
         self.hitbox = hitbox
+        self.x = x
+        self.y = y
 
     def is_valid(self, grid):
         for point in self.hitbox.points:
@@ -49,3 +53,16 @@ class Object:
                 if grid[int(self.x + point[0])][int(self.y + point[1] - 10**-10)] != 0:
                     return True
         return False
+
+    def collide(self, other):
+        if type(self.hitbox) == RectangularHitbox:
+            if type(other.hitbox) == RectangularHitbox:
+                if abs(other.x - self.x) < self.hitbox.half_width + other.hitbox.half_width and \
+                abs(other.y - self.y) < self.hitbox.half_height + other.hitbox.half_height:
+                    return True
+                else:
+                    return False
+            else:
+                raise Exception("Hitbox collision not supported")
+        else:
+            raise Exception("Hitbox collision not supported")
