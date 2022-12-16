@@ -146,6 +146,8 @@ class Player(object.Object):
             self.velocity_up = self.gravity
 
     def dead(self):
+        if self.y < 0:
+            return True
         for g in gödi.gödi_list:
             if self.collide(g):
                 return True

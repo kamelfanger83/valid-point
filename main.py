@@ -107,11 +107,6 @@ def game_loop():
     p_previous = False
     x_y_previous = [-1,-1]
     while True:
-        # Mouse hidden on non creative
-        if creative:
-            pygame.mouse.set_visible(True)
-        else:
-            pygame.mouse.set_visible(False)
 
         np_previous = False
         # EVENT HANDLING
