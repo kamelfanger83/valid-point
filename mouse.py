@@ -1,9 +1,13 @@
 import pygame
 import gödi
-
+import buttons
 
 def mouseclickleft(grid, camera, screen, x_y_prev):
     pos = pygame.mouse.get_pos()
+    for button in buttons.button_list:
+        if button.on(pos):
+            button.click()
+            return x_y_prev
     xy = camera.screen_to_coords(pos[0], pos[1], screen)
     x, y = int(xy[0]), int(xy[1])
     x_y_prev[0], x_y_prev[1] = int(x_y_prev[0]), int(x_y_prev[1])
