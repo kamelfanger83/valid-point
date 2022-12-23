@@ -25,25 +25,24 @@ activewindow = "main_menu"
 
 bigSprite = sprites.Sprites()
 
+sw = screen.get_width()
+sh = screen.get_height()
+
 # load grid images
 bigSprite.load_sprite(".\\sprites\\tile.jpg", 1, 1, tile_size, "tile")
 bigSprite.load_sprite(".\\sprites\\sand.jpg", 1, 1, tile_size, "sand")
-bigSprite.load_sprite(".\\sprites\\bg.jpg", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size, "bg")
-bigSprite.load_sprite(".\\sprites\\death_screen.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size, "death_screen")
-bigSprite.load_sprite(".\\sprites\\menu.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size, "menu")
+bigSprite.load_sprite(".\\sprites\\bg.jpg", sw/tile_size, sh/tile_size, tile_size, "bg")
+bigSprite.load_sprite(".\\sprites\\death_screen.png", sw/tile_size, sh/tile_size, tile_size, "death_screen")
+bigSprite.load_sprite(".\\sprites\\menu.png", sw/tile_size, sh/tile_size, tile_size, "menu")
+
+menu = "main"
 
 def load():
     player_module.Player().load(tile_size, bigSprite)
     gödi.Gödi().load(tile_size, bigSprite)
     spawner.Spawner().load(tile_size, bigSprite)
     sand.Sand().load(tile_size, bigSprite)
-    buttons.loadsprites(tile_size, bigSprite)
-
-    #load buttons
-    buttons.Button(0, 0, 0, "creative")
-    buttons.Button(11, 2, 0, "creative")
-    buttons.Button(2.5, 3, 1, "main_menu")
-    buttons.Button(2.5, 4, 1, "main_menu")
+    buttons.Button(w=sw/4, h=sh/8, path=".\\sprites\\item_bg.jpg").load(tile_size, bigSprite)
 
 load()
 
