@@ -22,7 +22,7 @@ pygame.display.set_caption("Platformer Game")
 
 tile_size = screen.get_width()/12
 
-activewindow = "show_menu"
+activewindow = "menu"
 
 bigSprite = sprites.Sprites()
 
@@ -49,18 +49,11 @@ load()
 
 # Main loop for windows
 while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit(0)
-
-    if activewindow == "show_menu":
+    if activewindow == "menu":
         activewindow = windows.menuwindow.show(bigSprite, screen, tile_size, activewindow)
-    elif activewindow == "init_game":
-        activewindow = windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, "jumpandgian")
-    elif activewindow == "show_game":
-        activewindow = windows.gamewindow.show(bigSprite, screen, tile_size, activewindow)
-    elif activewindow == "show_death":
+    elif activewindow == "game":
+        activewindow = windows.gamewindow.show(bigSprite, screen, tile_size, activewindow, "jumpandgian")
+    elif activewindow == "death":
         activewindow = windows.deathwindow.show(bigSprite, screen, tile_size, activewindow)
-    elif activewindow == "show_test":
+    elif activewindow == "test":
         activewindow = windows.testwindow.show(bigSprite, screen, tile_size, activewindow)
