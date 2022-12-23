@@ -13,6 +13,7 @@ import sand
 import windows.menuwindow
 import windows.gamewindow
 import windows.deathwindow
+import windows.testwindow
 
 # initialize a fullscreen pygame window
 pygame.init()
@@ -61,3 +62,5 @@ while True:
         activewindow = windows.gamewindow.show(bigSprite, screen, tile_size, activewindow)
     elif activewindow == "show_death":
         activewindow = windows.deathwindow.show(bigSprite, screen, tile_size, activewindow)
+    elif activewindow == "show_test":
+        activewindow = windows.testwindow.show(bigSprite, screen, tile_size, activewindow)

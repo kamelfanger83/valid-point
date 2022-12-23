@@ -5,10 +5,8 @@ import sprites
 def show(bigSprite, screen, tile_size, activewindow):
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_SPACE]:
-        activewindow = "init_game"
-    elif keys[pygame.K_RETURN]:
-        activewindow = "show_test"
+    """if keys[pygame.K_SPACE]:
+        activewindow = "init_game"""
 
     bigSprite["menu"].draw(screen, (0, 0))
 
