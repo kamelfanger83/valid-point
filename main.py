@@ -23,12 +23,15 @@ camera = camera_module.Camera(tile_size)
 
 bigSprite = sprites.Sprites()
 
+sw = screen.get_width()
+sh = screen.get_height()
+
 # load grid images
 bigSprite.load_sprite(".\\sprites\\tile.jpg", 1, 1, tile_size, "tile")
 bigSprite.load_sprite(".\\sprites\\sand.jpg", 1, 1, tile_size, "sand")
-bigSprite.load_sprite(".\\sprites\\bg.jpg", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size, "bg")
-bigSprite.load_sprite(".\\sprites\\death_screen.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size, "death_screen")
-bigSprite.load_sprite(".\\sprites\\menu.png", screen.get_width()/tile_size, screen.get_height()/tile_size, tile_size, "menu")
+bigSprite.load_sprite(".\\sprites\\bg.jpg", sw/tile_size, sh/tile_size, tile_size, "bg")
+bigSprite.load_sprite(".\\sprites\\death_screen.png", sw/tile_size, sh/tile_size, tile_size, "death_screen")
+bigSprite.load_sprite(".\\sprites\\menu.png", sw/tile_size, sh/tile_size, tile_size, "menu")
 
 grid = None
 player = None
@@ -43,18 +46,12 @@ def load():
     gödi.Gödi().load(tile_size, bigSprite)
     spawner.Spawner().load(tile_size, bigSprite)
     sand.Sand().load(tile_size, bigSprite)
-    buttons.loadsprites(tile_size, bigSprite)
+    buttons.Button(w=sw/4, h=sh/10, path=".\\sprites\\item_bg.jpg").load(tile_size, bigSprite)
 
-    #load buttons
-    buttons.Button(0, 0, 0, "creative")
-    buttons.Button(11, 2, 0, "creative")
-    buttons.Button(2.5, 3, 1, "main_menu")
-    buttons.Button(2.5, 4, 1, "main_menu")
 
 def main_menu():
-    for i in range(len(buttons.all_buttons)):
-        if buttons.all_buttons[i].menu == "main_menu":
-            buttons.button_list.append(buttons.all_buttons[i])
+
+    buttons.Button(sw/2, sh/4, sw/4, sh/10, ".\\sprites\\item_bg.jpg").load(tile_size, bigSprite)
 
     while True:
         for event in pygame.event.get():
@@ -70,8 +67,7 @@ def main_menu():
         bigSprite["menu"].draw(screen, (0, 0))
 
         for i in range(len(buttons.button_list)):
-            buttons.button_list[i].draw(screen, bigSprite, tile_size)
-
+            buttons.button_list[i].draw(tile_size, screen, bigSprite)
 
         pygame.display.update()
         pygame.time.Clock().tick(60)
@@ -224,8 +220,8 @@ def game_loop():
             thing.draw(screen, camera, bigSprite)
 
         #draw buttons
-        for i in range(len(buttons.button_list)):
-            buttons.button_list[i].draw(screen, bigSprite, tile_size)
+        for button in buttons.button_list:
+            button.draw(screen, bigSprite, tile_size)
 
         # update the screen
         pygame.display.update()
