@@ -3,16 +3,21 @@ import pygame
 import sprites
 
 def show(bigSprite, screen, tile_size, activewindow):
-    keys = pygame.key.get_pressed()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit(0)
 
-    if keys[pygame.K_SPACE]:
-        activewindow = "init_game"
-    elif keys[pygame.K_RETURN]:
-        activewindow = "show_test"
+        keys = pygame.key.get_pressed()
 
-    bigSprite["menu"].draw(screen, (0, 0))
+        if keys[pygame.K_SPACE]:
+            return "game"
+        elif keys[pygame.K_RETURN]:
+            return "test"
 
-    pygame.display.update()
-    pygame.time.Clock().tick(60)
+        bigSprite["menu"].draw(screen, (0, 0))
 
-    return activewindow
+        pygame.display.update()
+        pygame.time.Clock().tick(60)
+

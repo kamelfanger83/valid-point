@@ -3,21 +3,18 @@ import pygame
 import sprites
 import time
 
-counter = None
-
 def show(bigSprite, screen, tile_size, activewindow):
-    global counter
+    start = time.time()
 
-    if counter == None:
-        counter = time.time()
+    while time.time() - start < 3:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit(0)
 
-    if time.time() - counter < 3:
         bigSprite["death_screen"].draw(screen, (0, 0))
 
         pygame.display.update()
         pygame.time.Clock().tick(60)
-    else:
-        counter = None
-        return "show_menu"
 
-    return activewindow
+    return "menu"

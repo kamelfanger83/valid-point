@@ -58,7 +58,7 @@ def init(bigSprite, screen, tile_size, activewindow, map):
     camera = camera_module.Camera(tile_size)
 
     return "show_game"
-def show(bigSprite, screen, tile_size, activewindow):
+def show(bigSprite, screen, tile_size, activewindow, map):
     global creative
     global player
     global debug
@@ -67,108 +67,109 @@ def show(bigSprite, screen, tile_size, activewindow):
     global x_y_previous
     global camera
 
-    for event in pygame.event.get():
-        mouse_buttons_pressed = pygame.mouse.get_pressed(num_buttons=3)
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit(0)
-        elif mouse_buttons_pressed[0] == True and creative:
-            x_y_previous = mouse.mouseclickleft(grid, camera, screen, x_y_previous)
-        elif event.type == pygame.MOUSEBUTTONUP and creative:
-            ev_button = event.button
-            if ev_button == 1:
-                x_y_previous = [-1, -1]
-            elif ev_button == 2:
-                mouse.mouseclickmiddle(grid, tile_size, ud_list)
-            elif ev_button == 3:
-                mouse.mouseclickright(camera, screen, tile_size, ud_list)
+    init(bigSprite, screen, tile_size, activewindow, map)
 
-    keys = pygame.key.get_pressed()
+    while True:
+        for event in pygame.event.get():
+            mouse_buttons_pressed = pygame.mouse.get_pressed(num_buttons=3)
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit(0)
+            elif mouse_buttons_pressed[0] == True and creative:
+                mouse.mouseclickleft(grid, camera, screen, "game")
+            elif event.type == pygame.MOUSEBUTTONUP and creative:
+                ev_button = event.button
+                if ev_button == 1:
+                    mouse.x_y_prev = [-1, -1]
+                elif ev_button == 2:
+                    mouse.mouseclickmiddle(grid, tile_size, ud_list, "game")
+                elif ev_button == 3:
+                    mouse.mouseclickright(camera, screen, tile_size, ud_list, "game")
 
-    if keys[pygame.K_p] and not lkeys[pygame.K_p]:
-        creative = not creative
-        if creative:
-            for i in range(len(buttons.all_buttons)):
-                if buttons.all_buttons[i].menu == "creative":
-                    buttons.button_list.append(buttons.all_buttons[i])
-        else:
-            buttons.all_buttons = []
-
-    if keys[pygame.K_b] and not lkeys[pygame.K_b] and creative:
-        debug = not debug
-    if keys[pygame.K_r] and not lkeys[pygame.K_r] and creative:
-        respawn = not respawn
-    if keys[pygame.K_q] and not lkeys[pygame.K_q] and creative:
-        output = ""
-
-        for x in range(len(grid)):
-            for y in range(len(grid[x])):
-                if grid[x][y] != 0:
-                    output += str(x) + " " + str(y) + " " + str(grid[x][y]) + "\n"
-
-        print(output)
-
-    # player controls
-    if creative:
-        # get keys and move camera xcen and ycen with wasd
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_w]:
-            camera.ycen += creative_speed
-        if keys[pygame.K_s]:
-            camera.ycen -= creative_speed
-        if keys[pygame.K_a]:
-            camera.xcen -= creative_speed
-        if keys[pygame.K_d]:
-            camera.xcen += creative_speed
 
-    else:
-        player.get_events(grid, lkeys)
-        camera.xcen = player.x
-        camera.ycen = player.y - 1.8
-
-    # UPDATE
-
-    if not creative:
-        for thing in ud_list:
-            thing.update(grid, ud_list)
-        if player.dead():
-            if respawn:
-                mouse.mouseclickmiddle(grid, tile_size, ud_list)
-                player = player_module.Player(5, 2)
-            else:
-                return "show_death"
-
-    lkeys = keys
-
-    # DRAWING
-
-    bigSprite["bg"].draw(screen, (0, 0))
-
-    # draw the grid
-    for row in range(len(grid[0])):
-        for column in range(len(grid)):
-            if not creative and grid[column][row] == 2:
-                sand.is_valid(column, row, grid, tile_size, ud_list)
-            if grid[column][row] == 1:
-                bigSprite["tile"].draw(screen, camera.coords_to_screen(column, row + 1, screen))
-            if grid[column][row] == 2:
-                bigSprite["sand"].draw(screen, camera.coords_to_screen(column, row + 1, screen))
-            if grid[column][row] == 3:
+        if keys[pygame.K_p] and not lkeys[pygame.K_p]:
+            creative = not creative
+            if creative:
                 pass
+                # append creative buttons
+            else:
+                pass
+                # remove creative buttons
 
-    # draw the player
-    player.draw(screen, camera, bigSprite, debug)
+        if keys[pygame.K_b] and not lkeys[pygame.K_b] and creative:
+            debug = not debug
+        if keys[pygame.K_r] and not lkeys[pygame.K_r] and creative:
+            respawn = not respawn
+        if keys[pygame.K_q] and not lkeys[pygame.K_q] and creative:
+            output = ""
 
-    # draw the things in ud_list
-    for thing in ud_list:
-        thing.draw(screen, camera, bigSprite)
+            for x in range(len(grid)):
+                for y in range(len(grid[x])):
+                    if grid[x][y] != 0:
+                        output += str(x) + " " + str(y) + " " + str(grid[x][y]) + "\n"
 
-    # draw buttons
-    for i in range(len(buttons.button_list)):
-        buttons.button_list[i].draw(screen, bigSprite, tile_size)
+            print(output)
 
-    # update the screen
-    pygame.display.update()
-    pygame.time.Clock().tick(60)
+        # player controls
+        if creative:
+            # get keys and move camera xcen and ycen with wasd
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_w]:
+                camera.ycen += creative_speed
+            if keys[pygame.K_s]:
+                camera.ycen -= creative_speed
+            if keys[pygame.K_a]:
+                camera.xcen -= creative_speed
+            if keys[pygame.K_d]:
+                camera.xcen += creative_speed
 
-    return activewindow
+        else:
+            player.get_events(grid, lkeys)
+            camera.xcen = player.x
+            camera.ycen = player.y - 1.8
+
+        # UPDATE
+
+        if not creative:
+            for thing in ud_list:
+                thing.update(grid, ud_list)
+            if player.dead():
+                if respawn:
+                    mouse.mouseclickmiddle(grid, tile_size, ud_list)
+                    player = player_module.Player(5, 2)
+                else:
+                    return "death"
+
+        lkeys = keys
+
+        # DRAWING
+
+        bigSprite["bg"].draw(screen, (0, 0))
+
+        # draw the grid
+        for row in range(len(grid[0])):
+            for column in range(len(grid)):
+                if not creative and grid[column][row] == 2:
+                    sand.is_valid(column, row, grid, tile_size, ud_list)
+                if grid[column][row] == 1:
+                    bigSprite["tile"].draw(screen, camera.coords_to_screen(column, row + 1, screen))
+                if grid[column][row] == 2:
+                    bigSprite["sand"].draw(screen, camera.coords_to_screen(column, row + 1, screen))
+                if grid[column][row] == 3:
+                    pass
+
+        # draw the player
+        player.draw(screen, camera, bigSprite, debug)
+
+        # draw the things in ud_list
+        for thing in ud_list:
+            thing.draw(screen, camera, bigSprite)
+
+        # draw buttons
+        for i in range(len(buttons.button_list)):
+            buttons.button_list[i].draw(screen, bigSprite, tile_size)
+
+        # update the screen
+        pygame.display.update()
+        pygame.time.Clock().tick(60)
