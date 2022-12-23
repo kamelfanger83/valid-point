@@ -1,5 +1,5 @@
 import pygame
-import world
+import untils.world
 import player as player_module
 import camera as camera_module
 import sprites
@@ -42,7 +42,7 @@ def init(bigSprite, screen, tile_size, activewindow, map):
     width = 100
     height = 20
 
-    grid = world.Grid(width, height)
+    grid = untils.world.Grid(width, height)
 
     grid.load(".\\data\\maps\\"+map+".gr", tile_size, ud_list)
 
@@ -58,6 +58,7 @@ def init(bigSprite, screen, tile_size, activewindow, map):
     camera = camera_module.Camera(tile_size)
 
     return "show_game"
+
 def show(bigSprite, screen, tile_size, activewindow, map):
     global creative
     global player

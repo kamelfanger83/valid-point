@@ -1,7 +1,6 @@
 # PLATFORMER GAME
 
 import pygame
-import world
 import player as player_module
 import camera as camera_module
 import sprites
