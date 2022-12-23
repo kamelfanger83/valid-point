@@ -18,6 +18,6 @@ def screen(bigSprite, screen, tile_size, activewindow):
         pygame.time.Clock().tick(60)
     else:
         counter = None
-        return "main_menu"
+        return "show_menu"
 
     return activewindow

@@ -53,11 +53,11 @@ while True:
             pygame.quit()
             exit(0)
 
-    if activewindow == "main_menu":
+    if activewindow == "show_menu":
         activewindow = windows.menuwindow.main_menu(bigSprite, screen, tile_size, activewindow)
-    elif activewindow == "game":
+    elif activewindow == "init_game":
         activewindow = windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, "jumpandgian")
-    elif activewindow == "ingame":
+    elif activewindow == "show_game":
         activewindow = windows.gamewindow.run(bigSprite, screen, tile_size, activewindow)
-    elif activewindow == "death":
+    elif activewindow == "show_death":
         activewindow = windows.deathwindow.screen(bigSprite, screen, tile_size, activewindow)

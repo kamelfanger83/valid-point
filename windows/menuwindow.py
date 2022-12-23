@@ -6,7 +6,7 @@ def main_menu(bigSprite, screen, tile_size, activewindow):
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_SPACE]:
-        activewindow = "game"
+        activewindow = "init_game"
 
     bigSprite["menu"].draw(screen, (0, 0))
 
