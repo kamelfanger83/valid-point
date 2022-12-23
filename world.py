@@ -46,6 +46,3 @@ class Grid:
                         gödi.Gödi(x, y, ".\\sprites\\gödi.png", ud_list)
                     else:
                         self.data[x][y] = type
-
-            for x in range(10):
-                self.data[x][0] = 1

@@ -102,21 +102,12 @@ def init_game():
     #buttons.Button(11, 2, 0, "creative")
     #buttons.Button(6, 5, 1, "startscreen")
 
-    # load spawner
-    for x in range(height):
-        for y in range(width):
-            try:
-                if grid[x][y] == 3:
-                    spawner.Spawner(x, y, 120, tile_size, grid, ud_list)
-            except:
-                pass
-
 def game_loop():
     global creative
     global player
 
     debug = False
-    respawn = True
+    respawn = False
 
     lkeys = pygame.key.get_pressed()
 
@@ -152,9 +143,9 @@ def game_loop():
             else:
                 buttons.all_buttons = []
 
-        if keys[pygame.K_b] and not lkeys[pygame.K_b]:
+        if keys[pygame.K_b] and not lkeys[pygame.K_b] and creative:
             debug = not debug
-        if keys[pygame.K_r] and not lkeys[pygame.K_r]:
+        if keys[pygame.K_r] and not lkeys[pygame.K_r] and creative:
             respawn = not respawn
 
         lkeys = keys
@@ -184,6 +175,7 @@ def game_loop():
                 thing.update(grid, ud_list)
             if player.dead():
                 if respawn:
+                    mouse.mouseclickmiddle(grid, tile_size, ud_list)
                     player = player_module.Player(5, 2)
                 else:
                     death_screen()
