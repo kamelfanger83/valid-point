@@ -38,28 +38,28 @@ class Player(object.Object):
 
     def load(self, tile_size, bigSprite):
         # load player image, left and right
-        bigSprite.load_sprite(".\sprites\\player_l.png", 5*self.x_hit, 2*self.y_hit, tile_size, "player_l")
-        bigSprite.load_sprite(".\sprites\\player_r.png", 5*self.x_hit, 2*self.y_hit, tile_size, "player_r")
+        bigSprite.load_sprite(".\\data\\img\\player_l.png", 5*self.x_hit, 2*self.y_hit, tile_size, "player_l")
+        bigSprite.load_sprite(".\\data\\img\\player_r.png", 5*self.x_hit, 2*self.y_hit, tile_size, "player_r")
 
         # load crouch image, left and right
-        bigSprite.load_sprite(".\sprites\\crouch_l.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_l")
-        bigSprite.load_sprite(".\sprites\\crouch_r.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_r")
+        bigSprite.load_sprite(".\\data\\img\\crouch_l.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_l")
+        bigSprite.load_sprite(".\\data\\img\\crouch_r.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_r")
 
         # load jump image, left and right
-        bigSprite.load_sprite(".\sprites\\jump_l.png", 5*self.x_hit, 2*self.y_hit, tile_size, "jump_l")
-        bigSprite.load_sprite(".\sprites\\jump_r.png", 5*self.x_hit, 2*self.y_hit, tile_size, "jump_r")
+        bigSprite.load_sprite(".\\data\\img\\jump_l.png", 5*self.x_hit, 2*self.y_hit, tile_size, "jump_l")
+        bigSprite.load_sprite(".\\data\\img\\jump_r.png", 5*self.x_hit, 2*self.y_hit, tile_size, "jump_r")
 
         # load walk images, left and right, 1-2
-        bigSprite.load_sprite(".\sprites\\walk_l_1.png", 5*self.x_hit, 2*self.y_hit, tile_size, "walk_l_1")
-        bigSprite.load_sprite(".\sprites\\walk_l_2.png", 5*self.x_hit, 2*self.y_hit, tile_size, "walk_l_2")
-        bigSprite.load_sprite(".\sprites\\walk_r_1.png", 5*self.x_hit, 2*self.y_hit, tile_size, "walk_r_1")
-        bigSprite.load_sprite(".\sprites\\walk_r_2.png", 5*self.x_hit, 2*self.y_hit, tile_size, "walk_r_2")
+        bigSprite.load_sprite(".\\data\\img\\walk_l_1.png", 5*self.x_hit, 2*self.y_hit, tile_size, "walk_l_1")
+        bigSprite.load_sprite(".\\data\\img\\walk_l_2.png", 5*self.x_hit, 2*self.y_hit, tile_size, "walk_l_2")
+        bigSprite.load_sprite(".\\data\\img\\walk_r_1.png", 5*self.x_hit, 2*self.y_hit, tile_size, "walk_r_1")
+        bigSprite.load_sprite(".\\data\\img\\walk_r_2.png", 5*self.x_hit, 2*self.y_hit, tile_size, "walk_r_2")
 
         # load crouch walk images, left and right, 1-2
-        bigSprite.load_sprite(".\sprites\\crouch_walk_l_1.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_walk_l_1")
-        bigSprite.load_sprite(".\sprites\\crouch_walk_l_2.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_walk_l_2")
-        bigSprite.load_sprite(".\sprites\\crouch_walk_r_1.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_walk_r_1")
-        bigSprite.load_sprite(".\sprites\\crouch_walk_r_2.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_walk_r_2")
+        bigSprite.load_sprite(".\\data\\img\\crouch_walk_l_1.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_walk_l_1")
+        bigSprite.load_sprite(".\\data\\img\\crouch_walk_l_2.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_walk_l_2")
+        bigSprite.load_sprite(".\\data\\img\\crouch_walk_r_1.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_walk_r_1")
+        bigSprite.load_sprite(".\\data\\img\\crouch_walk_r_2.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_walk_r_2")
 
     def get_events(self, grid, lkeys):
         # get the pressed keys

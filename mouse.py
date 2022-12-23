@@ -31,7 +31,7 @@ def mouseclickright(camera, screen, tile_size, ud_list):
     xy = camera.screen_to_coords(pos[0], pos[1], screen)
     x, y = xy[0], xy[1]
 
-    gödi.Gödi(x, y, ".\\sprites\\gödi.png", ud_list)
+    gödi.Gödi(x, y, ".\\data\\img\\gödi.png", ud_list)
 
 # if event.type == pygame.MOUSEBUTTONDOWN:
 # print(event.button)

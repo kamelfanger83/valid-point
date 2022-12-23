@@ -10,7 +10,7 @@ class WindowBuilder:
         self.button_list = []
 
     def setBackground(self, background):
-        self.background = pygame.image.load(".\\data\\img\\"+background+".jpg").convert()
+        self.background = pygame.image.load(".\\data\\img\\"+background).convert()
         self.background = pygame.transform.scale(self.background, self.screen.get_size())
 
     def addText(self, text, location, size, color):
@@ -20,7 +20,7 @@ class WindowBuilder:
         self.text_list.append([text, location])
 
     def addImage(self, path, location):
-        image = pygame.image.load(".\\data\\img\\" + path + ".jpg").convert()
+        image = pygame.image.load(".\\data\\img\\" + path ).convert()
         self.image_list.append([image, location])
 
     def addButton(self, id, text, textsize, textcolor, location, height, width, backgroundcolor):
@@ -50,6 +50,7 @@ class WindowBuilder:
 
     def getEvents(self):
         events = []
+
         for i in range(len(self.button_list)):
             startx = self.button_list[i][5][0]
             starty = self.button_list[i][5][1]

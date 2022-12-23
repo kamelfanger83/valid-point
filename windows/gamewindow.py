@@ -44,7 +44,7 @@ def init(bigSprite, screen, tile_size, activewindow, map):
 
     grid = world.Grid(width, height)
 
-    grid.load(".\\maps\\"+map+".gr", tile_size, ud_list)
+    grid.load(".\\data\\maps\\"+map+".gr", tile_size, ud_list)
 
     player = player_module.Player(5, 2)
 

@@ -14,7 +14,7 @@ def show(bigSprite, screen, tile_size, activewindow):
         if keys[pygame.K_SPACE]:
             return "game"
         elif keys[pygame.K_RETURN]:
-            return "test"
+            return "init_test"
 
         bigSprite["menu"].draw(screen, (0, 0))
 

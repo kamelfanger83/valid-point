@@ -34,7 +34,7 @@ class Sand(object.Object):
             self.speed += self.gravity
             
     def load(self, tile_size, bigSprite):
-        bigSprite.load_sprite(".\\sprites\\sand.jpg", 1, 1, tile_size, "sand")
+        bigSprite.load_sprite(".\\data\\img\\sand.jpg", 1, 1, tile_size, "sand")
 
     def draw(self, screen, camera, bigSprite):
         bigSprite["sand"].draw(screen, camera.coords_to_screen(self.x, self.y + 1, screen))

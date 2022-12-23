@@ -28,13 +28,13 @@ class Spawner:
         self.ud_list = ud_list
 
     def load(self, tile_size, bigSprite):
-        bigSprite.load_sprite(".\\sprites\\spawner_idle.png", 2, 2, tile_size, "spawner_idle")
-        bigSprite.load_sprite(".\\sprites\\spawner_spawn.png", 2, 2, tile_size, "spawner_spawn")
+        bigSprite.load_sprite(".\\data\\img\\spawner_idle.png", 2, 2, tile_size, "spawner_idle")
+        bigSprite.load_sprite(".\\data\\img\\spawner_spawn.png", 2, 2, tile_size, "spawner_spawn")
 
         for spawning_frame in range(self.spawn_interval):
             x = spawning_frame / self.spawn_interval
             r = (1-x) * 0.05 + x * 0.75
-            bigSprite.load_sprite(".\\sprites\\gödi.png", 2*r, 2*r, tile_size)
+            bigSprite.load_sprite(".\\data\\img\\gödi.png", 2*r, 2*r, tile_size)
 
     def draw(self, surface, camera, bigSprite):
         if self.spawning:
@@ -46,7 +46,7 @@ class Spawner:
         self.ticks += 1
         if self.ticks == self.interval:
             self.spawning = True
-            self.ospawning = gödi.Gödi(self.x+0.1, self.y+0.5, ".\\sprites\\gödi.png", self.ud_list, 0.05)
+            self.ospawning = gödi.Gödi(self.x+0.1, self.y+0.5, ".\\data\\img\\gödi.png", self.ud_list, 0.05)
             self.ospawning.speed = 0
             self.ospawning.ang_speed = 0
             self.ospawning.gravity = 0

@@ -43,6 +43,6 @@ class Grid:
                     if type == 3:
                         spawner.Spawner(x, y, 100, tile_size, self, ud_list)
                     elif type == 4:
-                        gödi.Gödi(x, y, ".\\sprites\\gödi.png", ud_list)
+                        gödi.Gödi(x, y, ".\\data\\img\\gödi.png", ud_list)
                     else:
                         self.data[x][y] = type
