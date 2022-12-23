@@ -6,12 +6,13 @@ window = None
 def init(bigSprite, screen, title_size, activewindow):
     global window
     window = untils.windowbuilder.WindowBuilder(screen)
-    window.setBackground("background.jpg")
+    window.setBackground("menu.png")
 
-    window.addText("Hello World!", (0, 0), 50, (255, 255, 255))
-    window.addText("How are you?", (0, 50), 25, (0, 255, 0))
+    window.addText("Menu:", (250, 380), 90, (255, 255, 255))
+    window.addText("Bitte wähle eine Welt aus.", (250, 480), 30, (100, 255, 0))
 
-    window.addButton("button1", "Menu", 25, (0, 0, 0), (100, 200), 25, 25, (255, 255, 255))
+    window.addButton("jumpandgian", "Jump and Run (Gian)", 30, (0, 255, 0), (132, 537), 50, 320, (255, 255, 255))
+    window.addButton("test", "Testwelt (Linus)", 30, (0, 255, 0), (132, 600), 50, 320, (255, 255, 255))
 
     return "show_test"
 
@@ -26,6 +27,9 @@ def show(bigSprite, screen, tile_size, activewindow):
 
     for event in window.getEvents():
         if event[0] == "button_right_click":
-            activewindow = "menu"
+            if(event[1] == "jumpandgian"):
+                return "init_game_jumpandgian"
+            elif(event[1] == "test"):
+                return "init_game_test"
 
     return activewindow
