@@ -2,7 +2,7 @@ import buttons
 import pygame
 import sprites
 
-def main_menu(bigSprite, screen, tile_size, activewindow):
+def show(bigSprite, screen, tile_size, activewindow):
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_SPACE]:

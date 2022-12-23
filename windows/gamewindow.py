@@ -58,7 +58,7 @@ def init(bigSprite, screen, tile_size, activewindow, map):
     camera = camera_module.Camera(tile_size)
 
     return "show_game"
-def run(bigSprite, screen, tile_size, activewindow):
+def show(bigSprite, screen, tile_size, activewindow):
     global creative
     global player
     global debug

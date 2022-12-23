@@ -5,7 +5,7 @@ import time
 
 counter = None
 
-def screen(bigSprite, screen, tile_size, activewindow):
+def show(bigSprite, screen, tile_size, activewindow):
     global counter
 
     if counter == None:
