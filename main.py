@@ -20,7 +20,7 @@ pygame.init()
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("Platformer Game")
 
-tile_size = screen.get_width()/12
+tile_size = screen.get_width()//12
 
 activewindow = "menu"
 

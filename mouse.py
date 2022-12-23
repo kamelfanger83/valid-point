@@ -2,21 +2,22 @@ import pygame
 import gödi
 import buttons
 
-def mouseclickleft(grid, camera, screen, x_y_prev):
+x_y_prev = [-1, -1]
+
+def mouseclickleft(grid, camera, screen, activeWindow):
+    global x_y_prev
     pos = pygame.mouse.get_pos()
     for button in buttons.button_list:
         if button.on(pos):
             button.click()
-            return x_y_prev
-    xy = camera.screen_to_coords(pos[0], pos[1], screen)
-    x, y = int(xy[0]), int(xy[1])
-    x_y_prev[0], x_y_prev[1] = int(x_y_prev[0]), int(x_y_prev[1])
-    if [x, y] != x_y_prev:
-        if 0 <= x < grid.width and 0 <= y < grid.height:
-            grid[x][y] = (grid[x][y] + 1) % 3
-        return [x, y]
-    else:
-        return x_y_prev
+    if activeWindow == "game":
+        xy = camera.screen_to_coords(pos[0], pos[1], screen)
+        x, y = int(xy[0]), int(xy[1])
+        x_y_prev[0], x_y_prev[1] = int(x_y_prev[0]), int(x_y_prev[1])
+        if [x, y] != x_y_prev:
+            if 0 <= x < grid.width and 0 <= y < grid.height:
+                grid[x][y] = (grid[x][y] + 1) % 3
+            x_y_prev = [x, y]
 
 
 def mouseclickmiddle(grid, tile_size, ud_list):

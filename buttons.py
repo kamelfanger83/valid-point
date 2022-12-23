@@ -5,7 +5,6 @@ import sprites
 
 button_list = []
 
-
 class Button:
     def __init__(self, x=None, y=None, w=None, h=None, path=None, action =None, center=True):
         self.x = x

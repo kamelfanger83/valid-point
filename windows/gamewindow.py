@@ -76,26 +76,26 @@ def show(bigSprite, screen, tile_size, activewindow, map):
                 pygame.quit()
                 exit(0)
             elif mouse_buttons_pressed[0] == True and creative:
-                x_y_previous = mouse.mouseclickleft(grid, camera, screen, x_y_previous)
+                mouse.mouseclickleft(grid, camera, screen, "game")
             elif event.type == pygame.MOUSEBUTTONUP and creative:
                 ev_button = event.button
                 if ev_button == 1:
-                    x_y_previous = [-1, -1]
+                    mouse.x_y_prev = [-1, -1]
                 elif ev_button == 2:
-                    mouse.mouseclickmiddle(grid, tile_size, ud_list)
+                    mouse.mouseclickmiddle(grid, tile_size, ud_list, "game")
                 elif ev_button == 3:
-                    mouse.mouseclickright(camera, screen, tile_size, ud_list)
+                    mouse.mouseclickright(camera, screen, tile_size, ud_list, "game")
 
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_p] and not lkeys[pygame.K_p]:
             creative = not creative
             if creative:
-                for i in range(len(buttons.all_buttons)):
-                    if buttons.all_buttons[i].menu == "creative":
-                        buttons.button_list.append(buttons.all_buttons[i])
+                pass
+                # append creative buttons
             else:
-                buttons.all_buttons = []
+                pass
+                # remove creative buttons
 
         if keys[pygame.K_b] and not lkeys[pygame.K_b] and creative:
             debug = not debug
