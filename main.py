@@ -21,7 +21,7 @@ pygame.display.set_caption("Platformer Game")
 
 tile_size = screen.get_width()/12
 
-activewindow = "main_menu"
+activewindow = "show_menu"
 
 bigSprite = sprites.Sprites()
 
