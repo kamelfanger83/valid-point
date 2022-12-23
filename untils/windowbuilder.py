@@ -42,7 +42,7 @@ class WindowBuilder:
 
         for i in range(len(self.button_list)):
             pygame.draw.rect(self.screen, self.button_list[i][2], self.button_list[i][1])
-            location = [(self.button_list[i][5][0] + (self.button_list[i][7]-self.button_list[i][4])/2), (self.button_list[i][5][1] + (self.button_list[i][6]-self.button_list[i][4])/2)]
+            location = [(self.button_list[i][5][0] + self.button_list[i][4]/2), (self.button_list[i][5][1] + (self.button_list[i][6]-self.button_list[i][4])/3)]
             self.screen.blit(self.button_list[i][3], location)
 
         pygame.display.update()

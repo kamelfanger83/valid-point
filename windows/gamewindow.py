@@ -59,7 +59,7 @@ def init(bigSprite, screen, tile_size, activewindow, map):
 
     return "show_game"
 
-def show(bigSprite, screen, tile_size, activewindow, map):
+def show(bigSprite, screen, tile_size, activewindow):
     global creative
     global player
     global debug
@@ -67,8 +67,6 @@ def show(bigSprite, screen, tile_size, activewindow, map):
     global lkeys
     global x_y_previous
     global camera
-
-    init(bigSprite, screen, tile_size, activewindow, map)
 
     while True:
         for event in pygame.event.get():
@@ -140,7 +138,7 @@ def show(bigSprite, screen, tile_size, activewindow, map):
                     mouse.mouseclickmiddle(grid, tile_size, ud_list)
                     player = player_module.Player(5, 2)
                 else:
-                    return "death"
+                    return "show_death"
 
         lkeys = keys
 

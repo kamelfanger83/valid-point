@@ -50,9 +50,11 @@ load()
 while True:
     if activewindow == "menu":
         activewindow = windows.menuwindow.show(bigSprite, screen, tile_size, activewindow)
-    elif activewindow == "game":
-        activewindow = windows.gamewindow.show(bigSprite, screen, tile_size, activewindow, "jumpandgian")
-    elif activewindow == "death":
+    elif str(activewindow).startswith("init_game_"):
+        activewindow = windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, activewindow.replace("init_game_", ""))
+    elif activewindow == "show_game":
+        activewindow = windows.gamewindow.show(bigSprite, screen, tile_size, activewindow)
+    elif activewindow == "show_death":
         activewindow = windows.deathwindow.show(bigSprite, screen, tile_size, activewindow)
     elif activewindow == "init_test":
         activewindow = windows.testwindow.init(bigSprite, screen, tile_size, activewindow)
