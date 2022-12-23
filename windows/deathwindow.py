@@ -17,4 +17,4 @@ def show(bigSprite, screen, tile_size, activewindow):
         pygame.display.update()
         pygame.time.Clock().tick(60)
 
-    return "menu"
+    return "init_menu"

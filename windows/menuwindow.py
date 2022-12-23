@@ -1,23 +1,36 @@
 import buttons
 import pygame
-import sprites
+import untils.windowbuilder
+
+window = None
+
+def init(bigSprite, screen, title_size, activewindow):
+    global window
+    window = untils.windowbuilder.WindowBuilder(screen)
+    window.setBackground("menu.png")
+
+    window.addText("Menu:", (250, 380), 90, (255, 255, 255))
+    window.addText("Bitte wähle eine Welt aus.", (250, 480), 30, (100, 255, 0))
+
+    window.addButton("jumpandgian", "Jump and Run (Gian)", 30, (0, 255, 0), (132, 537), 50, 320, (255, 255, 255))
+    window.addButton("test", "Testwelt (Linus)", 30, (0, 255, 0), (132, 600), 50, 320, (255, 255, 255))
+
+    return "show_menu"
 
 def show(bigSprite, screen, tile_size, activewindow):
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                exit(0)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit(0)
 
-        keys = pygame.key.get_pressed()
+    global window
+    window.draw()
 
-        if keys[pygame.K_SPACE]:
-            return "game"
-        elif keys[pygame.K_RETURN]:
-            return "init_test"
+    for event in window.getEvents():
+        if event[0] == "button_right_click":
+            if(event[1] == "jumpandgian"):
+                return "init_game_jumpandgian"
+            elif(event[1] == "test"):
+                return "init_game_test"
 
-        bigSprite["menu"].draw(screen, (0, 0))
-
-        pygame.display.update()
-        pygame.time.Clock().tick(60)
-
+    return activewindow
