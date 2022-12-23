@@ -167,8 +167,6 @@ def game_loop():
 
             print(output)
 
-        lkeys = keys
-
         # player controls
         if creative:
             # get keys and move camera xcen and ycen with wasd
@@ -183,7 +181,7 @@ def game_loop():
                 camera.xcen += creative_speed
 
         else:
-            player.get_events(grid)
+            player.get_events(grid, lkeys)
             camera.xcen = player.x
             camera.ycen = player.y - 1.8
 
@@ -199,6 +197,8 @@ def game_loop():
                 else:
                     death_screen()
                     return
+
+        lkeys = keys
 
         # DRAWING
 

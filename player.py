@@ -5,7 +5,7 @@ import gödi
 import sand
 
 class Player(object.Object):
-    def __init__(self, x = 0, y = 0, x_hit = 0.2, y_hit = 0.9):
+    def __init__(self, x = 0, y = 0, x_hit = 0.2, y_hit = 0.6):
         self.x = x
         self.y = y
 
@@ -61,7 +61,7 @@ class Player(object.Object):
         bigSprite.load_sprite(".\sprites\\crouch_walk_r_1.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_walk_r_1")
         bigSprite.load_sprite(".\sprites\\crouch_walk_r_2.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_walk_r_2")
 
-    def get_events(self, grid):
+    def get_events(self, grid, lkeys):
         # get the pressed keys
         pressed_keys = pygame.key.get_pressed()
 
@@ -71,12 +71,8 @@ class Player(object.Object):
         self.isWalking = False
         self.onFloor = False
 
-        nlwpressed = False
-        if pressed_keys[pygame.K_w]:
-            nlwpressed = True
-            if self.lwpressed:
-                pass
-            elif not self.singleJumped:
+        if pressed_keys[pygame.K_SPACE] and not lkeys[pygame.K_SPACE] or pressed_keys[pygame.K_w] and not lkeys[pygame.K_w] or pressed_keys[pygame.K_UP] and not lkeys[pygame.K_UP]:
+            if not self.singleJumped:
                 self.velocity_up = self.jump_speed
                 self.y += self.velocity_up
                 self.singleJumped = True
@@ -92,8 +88,6 @@ class Player(object.Object):
 
         o_x = self.x
         o_y = self.y
-
-        self.lwpressed = nlwpressed
 
         if pressed_keys[pygame.K_s]:
             if not self.isCrouching:
