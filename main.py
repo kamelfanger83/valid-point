@@ -45,7 +45,17 @@ def load():
     sand.Sand().load(tile_size, bigSprite)
     buttons.loadsprites(tile_size, bigSprite)
 
+    #load buttons
+    buttons.Button(0, 0, 0, "creative")
+    buttons.Button(11, 2, 0, "creative")
+    buttons.Button(2.5, 3, 1, "main_menu")
+    buttons.Button(2.5, 4, 1, "main_menu")
+
 def main_menu():
+    for i in range(len(buttons.all_buttons)):
+        if buttons.all_buttons[i].menu == "main_menu":
+            buttons.button_list.append(buttons.all_buttons[i])
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -53,10 +63,15 @@ def main_menu():
                 exit(0)
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
+                    buttons.all_buttons = []
                     init_game()
                     game_loop()
 
         bigSprite["menu"].draw(screen, (0, 0))
+
+        for i in range(len(buttons.button_list)):
+            buttons.button_list[i].draw(screen, bigSprite, tile_size)
+
 
         pygame.display.update()
         pygame.time.Clock().tick(60)
@@ -92,15 +107,10 @@ def init_game():
 
     grid = world.Grid(width, height)
 
-    grid.load(".\\maps\\test.gr", tile_size, ud_list)
+    grid.load(".\\maps\\jumpandgian.gr", tile_size, ud_list)
 
     player = player_module.Player(5, 2)
 
-    #load buttons
-
-    #buttons.Button(0, 0, 0, "creative")
-    #buttons.Button(11, 2, 0, "creative")
-    #buttons.Button(6, 5, 1, "startscreen")
 
 def game_loop():
     global creative
@@ -147,6 +157,15 @@ def game_loop():
             debug = not debug
         if keys[pygame.K_r] and not lkeys[pygame.K_r] and creative:
             respawn = not respawn
+        if keys[pygame.K_q] and not lkeys[pygame.K_q] and creative:
+            output = ""
+
+            for x in range(len(grid)):
+                for y in range(len(grid[x])):
+                    if grid[x][y] != 0:
+                        output += str(x)+" "+str(y)+" "+str(grid[x][y])+"\n"
+
+            print(output)
 
         lkeys = keys
 
@@ -205,9 +224,8 @@ def game_loop():
             thing.draw(screen, camera, bigSprite)
 
         #draw buttons
-        if creative:
-            for i in range(len(buttons.button_list)):
-                buttons.button_list[i].draw(screen, bigSprite, tile_size)
+        for i in range(len(buttons.button_list)):
+            buttons.button_list[i].draw(screen, bigSprite, tile_size)
 
         # update the screen
         pygame.display.update()
