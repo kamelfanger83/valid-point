@@ -34,4 +34,7 @@ def show(bigSprite, screen, tile_size, activewindow):
                 windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, "test")
                 return "game"
 
+    pygame.display.update()
+    pygame.time.Clock().tick(60)
+
     return activewindow

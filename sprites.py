@@ -7,7 +7,7 @@ class Sprite:
         self.image = pygame.image.load(path)
         self.width = self.image.get_width()
         self.height = self.image.get_height()
-        self.image = pygame.transform.scale(self.image, (width * tile_size, height * tile_size))
+        self.image = pygame.transform.scale(self.image, (int(width * tile_size), int(height * tile_size)))
         sprite_list.append(self)
 
     def draw(self, surface, location):
@@ -19,10 +19,6 @@ class Sprites:
         self.loaded_tuple = {}
 
     def load_sprite(self, path, size_x, size_y, tile_size, name = ""):
-        size_x = int(size_x)
-        size_y = int(size_y)
-        tile_size = int(tile_size)
-
         if (path, size_x, size_y) in self.loaded_tuple:
             if name != "":
                 self.loaded_name[name] = self.loaded_tuple[(path, size_x, size_y)]

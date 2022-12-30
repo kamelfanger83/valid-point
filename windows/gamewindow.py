@@ -34,6 +34,8 @@ def init(bigSprite, screen, tile_size, activewindow, map):
     global x_y_previous
     global camera
 
+    camera = camera_module.Camera(tile_size)
+
     gödi.gödi_list = []
     sand.sand_list = []
     ud_list = []
@@ -63,8 +65,6 @@ def show(bigSprite, screen, tile_size, activewindow):
     global lkeys
     global x_y_previous
     global camera
-    
-    camera = camera_module.Camera(tile_size)
     
     while True:
         for event in pygame.event.get():

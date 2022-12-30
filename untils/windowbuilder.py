@@ -45,9 +45,6 @@ class WindowBuilder:
             location = [(self.button_list[i][5][0] + self.button_list[i][4]/2), (self.button_list[i][5][1] + (self.button_list[i][6]-self.button_list[i][4])/3)]
             self.screen.blit(self.button_list[i][3], location)
 
-        pygame.display.update()
-        pygame.time.Clock().tick(60)
-
     def getEvents(self):
         events = []
 
