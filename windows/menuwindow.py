@@ -15,8 +15,6 @@ def init(bigSprite, screen, title_size, activewindow):
     window.addButton("jumpandgian", "Jump and Run (Gian)", 30, (0, 255, 0), (132, 537), 50, 320, (255, 255, 255))
     window.addButton("test", "Testwelt (Linus)", 30, (0, 255, 0), (132, 600), 50, 320, (255, 255, 255))
 
-    return "show_menu"
-
 def show(bigSprite, screen, tile_size, activewindow):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -29,8 +27,8 @@ def show(bigSprite, screen, tile_size, activewindow):
     for event in window.getEvents():
         if event[0] == "button_right_click":
             if(event[1] == "jumpandgian"):
-                return "init_game_jumpandgian"
+                return "game"
             elif(event[1] == "test"):
-                return "init_game_test"
+                return "game"
 
     return activewindow
