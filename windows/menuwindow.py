@@ -1,6 +1,7 @@
 import buttons
 import pygame
 import untils.windowbuilder
+import windows.gamewindow
 
 window = None
 
@@ -27,8 +28,10 @@ def show(bigSprite, screen, tile_size, activewindow):
     for event in window.getEvents():
         if event[0] == "button_right_click":
             if(event[1] == "jumpandgian"):
+                windows.gamewindow.init("jumpandgian")
                 return "game"
             elif(event[1] == "test"):
+                windows.gamewindow.init("test")
                 return "game"
 
     return activewindow
