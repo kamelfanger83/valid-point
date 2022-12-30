@@ -24,7 +24,7 @@ ud_list = []
 
 camera = None
 
-def init(bigSprite, screen, tile_size, activewindow, map):
+def init(map):
     global grid
     global player
     global ud_list
@@ -55,8 +55,6 @@ def init(bigSprite, screen, tile_size, activewindow, map):
 
     x_y_previous = [-1, -1]
 
-    camera = camera_module.Camera(tile_size)
-
 def show(bigSprite, screen, tile_size, activewindow):
     global creative
     global player
@@ -65,7 +63,9 @@ def show(bigSprite, screen, tile_size, activewindow):
     global lkeys
     global x_y_previous
     global camera
-
+    
+    camera = camera_module.Camera(tile_size)
+    
     while True:
         for event in pygame.event.get():
             mouse_buttons_pressed = pygame.mouse.get_pressed(num_buttons=3)
