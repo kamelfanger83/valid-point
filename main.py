@@ -46,19 +46,12 @@ def load():
 
 load()
 
-# Main loop for windows
+windows.menuwindow.init(bigSprite, screen, tile_size, activewindow)
+
 while True:
-    if activewindow == "init_menu":
-        activewindow = windows.menuwindow.init(bigSprite, screen, tile_size, activewindow)
-    elif activewindow == "show_menu":
+    if activewindow == "menu":
         activewindow = windows.menuwindow.show(bigSprite, screen, tile_size, activewindow)
-    elif str(activewindow).startswith("init_game_"):
-        activewindow = windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, activewindow.replace("init_game_", ""))
-    elif activewindow == "show_game":
+    elif activewindow == "game":
         activewindow = windows.gamewindow.show(bigSprite, screen, tile_size, activewindow)
-    elif activewindow == "show_death":
+    elif activewindow == "death":
         activewindow = windows.deathwindow.show(bigSprite, screen, tile_size, activewindow)
-    """elif activewindow == "init_test":
-        activewindow = windows.testwindow.init(bigSprite, screen, tile_size, activewindow)
-    elif activewindow == "show_test":
-        activewindow = windows.testwindow.show(bigSprite, screen, tile_size, activewindow)"""
