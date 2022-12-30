@@ -57,8 +57,6 @@ def init(bigSprite, screen, tile_size, activewindow, map):
 
     camera = camera_module.Camera(tile_size)
 
-    return "show_game"
-
 def show(bigSprite, screen, tile_size, activewindow):
     global creative
     global player
@@ -138,7 +136,7 @@ def show(bigSprite, screen, tile_size, activewindow):
                     mouse.mouseclickmiddle(grid, tile_size, ud_list)
                     player = player_module.Player(5, 2)
                 else:
-                    return "show_death"
+                    return "death"
 
         lkeys = keys
 
