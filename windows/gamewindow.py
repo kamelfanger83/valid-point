@@ -24,7 +24,7 @@ ud_list = []
 
 camera = None
 
-def init(map):
+def init(bigSprite, screen, tile_size, activewindow, map):
     global grid
     global player
     global ud_list

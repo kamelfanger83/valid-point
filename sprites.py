@@ -19,6 +19,10 @@ class Sprites:
         self.loaded_tuple = {}
 
     def load_sprite(self, path, size_x, size_y, tile_size, name = ""):
+        size_x = int(size_x)
+        size_y = int(size_y)
+        tile_size = int(tile_size)
+
         if (path, size_x, size_y) in self.loaded_tuple:
             if name != "":
                 self.loaded_name[name] = self.loaded_tuple[(path, size_x, size_y)]

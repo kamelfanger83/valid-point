@@ -28,10 +28,10 @@ def show(bigSprite, screen, tile_size, activewindow):
     for event in window.getEvents():
         if event[0] == "button_right_click":
             if(event[1] == "jumpandgian"):
-                windows.gamewindow.init("jumpandgian")
+                windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, "jumpandgian")
                 return "game"
             elif(event[1] == "test"):
-                windows.gamewindow.init("test")
+                windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, "test")
                 return "game"
 
     return activewindow
