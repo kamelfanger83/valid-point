@@ -1,5 +1,5 @@
 import pygame
-import untils.world
+import utils.world
 import player as player_module
 import camera as camera_module
 import sprites
@@ -44,7 +44,7 @@ def init(bigSprite, screen, tile_size, activewindow, map):
     width = 100
     height = 20
 
-    grid = untils.world.Grid(width, height)
+    grid = utils.world.Grid(width, height)
 
     grid.load(".\\data\\maps\\"+map+".gr", tile_size, ud_list)
 

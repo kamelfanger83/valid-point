@@ -1,13 +1,13 @@
 import buttons
 import pygame
-import untils.windowbuilder
+import utils.windowbuilder
 import windows.gamewindow
 
 window = None
 
 def init(bigSprite, screen, title_size, activewindow):
     global window
-    window = untils.windowbuilder.WindowBuilder(screen)
+    window = utils.windowbuilder.WindowBuilder(screen)
     window.setBackground("menu.png")
 
     window.addText("Menu:", (250, 380), 90, (255, 255, 255))
