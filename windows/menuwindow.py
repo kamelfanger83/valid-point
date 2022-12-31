@@ -17,24 +17,23 @@ def init(bigSprite, screen, title_size, activewindow):
     window.addButton("test", "Testwelt (Linus)", 30, (0, 255, 0), (132, 600), 50, 320, (255, 255, 255))
 
 def show(bigSprite, screen, tile_size, activewindow):
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit(0)
-
     global window
-    window.draw()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit(0)
 
-    for event in window.getEvents():
-        if event[0] == "button_right_click":
-            if(event[1] == "jumpandgian"):
-                windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, "jumpandgian")
-                return "game"
-            elif(event[1] == "test"):
-                windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, "test")
-                return "game"
+        window.draw()
 
-    pygame.display.update()
-    pygame.time.Clock().tick(60)
+        for event in window.getEvents():
+            if event[0] == "button_right_click":
+                if(event[1] == "jumpandgian"):
+                    windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, "jumpandgian")
+                    return "game"
+                elif(event[1] == "test"):
+                    windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, "test")
+                    return "game"
 
-    return activewindow
+        pygame.display.update()
+        pygame.time.Clock().tick(60)
