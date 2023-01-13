@@ -9,6 +9,7 @@ import mouse
 import spawner
 import buttons
 import sand
+import respawnpoint
 import windows.menuwindow
 import windows.gamewindow
 import windows.deathwindow
@@ -42,6 +43,7 @@ def load():
     gödi.Gödi().load(tile_size, bigSprite)
     spawner.Spawner().load(tile_size, bigSprite)
     sand.Sand().load(tile_size, bigSprite)
+    respawnpoint.Respawnpoint().load(tile_size, bigSprite)
     buttons.Button(w=sw/4, h=sh/8, path=".\\data\\img\\item_bg.jpg").load(tile_size, bigSprite)
 
 load()

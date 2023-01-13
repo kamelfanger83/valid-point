@@ -3,11 +3,15 @@ import sprites
 import object
 import gödi
 import sand
+import respawnpoint
 
 class Player(object.Object):
     def __init__(self, x = 0, y = 0, x_hit = 0.2, y_hit = 0.85):
         self.x = x
         self.y = y
+
+        self.rx = 5
+        self.ry = 2
 
         self.x_hit = x_hit
         self.y_hit = y_hit
@@ -138,6 +142,11 @@ class Player(object.Object):
             self.x = o_x
             self.y = o_y
             self.velocity_up = self.gravity
+
+        for r in respawnpoint.respawnpoint_list:
+            if self.collide(r):
+                self.rx = r.x
+                self.ry = r.y
 
     def dead(self):
         if self.y < 0:

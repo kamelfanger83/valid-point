@@ -23,8 +23,9 @@ creative_speed = 0.1
 ud_list = []
 
 camera = None
+map = None
 
-def init(bigSprite, screen, tile_size, activewindow, map):
+def init(bigSprite, screen, tile_size, activewindow, maparg):
     global grid
     global player
     global ud_list
@@ -33,13 +34,14 @@ def init(bigSprite, screen, tile_size, activewindow, map):
     global lkeys
     global x_y_previous
     global camera
+    global map
+    map = maparg
 
     camera = camera_module.Camera(tile_size)
 
     gödi.gödi_list = []
     sand.sand_list = []
     ud_list = []
-    buttons.button_list = []
 
     width = 100
     height = 20
@@ -79,7 +81,7 @@ def show(bigSprite, screen, tile_size, activewindow):
                 if ev_button == 1:
                     mouse.x_y_prev = [-1, -1]
                 elif ev_button == 2:
-                    mouse.mouseclickmiddle(grid, tile_size, ud_list, "game")
+                    mouse.mouseclickmiddle(grid, tile_size, ud_list, "game", map)
                 elif ev_button == 3:
                     mouse.mouseclickright(camera, screen, tile_size, ud_list, "game")
 
@@ -133,8 +135,7 @@ def show(bigSprite, screen, tile_size, activewindow):
                 thing.update(grid, ud_list)
             if player.dead():
                 if respawn:
-                    mouse.mouseclickmiddle(grid, tile_size, ud_list)
-                    player = player_module.Player(5, 2)
+                    player = player_module.Player(player.rx, player.ry)
                 else:
                     return "death"
 
@@ -156,16 +157,20 @@ def show(bigSprite, screen, tile_size, activewindow):
                 if grid[column][row] == 3:
                     pass
 
-        # draw the player
-        player.draw(screen, camera, bigSprite, debug)
+        if debug:
+            # draw grid lines using pygame line function
+            for row in range(len(grid[0])):
+                pygame.draw.line(screen, (255, 255, 255), camera.coords_to_screen(0, row, screen), camera.coords_to_screen(len(grid), row, screen))
+            for column in range(len(grid)):
+                pygame.draw.line(screen, (255, 255, 255), camera.coords_to_screen(column, 0, screen), camera.coords_to_screen(column, len(grid[0]), screen))
+
 
         # draw the things in ud_list
         for thing in ud_list:
             thing.draw(screen, camera, bigSprite)
 
-        # draw buttons
-        for i in range(len(buttons.button_list)):
-            buttons.button_list[i].draw(screen, bigSprite, tile_size)
+        # draw the player
+        player.draw(screen, camera, bigSprite, debug)
 
         # update the screen
         pygame.display.update()

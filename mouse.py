@@ -20,11 +20,11 @@ def mouseclickleft(grid, camera, screen, activeWindow):
             x_y_prev = [x, y]
 
 
-def mouseclickmiddle(grid, tile_size, ud_list, menu):
+def mouseclickmiddle(grid, tile_size, ud_list, menu, map):
     if menu == "game":
         gödi.gödi_list = []
         ud_list.clear()
-        grid.load(".\\data\\maps\\jumpandgian.gr", tile_size, ud_list)
+        grid.load(".\\data\\maps\\"+map+".gr", tile_size, ud_list)
 
 def mouseclickright(camera, screen, tile_size, ud_list, menu):
     if menu == "game":
