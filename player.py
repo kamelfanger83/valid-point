@@ -89,7 +89,7 @@ class Player(object.Object):
         o_x = self.x
         o_y = self.y
 
-        if pressed_keys[pygame.K_s] or pressed_keys[pygame.K_DOWN]:
+        if pressed_keys[pygame.K_s] or pressed_keys[pygame.K_DOWN] or pressed_keys[pygame.K_RSHIFT] or pressed_keys[pygame.K_LSHIFT]:
             if not self.isCrouching:
                 self.hitbox = object.RectangularHitbox(1*self.x_hit, self.y_hit/2, 0.5, 0, -self.y_hit/2)
             self.isCrouching = True
