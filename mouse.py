@@ -20,18 +20,19 @@ def mouseclickleft(grid, camera, screen, activeWindow):
             x_y_prev = [x, y]
 
 
-def mouseclickmiddle(grid, tile_size, ud_list):
-    gödi.gödi_list = []
-    ud_list.clear()
-    grid.load(".\maps\\jumpandgian.gr", tile_size, ud_list)
+def mouseclickmiddle(grid, tile_size, ud_list, menu):
+    if menu == "game":
+        gödi.gödi_list = []
+        ud_list.clear()
+        grid.load(".\\data\\maps\\jumpandgian.gr", tile_size, ud_list)
 
+def mouseclickright(camera, screen, tile_size, ud_list, menu):
+    if menu == "game":
+        pos = pygame.mouse.get_pos()
+        xy = camera.screen_to_coords(pos[0], pos[1], screen)
+        x, y = xy[0], xy[1]
 
-def mouseclickright(camera, screen, tile_size, ud_list):
-    pos = pygame.mouse.get_pos()
-    xy = camera.screen_to_coords(pos[0], pos[1], screen)
-    x, y = xy[0], xy[1]
-
-    gödi.Gödi(x, y, ".\\data\\img\\gödi.png", ud_list)
+        gödi.Gödi(x, y, ".\\data\\img\\gödi.png", ud_list)
 
 # if event.type == pygame.MOUSEBUTTONDOWN:
 # print(event.button)
