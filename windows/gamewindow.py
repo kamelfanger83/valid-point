@@ -173,10 +173,12 @@ def show(bigSprite, screen, tile_size, activewindow):
                     death = player.deathcounter
                     crouch = player.isCrouching
                     wantstodecrouch = player.wantstodecrouch
+                    hitbox = player.hitbox
                     player = player_module.Player(player.rx, player.ry)
                     player.deathcounter += death+1
                     player.isCrouching = crouch
                     player.wantstodecrouch = wantstodecrouch
+                    player.hitbox = hitbox
                 else:
                     return "death"
             for win_block in winblock.winblock_list:
