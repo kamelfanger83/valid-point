@@ -18,13 +18,6 @@ class Grid:
     def __len__(self):
         return len(self.data)
 
-    def store(self, path):
-        with open(path, "w") as f:
-            f.write(str(self.width) + " " + str(self.height) + "\n")
-            for y in range(self.height):
-                for x in range(self.width):
-                    f.write(str(self.data[x][y]))
-                f.write("\n")
 
     def load(self, path, tile_size, ud_list):
         with open(path, "r") as file:
@@ -52,3 +45,18 @@ class Grid:
                         winblock.Winblock(x, y, ".\\data\\img\\winblock.jpg", ud_list)
                     else:
                         self.data[int(x)][int(y)] = type
+    def store(self, path):
+        # write out the grid to a file
+        with open(path, "w") as file:
+            for y in range(self.height):
+                for x in range(self.width):
+                    if self[x][y] != 0:
+                        file.write(str(x)+" "+str(y)+" "+str(self[x][y])+"\n")
+            for spawner in spawner.spawner_list:
+                file.write(str(spawner.x)+" "+str(spawner.y)+" 3\n")
+            for gödi in gödi.gödi_list:
+                file.write(str(gödi.x)+" "+str(gödi.y)+" 4\n")
+            for respawnpoint in respawnpoint.respawnpoint_list:
+                file.write(str(respawnpoint.x)+" "+str(respawnpoint.y)+" 5\n")
+            for winblock in winblock.winblock_list:
+                file.write(str(winblock.x)+" "+str(winblock.y)+" 6\n")

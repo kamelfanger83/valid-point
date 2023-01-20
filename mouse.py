@@ -4,6 +4,7 @@ import respawnpoint
 import spawner
 import winblock
 import buttons
+import object
 
 x_y_prev = [-1, -1]
 
@@ -37,6 +38,25 @@ def mouseclickright(camera, screen, tile_size, ud_list, menu, grid, args=None):
         xy = camera.screen_to_coords(pos[0], pos[1], screen)
         x, y = xy[0], xy[1]
 
+        if args == 0:
+            collider = object.Object(object.RectangularHitbox(0,0,0), x, y)
+            # collide with everything
+            for spawnero in spawner.spawner_list:
+                if collider.collide(spawnero):
+                    spawner.spawner_list.remove(spawnero)
+                    ud_list.remove(spawnero)
+            for winblocko in winblock.winblock_list:
+                if collider.collide(winblocko):
+                    winblock.winblock_list.remove(winblocko)
+                    ud_list.remove(winblocko)
+            for respawnpointo in respawnpoint.respawnpoint_list:
+                if collider.collide(respawnpointo):
+                    respawnpoint.respawnpoint_list.remove(respawnpointo)
+                    ud_list.remove(respawnpointo)
+            for gödio in gödi.gödi_list:
+                if collider.collide(gödio):
+                    gödi.gödi_list.remove(gödio)
+                    ud_list.remove(gödio)
         if args == 3:
             spawner.Spawner(int(x), int(y), 100, tile_size, grid, ud_list)
         elif args == 4:

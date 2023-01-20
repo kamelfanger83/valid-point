@@ -22,7 +22,7 @@ respawn = False
 lkeys = None
 x_y_previous = []
 allBlocks = [[0, "select_nothing"], [1, "tile"], [2, "sand"], [7, "death_block"]]
-allObjects = [[3, "select_spawner"], [4, "select_gödi"], [5, "select_respawnpoint"], [6, "select_winblock"]]
+allObjects = [[0, "select_nothing"], [3, "select_spawner"], [4, "select_gödi"], [5, "select_respawnpoint"], [6, "select_winblock"]]
 
 selectedObject = 4
 selectedBlock = 1
@@ -125,14 +125,7 @@ def show(bigSprite, screen, tile_size, activewindow):
         if keys[pygame.K_r] and not lkeys[pygame.K_r] and creative:
             respawn = not respawn
         if keys[pygame.K_q] and not lkeys[pygame.K_q] and creative:
-            output = ""
-
-            for x in range(len(grid)):
-                for y in range(len(grid[x])):
-                    if grid[x][y] != 0:
-                        output += str(x) + " " + str(y) + " " + str(grid[x][y]) + "\n"
-
-            print(output)
+            grid.store(".\\data\\maps\\holibuli.gr")
 
         # player controls
         if creative:
