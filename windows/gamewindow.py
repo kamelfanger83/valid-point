@@ -114,6 +114,11 @@ def show(bigSprite, screen, tile_size, activewindow):
 
         if keys[pygame.K_p] and not lkeys[pygame.K_p]:
             creative = not creative
+            if not creative:
+                kActive = False
+                lActive = False
+                window.button_list = []
+                window.text_list = []
 
         if keys[pygame.K_b] and not lkeys[pygame.K_b] and creative:
             debug = not debug
@@ -224,7 +229,6 @@ def show(bigSprite, screen, tile_size, activewindow):
         window.draw()
 
         for event in window.getEvents():
-            print(event)
             if event[1][:len("selectObject:")] == "selectObject:":
                 selectedObject = int(event[1][len("selectObject:"):])
             if event[1][:len("selectBlock:")] == "selectBlock:":
