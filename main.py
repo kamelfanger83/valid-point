@@ -38,6 +38,7 @@ bigSprite.load_sprite(".\\data\\img\\bg.jpg", sw / tile_size, sh / tile_size, ti
 bigSprite.load_sprite(".\\data\\img\\death_screen.png", sw / tile_size, sh / tile_size, tile_size, "death_screen")
 bigSprite.load_sprite(".\\data\\img\\win_screen.jpg", sw / tile_size, sh / tile_size, tile_size, "win_screen")
 bigSprite.load_sprite(".\\data\\img\\menu.png", sw / tile_size, sh / tile_size, tile_size, "menu")
+bigSprite.load_sprite(".\\data\\img\\death_block.jpg", 1, 1, tile_size, "death_block")
 
 menu = "main"
 

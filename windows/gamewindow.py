@@ -21,7 +21,7 @@ debug = False
 respawn = False
 lkeys = None
 x_y_previous = []
-allBlocks = [[0, "select_nothing"], [1, "tile"], [2, "sand"]]
+allBlocks = [[0, "select_nothing"], [1, "tile"], [2, "sand"], [7, "death_block"]]
 allObjects = [[3, "select_spawner"], [4, "select_gödi"], [5, "select_respawnpoint"], [6, "select_winblock"]]
 
 selectedObject = 4
@@ -118,7 +118,7 @@ def show(bigSprite, screen, tile_size, activewindow):
                 kActive = False
                 lActive = False
                 window.button_list = []
-                window.text_list = []
+                window.image_list = []
 
         if keys[pygame.K_b] and not lkeys[pygame.K_b] and creative:
             debug = not debug
@@ -175,14 +175,14 @@ def show(bigSprite, screen, tile_size, activewindow):
         if not creative:
             for thing in ud_list:
                 thing.update(grid, ud_list)
-            if player.dead():
+            if player.dead(grid):
                 if respawn:
                     death = player.deathcounter
-                    crouch = player.crouch
+                    crouch = player.isCrouching
                     wantstodecrouch = player.wantstodecrouch
                     player = player_module.Player(player.rx, player.ry)
                     player.deathcounter += death+1
-                    player.crouch = crouch
+                    player.isCrouching = crouch
                     player.wantstodecrouch = wantstodecrouch
                 else:
                     return "death"
@@ -206,6 +206,8 @@ def show(bigSprite, screen, tile_size, activewindow):
                     bigSprite["sand"].draw(screen, camera.coords_to_screen(column, row + 1, screen))
                 if grid[column][row] == 3:
                     pass
+                if grid[column][row] == 7:
+                    bigSprite["death_block"].draw(screen, camera.coords_to_screen(column, row + 1, screen))
 
         # draw the things in ud_list
         for thing in ud_list:

@@ -46,6 +46,8 @@ class Player(object.Object):
         self.crouchkeys = [pygame.K_s, pygame.K_DOWN, pygame.K_RSHIFT, pygame.K_LSHIFT]
         self.wantstodecrouch = False
 
+        self.diedinmove = False
+
     def load(self, tile_size, bigSprite):
         # load player image, left and right
         bigSprite.load_sprite(".\\data\\img\\player_l.png", 5*self.x_hit, 2*self.y_hit, tile_size, "player_l")
@@ -70,6 +72,12 @@ class Player(object.Object):
         bigSprite.load_sprite(".\\data\\img\\crouch_walk_l_2.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_walk_l_2")
         bigSprite.load_sprite(".\\data\\img\\crouch_walk_r_1.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_walk_r_1")
         bigSprite.load_sprite(".\\data\\img\\crouch_walk_r_2.png", 5*self.x_hit, 2*self.y_hit, tile_size, "crouch_walk_r_2")
+
+    def is_valid_l(self, grid):
+        for p in self.hitbox.points:
+            if grid[int(self.x + p[0])][int(self.y + p[1])] == 7:
+                self.diedinmove = True
+        return self.is_valid(grid)
 
     def get_events(self, grid, lkeys):
         # get the pressed keys
@@ -103,7 +111,7 @@ class Player(object.Object):
             self.hitbox = object.RectangularHitbox(self.x_hit, self.y_hit, 0.5)
             self.y += self.y_hit/2
             self.isCrouching = False
-            if not self.is_valid(grid):
+            if not self.is_valid_l(grid):
                 self.hitbox = object.RectangularHitbox(1*self.x_hit, self.y_hit/2, 0.5)
                 self.y -= self.y_hit/2
                 self.isCrouching = True
@@ -128,13 +136,13 @@ class Player(object.Object):
             self.direction = 0
             self.isWalking = True
 
-        if not self.is_valid(grid):
+        if not self.is_valid_l(grid):
             self.x = o_x
 
         o_y = self.y
 
         self.y += self.velocity_up
-        if not self.is_valid(grid):
+        if not self.is_valid_l(grid):
             if self.velocity_up > 0:
                 self.y = int(self.y + self.hitbox.half_height) - self.hitbox.half_height - 10 ** -10
             while self.on_ground(grid):
@@ -153,7 +161,7 @@ class Player(object.Object):
 
         self.lpressed = pressed_keys
 
-    def dead(self):
+    def dead(self, grid):
         if self.y < 0:
             return True
         for g in gödi.gödi_list:
@@ -167,6 +175,10 @@ class Player(object.Object):
                 else:
                     if s.y > self.y - self.y_hit/4:
                         return True
+        # go through points in hitbox and check if they are in a death block (7 in grid)
+        if self.diedinmove:
+            self.diedinmove = False
+            return True
         return False
 
     def draw(self, surface, camera, bigSprite, debug = False):

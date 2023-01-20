@@ -49,6 +49,6 @@ class Grid:
                     elif type == 5:
                         respawnpoint.Respawnpoint(x, y, ".\\data\\img\\respawnpoint.jpg", ud_list)
                     elif type == 6:
-                        winblock.Winblock(x, y, ".\\data\\img\\respawnpoint.jpg", ud_list)
+                        winblock.Winblock(x, y, ".\\data\\img\\winblock.jpg", ud_list)
                     else:
                         self.data[int(x)][int(y)] = type
