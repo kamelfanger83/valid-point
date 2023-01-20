@@ -13,6 +13,8 @@ class Player(object.Object):
         self.rx = 5
         self.ry = 2
 
+        self.deathcounter = 0
+
         self.x_hit = x_hit
         self.y_hit = y_hit
         self.hitbox = object.RectangularHitbox(x_hit, y_hit, 0.5)
