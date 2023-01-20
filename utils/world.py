@@ -2,6 +2,7 @@ import spawner
 import gödi
 import respawnpoint
 import winblock
+import sand
 
 class Grid:
     def __init__(self, width, height):
@@ -48,15 +49,16 @@ class Grid:
     def store(self, path):
         # write out the grid to a file
         with open(path, "w") as file:
+            file.write(str(self.width) + " " + str(self.height) + "\n")
             for y in range(self.height):
                 for x in range(self.width):
                     if self[x][y] != 0:
                         file.write(str(x)+" "+str(y)+" "+str(self[x][y])+"\n")
-            for spawner in spawner.spawner_list:
-                file.write(str(spawner.x)+" "+str(spawner.y)+" 3\n")
-            for gödi in gödi.gödi_list:
-                file.write(str(gödi.x)+" "+str(gödi.y)+" 4\n")
-            for respawnpoint in respawnpoint.respawnpoint_list:
-                file.write(str(respawnpoint.x)+" "+str(respawnpoint.y)+" 5\n")
-            for winblock in winblock.winblock_list:
-                file.write(str(winblock.x)+" "+str(winblock.y)+" 6\n")
+            for spawnero in spawner.spawner_list:
+                file.write(str(spawnero.x)+" "+str(spawnero.y)+" 3\n")
+            for gödio in gödi.gödi_list:
+                file.write(str(gödio.x)+" "+str(gödio.y)+" 4\n")
+            for respawnpointo in respawnpoint.respawnpoint_list:
+                file.write(str(respawnpointo.x)+" "+str(respawnpointo.y)+" 5\n")
+            for winblocko in winblock.winblock_list:
+                file.write(str(winblocko.x)+" "+str(winblocko.y)+" 6\n")

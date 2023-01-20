@@ -15,6 +15,7 @@ def init(bigSprite, screen, title_size, activewindow):
 
     window.addButton("jumpandgian", "Jump and Run (Gian)", 30, (0, 255, 0), (132, 537), 50, 320, (255, 255, 255))
     window.addButton("test", "Testwelt (Linus)", 30, (0, 255, 0), (132, 600), 50, 320, (255, 255, 255))
+    window.addButton("empty", "Leere Welt", 30, (0, 255, 0), (132, 663), 50, 320, (255, 255, 255))
 
 def show(bigSprite, screen, tile_size, activewindow):
     global window
@@ -33,6 +34,10 @@ def show(bigSprite, screen, tile_size, activewindow):
                     return "game"
                 elif(event[1] == "test"):
                     windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, "test")
+                    return "game"
+                elif(event[1] == "empty"):
+                    windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, "empty")
+                    windows.gamewindow.creative = True
                     return "game"
 
         pygame.display.update()
