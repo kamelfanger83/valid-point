@@ -50,6 +50,11 @@ def load():
     respawnpoint.Respawnpoint().load(tile_size, bigSprite)
     winblock.Winblock().load(tile_size, bigSprite)
     buttons.Button(w=sw / 4, h=sh / 8, path=".\\data\\img\\item_bg.jpg").load(tile_size, bigSprite)
+    bigSprite.load_sprite(".\\data\\img\\gödi.png", 1, 1, tile_size, "select_gödi")
+    bigSprite.load_sprite(".\\data\\img\\spawner_idle.png", 1, 1, tile_size, "select_spawner")
+    bigSprite.load_sprite(".\\data\\img\\respawnpoint.jpg", 1, 1, tile_size, "select_respawnpoint")
+    bigSprite.load_sprite(".\\data\\img\\winblock.jpg", 1, 1, tile_size, "select_winblock")
+    bigSprite.load_sprite(".\\data\\img\\sand.jpg", 0, 0, tile_size, "select_nothing")
 
 
 load()
