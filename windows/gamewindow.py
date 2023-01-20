@@ -35,9 +35,12 @@ def init(bigSprite, screen, tile_size, activewindow, maparg):
     global x_y_previous
     global camera
     global map
+    global window
     map = maparg
 
     camera = camera_module.Camera(tile_size)
+
+    window = utils.windowbuilder.WindowBuilder(screen)
 
     gödi.gödi_list = []
     sand.sand_list = []
@@ -135,7 +138,9 @@ def show(bigSprite, screen, tile_size, activewindow):
                 thing.update(grid, ud_list)
             if player.dead():
                 if respawn:
+                    death = player.deathcounter
                     player = player_module.Player(player.rx, player.ry)
+                    player.deathcounter += death+1
                 else:
                     return "death"
 
@@ -171,6 +176,11 @@ def show(bigSprite, screen, tile_size, activewindow):
 
         # draw the player
         player.draw(screen, camera, bigSprite, debug)
+
+        # update the death counter
+        window.text_list = []
+        window.addText("Deaths: " + str(player.deathcounter), (250, 0), 30, (255, 255, 255))
+        window.draw()
 
         # update the screen
         pygame.display.update()
