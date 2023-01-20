@@ -11,7 +11,7 @@ def init(bigSprite, screen, title_size, activewindow):
     window = utils.windowbuilder.WindowBuilder(screen)
     window.setBackground("menu.png")
 
-    window.addText("Menu:", (250, 380), 90, (255, 255, 255))
+    window.addText("Einstellungen:", (250, 380), 90, (255, 255, 255))
     window.addText("Bitte wähle eine Möglichkeit aus.", (250, 480), 30, (100, 255, 0))
 
     window.addButton("leader", "Spielsession eröffnen", 30, (0, 255, 0), (132, 537), 50, 320, (255, 255, 255))
@@ -27,18 +27,6 @@ def show(bigSprite, screen, tile_size, activewindow):
                 exit(0)
 
         window.draw()
-
-        for event in window.getEvents():
-            if event[0] == "button_right_click":
-                if(event[1] == "leader"):
-                    windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, "jumpandgian")
-                    return "create"
-                elif(event[1] == "player"):
-                    windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, "test")
-                    return "join"
-                elif(event[1] == "settings"):
-                    windows.settingswindow.init(bigSprite, screen, tile_size, activewindow)
-                    return "settings"
 
         pygame.display.update()
         pygame.time.Clock().tick(60)

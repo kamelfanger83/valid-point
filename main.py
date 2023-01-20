@@ -16,6 +16,7 @@ import windows.gamewindow
 import windows.deathwindow
 import windows.testwindow
 import windows.winwindow
+import windows.settingswindow
 
 # initialize a fullscreen pygame window
 pygame.init()
@@ -65,6 +66,8 @@ windows.menuwindow.init(bigSprite, screen, tile_size, activewindow)
 while True:
     if activewindow == "menu":
         activewindow = windows.menuwindow.show(bigSprite, screen, tile_size, activewindow)
+    elif activewindow == "settings":
+        activewindow = windows.settingswindow.show(bigSprite, screen, tile_size, activewindow)
     elif activewindow == "game":
         activewindow = windows.gamewindow.show(bigSprite, screen, tile_size, activewindow)
     elif activewindow == "death":
