@@ -41,6 +41,10 @@ class Player(object.Object):
         self.walkinframe = 1
         self.thisframe = 0
         self.lwpressed = False
+        self.lpressed = pygame.key.get_pressed()
+
+        self.crouchkeys = [pygame.K_s, pygame.K_DOWN, pygame.K_RSHIFT, pygame.K_LSHIFT]
+        self.wantstodecrouch = False
 
     def load(self, tile_size, bigSprite):
         # load player image, left and right
@@ -71,41 +75,43 @@ class Player(object.Object):
         # get the pressed keys
         pressed_keys = pygame.key.get_pressed()
 
-        o_x = self.x
-        o_y = self.y
-
         self.isWalking = False
         self.onFloor = False
 
         if pressed_keys[pygame.K_SPACE] and not lkeys[pygame.K_SPACE] or pressed_keys[pygame.K_w] and not lkeys[pygame.K_w] or pressed_keys[pygame.K_UP] and not lkeys[pygame.K_UP]:
             if not self.singleJumped:
                 self.velocity_up = self.jump_speed
-                self.y += self.velocity_up
                 self.singleJumped = True
             elif not self.doubleJumped:
                 self.velocity_up = 2 / 3 * self.jump_speed
-                self.y += self.velocity_up
                 self.doubleJumped = True
 
-        if not self.is_valid(grid):
-            self.x = o_x
-            self.y = o_y
-            self.velocity_up = self.gravity
+        toggled = False
+        for key in self.crouchkeys:
+            if pressed_keys[key] and not self.lpressed[key]:
+                toggled = True
+
+        if toggled:
+            self.isCrouching = not self.isCrouching
+            if self.isCrouching:
+                self.y -= self.y_hit/2
+                self.hitbox = object.RectangularHitbox(1*self.x_hit, self.y_hit/2, 0.5)
+            else:
+                self.wantstodecrouch = True
+
+        if self.wantstodecrouch:
+            self.hitbox = object.RectangularHitbox(self.x_hit, self.y_hit, 0.5)
+            self.y += self.y_hit/2
+            self.isCrouching = False
+            if not self.is_valid(grid):
+                self.hitbox = object.RectangularHitbox(1*self.x_hit, self.y_hit/2, 0.5)
+                self.y -= self.y_hit/2
+                self.isCrouching = True
+            else:
+                self.wantstodecrouch = False
 
         o_x = self.x
         o_y = self.y
-
-        if pressed_keys[pygame.K_s] or pressed_keys[pygame.K_DOWN] or pressed_keys[pygame.K_RSHIFT] or pressed_keys[pygame.K_LSHIFT]:
-            if not self.isCrouching:
-                self.hitbox = object.RectangularHitbox(1*self.x_hit, self.y_hit/2, 0.5, 0, -self.y_hit/2)
-            self.isCrouching = True
-        else:
-            if self.isCrouching:
-                self.hitbox = object.RectangularHitbox(self.x_hit, self.y_hit, 0.5)
-                self.isCrouching = False
-                if not self.is_valid(grid):
-                    self.hitbox = object.RectangularHitbox(1*self.x_hit, self.y_hit / 2, 0.5, 0, -self.y_hit / 2)
-                    self.isCrouching = True
 
         if pressed_keys[pygame.K_a] or pressed_keys[pygame.K_LEFT]:
             if self.isCrouching:
@@ -127,28 +133,27 @@ class Player(object.Object):
             self.x = o_x
             self.y = o_y
 
-        o_x = self.x
         o_y = self.y
 
-        self.velocity_up -= self.gravity
         self.y += self.velocity_up
-
-        if self.on_ground(grid):
-            self.onFloor = True
-            self.velocity_up = 0
-            self.y = int(self.y) + self.y_hit + 10**-10
-            self.singleJumped = False
-            self.doubleJumped = False
-
         if not self.is_valid(grid):
-            self.x = o_x
-            self.y = o_y
-            self.velocity_up = self.gravity
+            if self.on_ground(grid):
+                self.onFloor = True
+                self.y = int(self.y) + self.hitbox.half_height + 10 ** -10
+                self.singleJumped = False
+                self.doubleJumped = False
+            else:
+                self.y = int(self.y + self.hitbox.half_height) - self.hitbox.half_height - 10 ** -10
+            self.velocity_up = 0
+
+        self.velocity_up -= self.gravity
 
         for r in respawnpoint.respawnpoint_list:
             if self.collide(r):
                 self.rx = r.x
                 self.ry = r.y
+
+        self.lpressed = pressed_keys
 
     def dead(self):
         if self.y < 0:
@@ -172,23 +177,23 @@ class Player(object.Object):
             if self.isWalking:
                 if self.walkinframe == 1:
                     if self.direction == 1:
-                        bigSprite["crouch_walk_l_1"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
+                        bigSprite["crouch_walk_l_1"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit*1.5, surface))
                     else:
-                        bigSprite["crouch_walk_r_1"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
+                        bigSprite["crouch_walk_r_1"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit*1.5, surface))
                 else:
                     if self.direction == 1:
-                        bigSprite["crouch_walk_l_2"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
+                        bigSprite["crouch_walk_l_2"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit*1.5, surface))
                     else:
-                        bigSprite["crouch_walk_r_2"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
+                        bigSprite["crouch_walk_r_2"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit*1.5, surface))
                 if self.thisframe == 10:
                     self.walkinframe = 3 - self.walkinframe
                     self.thisframe = 0
                 self.thisframe += 1
             else:
                 if self.direction == 1:
-                    bigSprite["crouch_l"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
+                    bigSprite["crouch_l"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit*1.5, surface))
                 else:
-                    bigSprite["crouch_r"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit, surface))
+                    bigSprite["crouch_r"].draw(surface, camera.coords_to_screen(self.x-self.x_hit * 2.5, self.y+self.y_hit*1.5, surface))
 
         elif self.isWalking:
             if self.direction == 1:

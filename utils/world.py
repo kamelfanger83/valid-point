@@ -1,6 +1,7 @@
 import spawner
 import gödi
 import respawnpoint
+import winblock
 
 class Grid:
     def __init__(self, width, height):
@@ -47,5 +48,7 @@ class Grid:
                         gödi.Gödi(x, y, ".\\data\\img\\gödi.png", ud_list)
                     elif type == 5:
                         respawnpoint.Respawnpoint(x, y, ".\\data\\img\\respawnpoint.jpg", ud_list)
+                    elif type == 6:
+                        winblock.Winblock(x, y, ".\\data\\img\\respawnpoint.jpg", ud_list)
                     else:
                         self.data[int(x)][int(y)] = type

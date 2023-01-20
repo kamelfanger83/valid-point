@@ -1,3 +1,5 @@
+import random
+
 import pygame
 import utils.world
 import player as player_module
@@ -9,6 +11,7 @@ import time
 import spawner
 import buttons
 import sand
+import winblock
 
 grid = None
 player = None
@@ -53,7 +56,7 @@ def init(bigSprite, screen, tile_size, activewindow, maparg):
 
     grid.load(".\\data\\maps\\"+map+".gr", tile_size, ud_list)
 
-    player = player_module.Player(5, 2)
+    player = player_module.Player(9, 2)
 
     debug = False
     respawn = False
@@ -143,7 +146,9 @@ def show(bigSprite, screen, tile_size, activewindow):
                     player.deathcounter += death+1
                 else:
                     return "death"
-
+            for win_block in winblock.winblock_list:
+                if player.collide(win_block):
+                    return "win"
         lkeys = keys
 
         # DRAWING
@@ -179,7 +184,7 @@ def show(bigSprite, screen, tile_size, activewindow):
 
         # update the death counter
         window.text_list = []
-        window.addText("Deaths: " + str(player.deathcounter), (250, 0), 30, (255, 255, 255))
+        window.addText("Deaths: " + str(player.slowfallticks), (250, 0), 30, (255, 255, 255))
         window.draw()
 
         # update the screen
