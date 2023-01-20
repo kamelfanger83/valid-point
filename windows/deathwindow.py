@@ -3,7 +3,7 @@ import pygame
 import sprites
 import time
 
-def show(bigSprite, screen, tile_size, activewindow):
+def show(bigSprite, screen, tile_size, activewindow, musicplayer):
     start = time.time()
 
     while time.time() - start < 3:

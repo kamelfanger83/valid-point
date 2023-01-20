@@ -17,6 +17,7 @@ import windows.deathwindow
 import windows.testwindow
 import windows.winwindow
 import windows.settingswindow
+import utils.musicplayer
 
 # initialize a fullscreen pygame window
 pygame.init()
@@ -40,6 +41,9 @@ bigSprite.load_sprite("./data/img/death_screen.png", sw / tile_size, sh / tile_s
 bigSprite.load_sprite("./data/img/win_screen.jpg", sw / tile_size, sh / tile_size, tile_size, "win_screen")
 bigSprite.load_sprite("./data/img/menu.png", sw / tile_size, sh / tile_size, tile_size, "menu")
 bigSprite.load_sprite("./data/img/death_block.jpg", 1, 1, tile_size, "death_block")
+
+#init music player
+musicplayer = utils.musicplayer.Mussicplayer()
 
 menu = "main"
 
@@ -65,12 +69,12 @@ windows.menuwindow.init(bigSprite, screen, tile_size, activewindow)
 
 while True:
     if activewindow == "menu":
-        activewindow = windows.menuwindow.show(bigSprite, screen, tile_size, activewindow)
+        activewindow = windows.menuwindow.show(bigSprite, screen, tile_size, activewindow, musicplayer)
     elif activewindow == "settings":
-        activewindow = windows.settingswindow.show(bigSprite, screen, tile_size, activewindow)
+        activewindow = windows.settingswindow.show(bigSprite, screen, tile_size, activewindow, musicplayer)
     elif activewindow == "game":
-        activewindow = windows.gamewindow.show(bigSprite, screen, tile_size, activewindow)
+        activewindow = windows.gamewindow.show(bigSprite, screen, tile_size, activewindow, musicplayer)
     elif activewindow == "death":
-        activewindow = windows.deathwindow.show(bigSprite, screen, tile_size, activewindow)
+        activewindow = windows.deathwindow.show(bigSprite, screen, tile_size, activewindow, musicplayer)
     elif activewindow == "win":
-        activewindow = windows.winwindow.show(bigSprite, screen, tile_size, activewindow)
+        activewindow = windows.winwindow.show(bigSprite, screen, tile_size, activewindow, musicplayer)

@@ -18,7 +18,7 @@ def init(bigSprite, screen, title_size, activewindow):
     window.addButton("player", "Spielsession beitreten", 30, (0, 255, 0), (132, 600), 50, 320, (255, 255, 255))
     window.addButton("settings", "Einstellungen", 30, (0, 255, 0), (132, 663), 50, 320, (255, 255, 255))
 
-def show(bigSprite, screen, tile_size, activewindow):
+def show(bigSprite, screen, tile_size, activewindow, musicplayer):
     global window
     while True:
         for event in pygame.event.get():

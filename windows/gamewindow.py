@@ -82,7 +82,7 @@ def init(bigSprite, screen, tile_size, activewindow, maparg):
     kActive = False
     lActive = False
 
-def show(bigSprite, screen, tile_size, activewindow):
+def show(bigSprite, screen, tile_size, activewindow, musicplayer):
     global creative
     global player
     global debug
