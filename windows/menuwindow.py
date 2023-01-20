@@ -20,9 +20,9 @@ def init(bigSprite, screen, title_size, activewindow):
 
 def show(bigSprite, screen, tile_size, activewindow, musicplayer):
     # Music
-    musicplayer.stopMusic()
-    musicplayer.setMusicFile("./data/music/menu.wav")
-    musicplayer.startMusic()
+    if(musicplayer.getSong() != "./data/music/menu.wav"):
+        musicplayer.setSong("./data/music/menu.wav")
+        musicplayer.startMusic()
 
     global window
     while True:
