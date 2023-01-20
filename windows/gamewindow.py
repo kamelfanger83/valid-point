@@ -66,9 +66,11 @@ def init(bigSprite, screen, tile_size, activewindow, maparg):
 
     grid = utils.world.Grid(width, height)
 
-    grid.load(".\\data\\maps\\"+map+".gr", tile_size, ud_list)
+    grid.load("./data/maps/"+map+".gr", tile_size, ud_list)
 
     player = player_module.Player(9, 2)
+    camera.xcen = player.x
+    camera.ycen = player.y
 
     debug = False
     respawn = False
@@ -125,7 +127,8 @@ def show(bigSprite, screen, tile_size, activewindow):
         if keys[pygame.K_r] and not lkeys[pygame.K_r] and creative:
             respawn = not respawn
         if keys[pygame.K_q] and not lkeys[pygame.K_q] and creative:
-            grid.store(".\\data\\maps\\holibuli.gr")
+            print("Saving...")
+            grid.store("./data/maps/"+str(random.randrange(100000))+".gr")
 
         # player controls
         if creative:
@@ -160,8 +163,20 @@ def show(bigSprite, screen, tile_size, activewindow):
 
         else:
             player.get_events(grid, lkeys)
-            camera.xcen = player.x
-            camera.ycen = player.y - 1.8
+
+            camera_width = screen.get_width() / tile_size
+            camera_height = screen.get_height() / tile_size
+
+            # if player is in left or righmost 20% of the screen, move camera
+            if player.x > camera.xcen + 0.4 * camera_width:
+                camera.xcen = player.x - 0.4 * camera_width
+            elif player.x < camera.xcen - 0.4 * camera_width:
+                camera.xcen = player.x + 0.4 * camera_width
+            # if player is in top or bottommost 20% of the screen, move camera
+            if player.y > camera.ycen + 0.4 * camera_height:
+                camera.ycen = player.y - 0.4 * camera_height
+            elif player.y < camera.ycen - 0.4 * camera_height:
+                camera.ycen = player.y + 0.4 * camera_height
 
         # UPDATE
 

@@ -10,7 +10,7 @@ class WindowBuilder:
         self.button_list = []
 
     def setBackground(self, background):
-        self.background = pygame.image.load(".\\data\\img\\"+background).convert()
+        self.background = pygame.image.load("./data/img/"+background).convert()
         self.background = pygame.transform.scale(self.background, self.screen.get_size())
 
     def addText(self, text, location, size, color):

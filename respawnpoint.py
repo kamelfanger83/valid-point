@@ -26,7 +26,7 @@ class Respawnpoint(object.Object):
         return
 
     def load(self, tile_size, bigSprite):
-        bigSprite.load_sprite(".\\data\\img\\respawnpoint.jpg", 0.5, 0.5, tile_size, "respawnpoint")
+        bigSprite.load_sprite("./data/img/respawnpoint.jpg", 0.5, 0.5, tile_size, "respawnpoint")
 
     def draw(self, screen, camera, bigSprite):
         bigSprite["respawnpoint"].draw(screen, camera.coords_to_screen(self.x-self.x_hit/2, self.y+self.y_hit/2, screen))

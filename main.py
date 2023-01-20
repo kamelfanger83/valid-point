@@ -32,13 +32,13 @@ sw = screen.get_width()
 sh = screen.get_height()
 
 # load grid images
-bigSprite.load_sprite(".\\data\\img\\tile.jpg", 1, 1, tile_size, "tile")
-bigSprite.load_sprite(".\\data\\img\\sand.jpg", 1, 1, tile_size, "sand")
-bigSprite.load_sprite(".\\data\\img\\bg.jpg", sw / tile_size, sh / tile_size, tile_size, "bg")
-bigSprite.load_sprite(".\\data\\img\\death_screen.png", sw / tile_size, sh / tile_size, tile_size, "death_screen")
-bigSprite.load_sprite(".\\data\\img\\win_screen.jpg", sw / tile_size, sh / tile_size, tile_size, "win_screen")
-bigSprite.load_sprite(".\\data\\img\\menu.png", sw / tile_size, sh / tile_size, tile_size, "menu")
-bigSprite.load_sprite(".\\data\\img\\death_block.jpg", 1, 1, tile_size, "death_block")
+bigSprite.load_sprite("./data/img/tile.jpg", 1, 1, tile_size, "tile")
+bigSprite.load_sprite("./data/img/sand.jpg", 1, 1, tile_size, "sand")
+bigSprite.load_sprite("./data/img/bg.jpg", sw / tile_size, sh / tile_size, tile_size, "bg")
+bigSprite.load_sprite("./data/img/death_screen.png", sw / tile_size, sh / tile_size, tile_size, "death_screen")
+bigSprite.load_sprite("./data/img/win_screen.jpg", sw / tile_size, sh / tile_size, tile_size, "win_screen")
+bigSprite.load_sprite("./data/img/menu.png", sw / tile_size, sh / tile_size, tile_size, "menu")
+bigSprite.load_sprite("./data/img/death_block.jpg", 1, 1, tile_size, "death_block")
 
 menu = "main"
 
@@ -50,12 +50,12 @@ def load():
     sand.Sand().load(tile_size, bigSprite)
     respawnpoint.Respawnpoint().load(tile_size, bigSprite)
     winblock.Winblock().load(tile_size, bigSprite)
-    buttons.Button(w=sw / 4, h=sh / 8, path=".\\data\\img\\item_bg.jpg").load(tile_size, bigSprite)
-    bigSprite.load_sprite(".\\data\\img\\gödi.png", 1, 1, tile_size, "select_gödi")
-    bigSprite.load_sprite(".\\data\\img\\spawner_idle.png", 1, 1, tile_size, "select_spawner")
-    bigSprite.load_sprite(".\\data\\img\\respawnpoint.jpg", 1, 1, tile_size, "select_respawnpoint")
-    bigSprite.load_sprite(".\\data\\img\\winblock.jpg", 1, 1, tile_size, "select_winblock")
-    bigSprite.load_sprite(".\\data\\img\\sand.jpg", 0, 0, tile_size, "select_nothing")
+    buttons.Button(w=sw / 4, h=sh / 8, path="./data/img/item_bg.jpg").load(tile_size, bigSprite)
+    bigSprite.load_sprite("./data/img/gödi.png", 1, 1, tile_size, "select_gödi")
+    bigSprite.load_sprite("./data/img/spawner_idle.png", 1, 1, tile_size, "select_spawner")
+    bigSprite.load_sprite("./data/img/respawnpoint.jpg", 1, 1, tile_size, "select_respawnpoint")
+    bigSprite.load_sprite("./data/img/winblock.jpg", 1, 1, tile_size, "select_winblock")
+    bigSprite.load_sprite("./data/img/sand.jpg", 0, 0, tile_size, "select_nothing")
 
 
 load()

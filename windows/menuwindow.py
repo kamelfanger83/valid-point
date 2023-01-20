@@ -41,7 +41,7 @@ def show(bigSprite, screen, tile_size, activewindow):
                     windows.gamewindow.creative = True
                     return "game"
                 elif (event[1] == "holibuli"):
-                    windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, "holibuli")
+                    windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, "lulu")
                     return "game"
 
         pygame.display.update()

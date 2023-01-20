@@ -29,7 +29,7 @@ def mouseclickmiddle(grid, tile_size, ud_list, menu, map, args=None):
     if menu == "game":
         gödi.gödi_list = []
         ud_list.clear()
-        grid.load(".\\data\\maps\\" + map + ".gr", tile_size, ud_list)
+        grid.load("./data/maps/" + map + ".gr", tile_size, ud_list)
 
 
 def mouseclickright(camera, screen, tile_size, ud_list, menu, grid, args=None):
@@ -60,11 +60,11 @@ def mouseclickright(camera, screen, tile_size, ud_list, menu, grid, args=None):
         if args == 3:
             spawner.Spawner(int(x), int(y), 100, tile_size, grid, ud_list)
         elif args == 4:
-            gödi.Gödi(x, y, ".\\data\\img\\gödi.png", ud_list)
+            gödi.Gödi(x, y, "./data/img/gödi.png", ud_list)
         elif args == 5:
-            respawnpoint.Respawnpoint(int(x) + 0.5, int(y) + 0.5, ".\\data\\img\\respawnpoint.jpg", ud_list)
+            respawnpoint.Respawnpoint(int(x) + 0.5, int(y) + 0.5, "./data/img/respawnpoint.jpg", ud_list)
         elif args == 6:
-            winblock.Winblock(int(x) + 0.5, int(y) + 0.5, ".\\data\\img\\respawnpoint.jpg", ud_list)
+            winblock.Winblock(int(x) + 0.5, int(y) + 0.5, "./data/img/respawnpoint.jpg", ud_list)
 
 # if event.type == pygame.MOUSEBUTTONDOWN:
 # print(event.button)

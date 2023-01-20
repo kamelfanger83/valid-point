@@ -39,14 +39,15 @@ class Grid:
                     if type == 3:
                         spawner.Spawner(x, y, 100, tile_size, self, ud_list)
                     elif type == 4:
-                        gödi.Gödi(x, y, ".\\data\\img\\gödi.png", ud_list)
+                        gödi.Gödi(x, y, "./data/img/gödi.png", ud_list)
                     elif type == 5:
-                        respawnpoint.Respawnpoint(x, y, ".\\data\\img\\respawnpoint.jpg", ud_list)
+                        respawnpoint.Respawnpoint(x, y, "./data/img/respawnpoint.jpg", ud_list)
                     elif type == 6:
-                        winblock.Winblock(x, y, ".\\data\\img\\winblock.jpg", ud_list)
+                        winblock.Winblock(x, y, "./data/img/winblock.jpg", ud_list)
                     else:
                         self.data[int(x)][int(y)] = type
     def store(self, path):
+        print("storing")
         # write out the grid to a file
         with open(path, "w") as file:
             file.write(str(self.width) + " " + str(self.height) + "\n")
@@ -57,7 +58,8 @@ class Grid:
             for spawnero in spawner.spawner_list:
                 file.write(str(spawnero.x)+" "+str(spawnero.y)+" 3\n")
             for gödio in gödi.gödi_list:
-                file.write(str(gödio.x)+" "+str(gödio.y)+" 4\n")
+                #write location with 3 decimal places
+                file.write(str(round(gödio.x, 3))+" "+str(round(gödio.y, 3))+" 4\n")
             for respawnpointo in respawnpoint.respawnpoint_list:
                 file.write(str(respawnpointo.x)+" "+str(respawnpointo.y)+" 5\n")
             for winblocko in winblock.winblock_list:

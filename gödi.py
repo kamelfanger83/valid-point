@@ -28,7 +28,7 @@ class Gödi(object.Object):
         ud_list.append(self)
 
     def load(self, tile_size, bigSprite):
-        bigSprite.load_sprite(".\\data\\img\\gödi.png", 2*self.x_hit, 2*self.y_hit, tile_size, "gödi")
+        bigSprite.load_sprite("./data/img/gödi.png", 2*self.x_hit, 2*self.y_hit, tile_size, "gödi")
 
     def update_r(self):
         self.x_hit = self.r
