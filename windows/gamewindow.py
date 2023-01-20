@@ -114,12 +114,6 @@ def show(bigSprite, screen, tile_size, activewindow):
 
         if keys[pygame.K_p] and not lkeys[pygame.K_p]:
             creative = not creative
-            if creative:
-                pass
-                # append creative buttons
-            else:
-                pass
-                # remove creative buttons
 
         if keys[pygame.K_b] and not lkeys[pygame.K_b] and creative:
             debug = not debug
@@ -149,22 +143,22 @@ def show(bigSprite, screen, tile_size, activewindow):
                 camera.xcen += creative_speed
             if keys[pygame.K_k] and not lkeys[pygame.K_k]:
                 kActive = not kActive
+                window.button_list = []
+                window.image_list = []
+                lActive = False
                 if kActive:
                     for k in range(len(allObjects)):
                         window.addButton("selectObject:" + str(allObjects[k][0]), "", 30, (0, 255, 0), (tile_size * (0.5 + 2 * k), 100), 1.5 * tile_size, 1.5 * tile_size, (255, 255, 255))
                         window.addImage(bigSprite[allObjects[k][1]].image, (tile_size * (0.75 + 2 * k), 100 + 0.25 * tile_size))
-                else:
-                    window.button_list = []
-                    window.image_list = []
             if keys[pygame.K_l] and not lkeys[pygame.K_l]:
                 lActive = not lActive
+                window.button_list = []
+                window.image_list = []
+                kActive = False
                 if lActive:
                     for k in range(len(allBlocks)):
                         window.addButton("selectBlock:" + str(allBlocks[k][0]), "", 30, (0, 255, 0), (tile_size * (0.5 + 2 * k), 100), 1.5 * tile_size, 1.5 * tile_size, (255, 255, 255))
                         window.addImage(bigSprite[allBlocks[k][1]].image, (tile_size * (0.75 + 2 * k), 100 + 0.25 * tile_size))
-                else:
-                    window.button_list = []
-                    window.image_list = []
 
         else:
             player.get_events(grid, lkeys)
@@ -179,8 +173,12 @@ def show(bigSprite, screen, tile_size, activewindow):
             if player.dead():
                 if respawn:
                     death = player.deathcounter
+                    crouch = player.crouch
+                    wantstodecrouch = player.wantstodecrouch
                     player = player_module.Player(player.rx, player.ry)
                     player.deathcounter += death+1
+                    player.crouch = crouch
+                    player.wantstodecrouch = wantstodecrouch
                 else:
                     return "death"
             for win_block in winblock.winblock_list:
@@ -204,20 +202,21 @@ def show(bigSprite, screen, tile_size, activewindow):
                 if grid[column][row] == 3:
                     pass
 
-        if debug:
-            # draw grid lines using pygame line function
-            for row in range(len(grid[0])):
-                pygame.draw.line(screen, (255, 255, 255), camera.coords_to_screen(0, row, screen), camera.coords_to_screen(len(grid), row, screen))
-            for column in range(len(grid)):
-                pygame.draw.line(screen, (255, 255, 255), camera.coords_to_screen(column, 0, screen), camera.coords_to_screen(column, len(grid[0]), screen))
-
-
         # draw the things in ud_list
         for thing in ud_list:
             thing.draw(screen, camera, bigSprite)
 
         # draw the player
         player.draw(screen, camera, bigSprite, debug)
+
+        if debug:
+            # draw grid lines using pygame line function
+            for row in range(len(grid[0])):
+                pygame.draw.line(screen, (255, 255, 255), camera.coords_to_screen(0, row, screen), camera.coords_to_screen(len(grid), row, screen))
+            for column in range(len(grid)):
+                pygame.draw.line(screen, (255, 255, 255), camera.coords_to_screen(column, 0, screen), camera.coords_to_screen(column, len(grid[0]), screen))
+            # draw small point at player x/y
+            pygame.draw.circle(screen, (255, 255, 255), camera.coords_to_screen(player.x, player.y, screen), 2)
 
         # update the death counter
         window.text_list = []

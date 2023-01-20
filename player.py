@@ -111,7 +111,6 @@ class Player(object.Object):
                 self.wantstodecrouch = False
 
         o_x = self.x
-        o_y = self.y
 
         if pressed_keys[pygame.K_a] or pressed_keys[pygame.K_LEFT]:
             if self.isCrouching:
@@ -131,19 +130,18 @@ class Player(object.Object):
 
         if not self.is_valid(grid):
             self.x = o_x
-            self.y = o_y
 
         o_y = self.y
 
         self.y += self.velocity_up
         if not self.is_valid(grid):
-            if self.on_ground(grid):
+            if self.velocity_up > 0:
+                self.y = int(self.y + self.hitbox.half_height) - self.hitbox.half_height - 10 ** -10
+            while self.on_ground(grid):
                 self.onFloor = True
-                self.y = int(self.y) + self.hitbox.half_height + 10 ** -10
+                self.y = int(self.y - self.hitbox.half_height) + 1 + self.hitbox.half_height + 10 ** -10
                 self.singleJumped = False
                 self.doubleJumped = False
-            else:
-                self.y = int(self.y + self.hitbox.half_height) - self.hitbox.half_height - 10 ** -10
             self.velocity_up = 0
 
         self.velocity_up -= self.gravity
