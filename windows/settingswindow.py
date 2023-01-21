@@ -48,6 +48,7 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
                     if (musicplayer.getSong() != "./data/music/jumpandgian.wav"):
                         musicplayer.setSong("./data/music/jumpandgian.wav")
                         musicplayer.startMusic()
+
                     return "game"
                 elif (event[1] == "back"):
                     windows.menuwindow.init(bigSprite, screen, tile_size, activewindow)
