@@ -3,6 +3,7 @@ import pygame
 import utils.windowbuilder
 import windows.gamewindow
 import windows.settingswindow
+import windows.worldselector
 
 window = None
 
@@ -36,7 +37,7 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
         for event in window.getEvents():
             if event[0] == "button_right_click":
                 if(event[1] == "leader"):
-                    windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, "jumpandgian")
+                    windows.worldselector.init(bigSprite, screen, tile_size, activewindow)
                     return "create"
                 elif(event[1] == "player"):
                     windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, "test")

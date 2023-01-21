@@ -91,7 +91,7 @@ def init(bigSprite, screen, tile_size, activewindow, maparg):
 
     player.x_hit = grid.metadata[3][0]
     player.y_hit = grid.metadata[3][1]
-    player.hitbox = object.RectangularHitbox(x_hit, y_hit, 0.5)
+    player.hitbox = object.RectangularHitbox(player.x_hit, player.y_hit, 0.5)
 
 
     kActive = False

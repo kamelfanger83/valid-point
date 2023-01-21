@@ -78,3 +78,5 @@ while True:
         activewindow = windows.deathwindow.show(bigSprite, screen, tile_size, activewindow, musicplayer)
     elif activewindow == "win":
         activewindow = windows.winwindow.show(bigSprite, screen, tile_size, activewindow, musicplayer)
+    elif activewindow == "create":
+        activewindow = windows.worldselector.show(bigSprite, screen, tile_size, activewindow, musicplayer)

@@ -25,30 +25,30 @@ class Grid:
         with open(path, "r") as file:
             lines = file.readlines()
 
-            self.width = int(lines[0].split(" ")[0])
-            self.height = int(lines[0].split(" ")[1])
-            for k in range(1, 5):
-                self.metadata.append([float(n) for n in lines[k].split(" ")[0]])
+            self.width = int(lines[1].split(" ")[0])
+            self.height = int(lines[1].split(" ")[1])
+            for k in range(2, 6):
+                self.metadata.append([float(n) for n in lines[k].split(" ")])
 
             self.data = [[0 for x in range(self.height)] for y in range(self.width)]
 
-            for line in lines:
-                if line != lines[0]:
-                    x = float(line.split(" ")[0])
-                    y = float(line.split(" ")[1])
+            for i_line in range(6, len(lines)):
+                line = lines[i_line]
+                x = float(line.split(" ")[0])
+                y = float(line.split(" ")[1])
 
-                    type = int(line.split(" ")[2])
+                type = int(line.split(" ")[2])
 
-                    if type == 3:
-                        spawner.Spawner(x, y, 100, tile_size, self, ud_list)
-                    elif type == 4:
-                        gödi.Gödi(x, y, "./data/img/gödi.png", ud_list)
-                    elif type == 5:
-                        respawnpoint.Respawnpoint(x, y, "./data/img/respawnpoint.jpg", ud_list)
-                    elif type == 6:
-                        winblock.Winblock(x, y, "./data/img/winblock.jpg", ud_list)
-                    else:
-                        self.data[int(x)][int(y)] = type
+                if type == 3:
+                    spawner.Spawner(x, y, 100, tile_size, self, ud_list)
+                elif type == 4:
+                    gödi.Gödi(x, y, "./data/img/gödi.png", ud_list)
+                elif type == 5:
+                    respawnpoint.Respawnpoint(x, y, "./data/img/respawnpoint.jpg", ud_list)
+                elif type == 6:
+                    winblock.Winblock(x, y, "./data/img/winblock.jpg", ud_list)
+                else:
+                    self.data[int(x)][int(y)] = type
     def store(self, path):
         print("storing")
         # write out the grid to a file
