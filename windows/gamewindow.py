@@ -44,6 +44,7 @@ def init(bigSprite, screen, tile_size, activewindow, maparg):
     global ud_list
     global debug
     global respawn
+    global creative
     global lkeys
     global x_y_previous
     global camera
@@ -71,7 +72,7 @@ def init(bigSprite, screen, tile_size, activewindow, maparg):
 
     grid.load("./data/maps/"+map+".gr", tile_size, ud_list)
 
-    player = player_module.Player(9, 2)
+    player = player_module.Player(grid.metadata[0][0], grid.metadata[0][1])
     camera.xcen = player.x
     camera.ycen = player.y + 2
 
@@ -93,6 +94,7 @@ def init(bigSprite, screen, tile_size, activewindow, maparg):
     player.y_hit = grid.metadata[3][1]
     player.hitbox = object.RectangularHitbox(player.x_hit, player.y_hit, 0.5)
 
+    creative = grid.metadata[4][0] == 1
 
     kActive = False
     lActive = False
