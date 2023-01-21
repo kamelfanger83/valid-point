@@ -13,6 +13,7 @@ import buttons
 import sand
 import winblock
 import respawnpoint
+import object
 
 grid = None
 player = None
@@ -48,6 +49,8 @@ def init(bigSprite, screen, tile_size, activewindow, maparg):
     global camera
     global map
     global window
+    global lActive
+    global kActive
     map = maparg
 
     camera = camera_module.Camera(tile_size)
@@ -70,7 +73,7 @@ def init(bigSprite, screen, tile_size, activewindow, maparg):
 
     player = player_module.Player(9, 2)
     camera.xcen = player.x
-    camera.ycen = player.y
+    camera.ycen = player.y + 2
 
     debug = False
     respawn = False
@@ -78,6 +81,18 @@ def init(bigSprite, screen, tile_size, activewindow, maparg):
     lkeys = pygame.key.get_pressed()
 
     x_y_previous = [-1, -1]
+
+    player.rx = grid.metadata[0][0]
+    player.ry = grid.metadata[0][1]
+
+    player.speed = grid.metadata[1][0]
+
+    player.crouch_speed = grid.metadata[2][0]
+
+    player.x_hit = grid.metadata[3][0]
+    player.y_hit = grid.metadata[3][1]
+    player.hitbox = object.RectangularHitbox(x_hit, y_hit, 0.5)
+
 
     kActive = False
     lActive = False
@@ -167,16 +182,17 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
             camera_width = screen.get_width() / tile_size
             camera_height = screen.get_height() / tile_size
 
-            # if player is in left or righmost 20% of the screen, move camera
-            if player.x > camera.xcen + 0.4 * camera_width:
-                camera.xcen = player.x - 0.4 * camera_width
-            elif player.x < camera.xcen - 0.4 * camera_width:
-                camera.xcen = player.x + 0.4 * camera_width
-            # if player is in top or bottommost 20% of the screen, move camera
-            if player.y > camera.ycen + 0.4 * camera_height:
-                camera.ycen = player.y - 0.4 * camera_height
-            elif player.y < camera.ycen - 0.4 * camera_height:
-                camera.ycen = player.y + 0.4 * camera_height
+            accept = 0.1
+
+            if player.x > camera.xcen + accept * camera_width:
+                camera.xcen = player.x - accept * camera_width
+            elif player.x < camera.xcen - accept * camera_width:
+                camera.xcen = player.x + accept * camera_width
+
+            if player.y + 2> camera.ycen + accept * camera_height:
+                camera.ycen = player.y + 2 - accept * camera_height
+            elif player.y + 2< camera.ycen - accept * camera_height:
+                camera.ycen = player.y + 2 + accept * camera_height
 
         # UPDATE
 
