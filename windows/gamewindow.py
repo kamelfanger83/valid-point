@@ -144,7 +144,6 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
         if keys[pygame.K_r] and not lkeys[pygame.K_r] and creative:
             respawn = not respawn
         if keys[pygame.K_q] and not lkeys[pygame.K_q] and creative:
-            print("Saving...")
             grid.store("./data/maps/"+str(random.randrange(100000))+".gr")
 
         # player controls
@@ -203,15 +202,9 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
                 thing.update(grid, ud_list)
             if player.dead(grid):
                 if respawn:
-                    death = player.deathcounter
-                    crouch = player.isCrouching
-                    wantstodecrouch = player.wantstodecrouch
-                    hitbox = player.hitbox
-                    player = player_module.Player(player.rx, player.ry)
-                    player.deathcounter += death+1
-                    player.isCrouching = crouch
-                    player.wantstodecrouch = wantstodecrouch
-                    player.hitbox = hitbox
+                    player.x = player.rx
+                    player.y = player.ry
+                    player.deathcounter += 1
                 else:
                     return "death"
             for win_block in winblock.winblock_list:

@@ -1,8 +1,11 @@
+import random
+
 import spawner
 import gödi
 import respawnpoint
 import winblock
 import sand
+import pygame
 
 class Grid:
     def __init__(self, width, height):
@@ -50,10 +53,19 @@ class Grid:
                 else:
                     self.data[int(x)][int(y)] = type
     def store(self, path):
-        print("storing")
+        # set pygame window to not fullscreen so that we can give input
+        pygame.display.set_mode((800, 600), pygame.RESIZABLE)
+
         # write out the grid to a file
         with open(path, "w") as file:
+            file.write(input("Enter a name for the map: ") + "\n")
             file.write(str(self.width) + " " + str(self.height) + "\n")
+            file.write(input("Respawn x: ") + " " + input("Respawn y: ") + "\n")
+            file.write(input("Player speed: ") + "\n")
+            file.write(input("Player crouch speed: ") + "\n")
+            file.write(str(self.metadata[3][0]) + " " + str(self.metadata[3][1]) + "\n")
+            file.write("0\n")
+
             for y in range(self.height):
                 for x in range(self.width):
                     if self[x][y] != 0:
@@ -67,3 +79,6 @@ class Grid:
                 file.write(str(respawnpointo.x)+" "+str(respawnpointo.y)+" 5\n")
             for winblocko in winblock.winblock_list:
                 file.write(str(winblocko.x)+" "+str(winblocko.y)+" 6\n")
+
+        # set pygame window back to fullscreen
+        pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
