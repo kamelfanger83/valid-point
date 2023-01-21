@@ -1,10 +1,11 @@
 import gödi
 import sprites
+import object
 
 spawner_list = []
 class Spawner:
-    def __init__(self, x=None, y=None, interval=None, tile_size=None, grid=None, ud_list=None):
-        self.spawn_interval = 30
+    def __init__(self, x=None, y=None, interval=None, spawn_interval = 30, tile_size=None, grid=None, ud_list=None):
+        self.spawn_interval = spawn_interval
         if x == None:
             return
 
@@ -12,6 +13,8 @@ class Spawner:
         self.y = y
         self.interval = interval
         self.tile_size = tile_size
+
+        self.hitbox = object.RectangularHitbox(1, 1, 0.5, 1, 1)
 
         grid[x][y] = 3
         grid[x][y+1] = 3

@@ -32,6 +32,9 @@ class Sand(object.Object):
         else:
             self.y = self.y - self.speed
             self.speed += self.gravity
+            if self.y < 0:
+                sand_list.remove(self)
+                ud_list.remove(self)
             
     def load(self, tile_size, bigSprite):
         bigSprite.load_sprite("./data/img/sand.jpg", 1, 1, tile_size, "sand")

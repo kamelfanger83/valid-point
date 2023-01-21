@@ -88,6 +88,13 @@ class Gödi(object.Object):
                 self.y -= self.up_speed
                 self.up_speed = 0
 
+        if self.on_ground(grid):
+            self.y = int(self.y - self.hitbox.half_height) + 1 + self.hitbox.half_height + 10 ** -10
+
+        if self.y < 0:
+            gödi_list.remove(self)
+            ud_list.remove(self)
+
     def draw(self, surface, camera, bigSprite):
         #   rotate gödi image by self.ang then draw that image
         #   rotate around the center of the image

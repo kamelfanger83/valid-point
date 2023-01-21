@@ -43,7 +43,8 @@ class Grid:
                 type = int(line.split(" ")[2])
 
                 if type == 3:
-                    spawner.Spawner(x, y, 100, tile_size, self, ud_list)
+                    print(line)
+                    spawner.Spawner(int(x), int(y), int(line.split(" ")[3]), int(line.split(" ")[4]), tile_size, self, ud_list)
                 elif type == 4:
                     gödi.Gödi(x, y, "./data/img/gödi.png", ud_list)
                 elif type == 5:
@@ -68,7 +69,7 @@ class Grid:
 
             for y in range(self.height):
                 for x in range(self.width):
-                    if self[x][y] != 0:
+                    if self[x][y] != 0 and self[x][y] != 3:
                         file.write(str(x)+" "+str(y)+" "+str(self[x][y])+"\n")
             for spawnero in spawner.spawner_list:
                 file.write(str(spawnero.x)+" "+str(spawnero.y)+" 3\n")

@@ -21,7 +21,10 @@ def mouseclickleft(grid, camera, screen, menu, args=None):
         x_y_prev[0], x_y_prev[1] = int(x_y_prev[0]), int(x_y_prev[1])
         if [x, y] != x_y_prev:
             if 0 <= x < grid.width and 0 <= y < grid.height:
-                grid[x][y] = args
+                if grid[x][y] == args:
+                    grid[x][y] = 0
+                else:
+                    grid[x][y] = args
             x_y_prev = [x, y]
 
 
