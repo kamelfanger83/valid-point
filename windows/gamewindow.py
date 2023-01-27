@@ -75,7 +75,7 @@ def init(bigSprite, screen, tile_size, activewindow, maparg, musicplayer):
     player = player_module.Player(float(grid.metadata["respawn_point"][0]), float(grid.metadata["respawn_point"][1]))
 
     debug = False
-    respawn = grid.metadata["respawn"] == 1
+    respawn = grid.metadata["respawn"] == "1"
 
     lkeys = pygame.key.get_pressed()
 
