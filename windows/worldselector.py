@@ -12,10 +12,10 @@ def init(bigSprite, screen, title_size, activewindow):
     window = utils.windowbuilder.WindowBuilder(screen)
     window.setBackground("menu.png")
 
-    window.addText("Menu:", (250, 380), 90, (255, 255, 255))
-    window.addText("Bitte wähle eine Welt aus.", (250, 480), 30, (100, 255, 0))
-
+    window.addText("Menu:", (0.1, 0.1), screen.get_height() // 11, (255, 255, 255))
+    window.addText("Bitte wähle eine Möglichkeit aus.", (0.15, 0.2), 30, (100, 255, 0))
     # go through files in ./data/maps and add buttons for each
+    # 5 buttons per column
 
     directory = os.fsencode("./data/maps")
 
@@ -25,7 +25,9 @@ def init(bigSprite, screen, title_size, activewindow):
         # mapname is first column of map file
         mapname = open("./data/maps/" + filename, "r").readline()[:-1]
         if filename.endswith(".gr"):
-            window.addButton(filename, mapname, 30, (0, 255, 0), (132, 537 + i * 63), 50, 320, (255, 255, 255))
+            column = i // 5
+            row = i % 5
+            window.addButton(filename, mapname, 30, (0, 255, 0), (0.2 + 0.2 * column, 0.5 + 0.1 * row), 0.19, 0.09, (255, 255, 255))
             i += 1
         else:
             continue
@@ -47,7 +49,7 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
         window.draw()
 
         for event in window.getEvents():
-            if event[0] == "button_right_click":
+            if event[0] == "left_click":
                 windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, event[1][:-3])
                 return "game"
 

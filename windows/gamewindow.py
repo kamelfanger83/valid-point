@@ -165,8 +165,8 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
                 lActive = False
                 if kActive:
                     for k in range(len(allObjects)):
-                        window.addButton("selectObject:" + str(allObjects[k][0]), "", 30, (0, 255, 0), (tile_size * (0.5 + 2 * k), 100), 1.5 * tile_size, 1.5 * tile_size, (255, 255, 255))
-                        window.addImage(bigSprite[allObjects[k][1]].image, (tile_size * (0.75 + 2 * k), 100 + 0.25 * tile_size))
+                        window.addButton("selectObject:" + str(allObjects[k][0]), "", 30, (0, 255, 0), (tile_size/screen.get_width() * (0.5 + 2 * k), 0.1), 1.5 * tile_size/screen.get_width(), 1.5 * tile_size/screen.get_height(), (255, 255, 255))
+                        window.addImage(bigSprite[allObjects[k][1]].image, (tile_size/screen.get_width() * (0.75 + 2 * k), 0.1 + 0.25 * tile_size/screen.get_height()))
             if keys[pygame.K_l] and not lkeys[pygame.K_l]:
                 lActive = not lActive
                 window.button_list = []
@@ -174,8 +174,8 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
                 kActive = False
                 if lActive:
                     for k in range(len(allBlocks)):
-                        window.addButton("selectBlock:" + str(allBlocks[k][0]), "", 30, (0, 255, 0), (tile_size * (0.5 + 2 * k), 100), 1.5 * tile_size, 1.5 * tile_size, (255, 255, 255))
-                        window.addImage(bigSprite[allBlocks[k][1]].image, (tile_size * (0.75 + 2 * k), 100 + 0.25 * tile_size))
+                        window.addButton("selectBlock:" + str(allBlocks[k][0]), "", 30, (0, 255, 0), (tile_size/screen.get_width() * (0.5 + 2 * k), 0.1), 1.5 * tile_size/screen.get_width(), 1.5 * tile_size/screen.get_height(), (255, 255, 255))
+                        window.addImage(bigSprite[allBlocks[k][1]].image, (tile_size/screen.get_width() * (0.75 + 2 * k), 0.1 + 0.25 * tile_size/screen.get_height()))
 
         else:
             player.get_events(grid, lkeys)
@@ -183,17 +183,14 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
             camera_width = screen.get_width() / tile_size
             camera_height = screen.get_height() / tile_size
 
-            accept = 0.1
+            accept = 0.2
 
-            if player.x > camera.xcen + accept * camera_width:
-                camera.xcen = player.x - accept * camera_width
-            elif player.x < camera.xcen - accept * camera_width:
-                camera.xcen = player.x + accept * camera_width
+            camera.xcen = player.x
 
-            if player.y + 2> camera.ycen + accept * camera_height:
-                camera.ycen = player.y + 2 - accept * camera_height
-            elif player.y + 2< camera.ycen - accept * camera_height:
-                camera.ycen = player.y + 2 + accept * camera_height
+            if player.y + player.hitbox.half_height > camera.ycen + accept * camera_height:
+                camera.ycen = player.y + player.hitbox.half_height - accept * camera_height
+            elif player.y - player.hitbox.half_height < camera.ycen - accept * camera_height:
+                camera.ycen = player.y - player.hitbox.half_height + accept * camera_height
 
         # UPDATE
 
