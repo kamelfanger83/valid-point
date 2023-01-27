@@ -12,12 +12,12 @@ def init(bigSprite, screen, title_size, activewindow):
     window = utils.windowbuilder.WindowBuilder(screen)
     window.setBackground("menu.png")
 
-    window.addText("Einstellungen:", (250, 380), 90, (255, 255, 255))
-    window.addText("Ändere die Einstellungen wie du willst:", (250, 480), 30, (100, 255, 0))
+    window.addText("Einstellungen:", (0.25, 0.38), 90, (255, 255, 255))
+    window.addText("Ändere die Einstellungen wie du willst:", (0.25, 0.48), 30, (100, 255, 0))
 
-    window.addButton("music", "Musik an/ausschalten", 30, (0, 255, 0), (132, 537), 50, 320, (255, 255, 255))
-    window.addButton("player", "Spielsession beitreten", 30, (0, 255, 0), (132, 600), 50, 320, (255, 255, 255))
-    window.addButton("back", "Zurück", 30, (0, 255, 0), (132, 663), 50, 320, (255, 255, 255))
+    window.addButton("music", "Musik an/ausschalten", 30, (0, 255, 0), (0.132, 0.537), 0.05, 0.0320, (255, 255, 255))
+    window.addButton("player", "Spielsession beitreten", 30, (0, 255, 0), (0.132, 0.600), 0.05, 0.0320, (255, 255, 255))
+    window.addButton("back", "Zurück", 30, (0, 255, 0), (0.132, 0.663), 0.5, 0.0320, (255, 255, 255))
 
 def show(bigSprite, screen, tile_size, activewindow, musicplayer):
     global window
@@ -36,7 +36,7 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
         window.draw()
 
         for event in window.getEvents():
-            if event[0] == "button_right_click":
+            if event[0] == "left_click":
                 if (event[1] == "music"):
                     if(musicplayer.getVolume() > 0):
                         musicplayer.setVolume(0)
