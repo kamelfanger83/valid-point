@@ -50,7 +50,7 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
 
         for event in window.getEvents():
             if event[0] == "left_click":
-                windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, event[1][:-3])
+                windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, event[1][:-3], musicplayer)
                 return "game"
 
         pygame.display.update()

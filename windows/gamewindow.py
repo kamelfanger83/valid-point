@@ -38,7 +38,7 @@ map = None
 kActive = False
 lActive = False
 
-def init(bigSprite, screen, tile_size, activewindow, maparg):
+def init(bigSprite, screen, tile_size, activewindow, maparg, musicplayer):
     global grid
     global player
     global ud_list
@@ -72,9 +72,7 @@ def init(bigSprite, screen, tile_size, activewindow, maparg):
 
     grid.load("./data/maps/"+map+".gr", tile_size, ud_list)
 
-    player = player_module.Player(grid.metadata[0][0], grid.metadata[0][1])
-    camera.xcen = player.x
-    camera.ycen = player.y + 2
+    player = player_module.Player(float(grid.metadata["respawn"][0]), float(grid.metadata["respawn"][1]))
 
     debug = False
     respawn = False
@@ -83,21 +81,28 @@ def init(bigSprite, screen, tile_size, activewindow, maparg):
 
     x_y_previous = [-1, -1]
 
-    player.rx = grid.metadata[0][0]
-    player.ry = grid.metadata[0][1]
+    player.rx = float(grid.metadata["respawn"][0])
+    player.ry = float(grid.metadata["respawn"][1])
 
-    player.speed = grid.metadata[1][0]
+    player.speed = float(grid.metadata["speed"])
 
-    player.crouch_speed = grid.metadata[2][0]
+    player.crouch_speed = float(grid.metadata["crouch_speed"])
 
-    player.x_hit = grid.metadata[3][0]
-    player.y_hit = grid.metadata[3][1]
+    player.x_hit = float(grid.metadata["hitbox"][0])
+    player.y_hit = float(grid.metadata["hitbox"][1])
     player.hitbox = object.RectangularHitbox(player.x_hit, player.y_hit, 0.5)
 
-    creative = grid.metadata[4][0] == 1
+    camera.xcen = player.x
+    camera.ycen = player.y + player.y_hit
+
+    creative = grid.metadata["creative"] == "1"
 
     kActive = False
     lActive = False
+
+    if (musicplayer.getSong() != grid.metadata["music"]):
+        musicplayer.setSong(grid.metadata["music"])
+        musicplayer.startMusic()
 
 def show(bigSprite, screen, tile_size, activewindow, musicplayer):
     global creative

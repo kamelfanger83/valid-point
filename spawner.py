@@ -16,6 +16,9 @@ class Spawner:
 
         self.hitbox = object.RectangularHitbox(1, 1, 0.5, 1, 1)
 
+        print(x, y)
+        print(grid.width, grid.height)
+
         grid[x][y] = 3
         grid[x][y+1] = 3
         grid[x+1][y] = 3

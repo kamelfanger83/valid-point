@@ -1,10 +1,12 @@
 jump and gian
 100 20
-9 1
-0.1
-0.2
-0.2 0.85
-0
+respawn: 9 1
+speed: 0.1
+crouch_speed: 0.2
+hitbox: 0.2 0.85
+creative: 0
+music: ./data/music/jumpandgian.wav
+
 0 1 1
 0 2 1
 0 3 1

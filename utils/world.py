@@ -12,7 +12,7 @@ class Grid:
         self.width = width
         self.height = height
         self.data = [[0 for x in range(height)] for y in range(width)]
-        self.metadata = []
+        self.metadata = {}
 
     def __getitem__(self, column):
         return self.data[column]
@@ -30,12 +30,21 @@ class Grid:
 
             self.width = int(lines[1].split(" ")[0])
             self.height = int(lines[1].split(" ")[1])
-            for k in range(2, 7):
-                self.metadata.append([float(n) for n in lines[k].split(" ")])
+
+            self.metadata = {}
+            i = 2
+            while lines[i] != "\n":
+                splitline = lines[i].split(" ")
+                if len(splitline) == 2:
+                    self.metadata[splitline[0][:-1]] = str(splitline[1])[:-1]
+                else:
+                    self.metadata[splitline[0][:-1]] = [str(k) for k in splitline[1:]]
+                    self.metadata[splitline[0][:-1]][-1] = self.metadata[splitline[0][:-1]][-1][:-1]
+                i += 1
 
             self.data = [[0 for x in range(self.height)] for y in range(self.width)]
 
-            for i_line in range(7, len(lines)):
+            for i_line in range(i+1, len(lines)):
                 line = lines[i_line]
                 x = float(line.split(" ")[0])
                 y = float(line.split(" ")[1])
