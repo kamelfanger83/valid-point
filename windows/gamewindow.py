@@ -149,7 +149,11 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
         if keys[pygame.K_r] and not lkeys[pygame.K_r] and creative:
             respawn = not respawn
         if keys[pygame.K_q] and not lkeys[pygame.K_q] and creative:
-            grid.store("./data/maps/"+str(random.randrange(100000))+".gr")
+            # set pygame window to not fullscreen so that we can give input
+            pygame.display.set_mode((800, 600), pygame.RESIZABLE)
+            name = input("Enter the name of the map: ")
+            grid.store(name)
+            pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
         # player controls
         if creative:

@@ -31,7 +31,15 @@ class Grid:
             self.width = int(lines[1].split(" ")[0])
             self.height = int(lines[1].split(" ")[1])
 
-            self.metadata = {}
+            self.metadata = {
+                "respawn": ["9", "1"],
+                "speed": "0.1",
+                "crouch_speed": "0.2",
+                "hitbox": ["0.2", "0.85"],
+                "creative": "0",
+                "music": "./ data / music / jumpandgian.wav"
+            }
+
             i = 2
             while lines[i] != "\n":
                 splitline = lines[i].split(" ")
@@ -62,18 +70,15 @@ class Grid:
                     winblock.Winblock(x, y, "./data/img/winblock.jpg", ud_list)
                 else:
                     self.data[int(x)][int(y)] = type
-    def store(self, path):
-        # set pygame window to not fullscreen so that we can give input
-        pygame.display.set_mode((800, 600), pygame.RESIZABLE)
-
+    def store(self, name):
         # write out the grid to a file
-        with open(path, "w") as file:
-            file.write(input("Enter a name for the map: ") + "\n")
+        with open("./data/maps/" + name + ".gr", "w") as file:
+            file.write(name)
             file.write(str(self.width) + " " + str(self.height) + "\n")
-            file.write(input("Respawn x: ") + " " + input("Respawn y: ") + "\n")
-            file.write(input("Player speed: ") + "\n")
-            file.write(input("Player crouch speed: ") + "\n")
-            file.write(str(self.metadata[3][0]) + " " + str(self.metadata[3][1]) + "\n")
+            file.write("respawn:" + input("Respawn x: ") + " " + input("Respawn y: ") + "\n")
+            file.write("speed:" + input("Player speed: ") + "\n")
+            file.write("crouch_speed:" + input("Player crouch speed: ") + "\n")
+            file.write("hitbox:" + str(self.metadata["hitbox"][0]) + " " + str(self.metadata["hitbox"][1]) + "\n")
             file.write("0\n")
 
             for y in range(self.height):
