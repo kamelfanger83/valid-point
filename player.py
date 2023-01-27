@@ -47,6 +47,7 @@ class Player(object.Object):
         self.wantstodecrouch = False
 
         self.diedinmove = False
+        self.invincible = False
 
     def load(self, tile_size, bigSprite):
         # load player image, left and right
@@ -162,6 +163,8 @@ class Player(object.Object):
         self.lpressed = pressed_keys
 
     def dead(self, grid):
+        if self.invincible:
+            return False
         if self.y < 0:
             return True
         for g in gödi.gödi_list:

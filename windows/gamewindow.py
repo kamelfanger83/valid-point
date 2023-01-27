@@ -72,17 +72,17 @@ def init(bigSprite, screen, tile_size, activewindow, maparg, musicplayer):
 
     grid.load("./data/maps/"+map+".gr", tile_size, ud_list)
 
-    player = player_module.Player(float(grid.metadata["respawn"][0]), float(grid.metadata["respawn"][1]))
+    player = player_module.Player(float(grid.metadata["respawn_point"][0]), float(grid.metadata["respawn_point"][1]))
 
     debug = False
-    respawn = False
+    respawn = grid.metadata["respawn"]
 
     lkeys = pygame.key.get_pressed()
 
     x_y_previous = [-1, -1]
 
-    player.rx = float(grid.metadata["respawn"][0])
-    player.ry = float(grid.metadata["respawn"][1])
+    player.rx = float(grid.metadata["respawn_point"][0])
+    player.ry = float(grid.metadata["respawn_point"][1])
 
     player.speed = float(grid.metadata["speed"])
 
@@ -96,6 +96,8 @@ def init(bigSprite, screen, tile_size, activewindow, maparg, musicplayer):
     camera.ycen = player.y + player.y_hit
 
     creative = grid.metadata["creative"] == "1"
+
+    player.invincible = grid.metadata["invincible"] == "1"
 
     kActive = False
     lActive = False

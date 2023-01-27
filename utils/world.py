@@ -32,11 +32,13 @@ class Grid:
             self.height = int(lines[1].split(" ")[1])
 
             self.metadata = {
-                "respawn": ["9", "1"],
+                "respawn_point": ["9", "1"],
                 "speed": "0.1",
+                "respawn": "0",
                 "crouch_speed": "0.2",
                 "hitbox": ["0.2", "0.85"],
                 "creative": "0",
+                "invincible": "0",
                 "music": "./ data / music / jumpandgian.wav"
             }
 
@@ -75,7 +77,7 @@ class Grid:
         with open("./data/maps/" + name + ".gr", "w") as file:
             file.write(name)
             file.write(str(self.width) + " " + str(self.height) + "\n")
-            file.write("respawn:" + input("Respawn x: ") + " " + input("Respawn y: ") + "\n")
+            file.write("respawn_point:" + input("Respawn x: ") + " " + input("Respawn y: ") + "\n")
             file.write("speed:" + input("Player speed: ") + "\n")
             file.write("crouch_speed:" + input("Player crouch speed: ") + "\n")
             file.write("hitbox:" + str(self.metadata["hitbox"][0]) + " " + str(self.metadata["hitbox"][1]) + "\n")
