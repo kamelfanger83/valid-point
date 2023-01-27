@@ -39,7 +39,7 @@ class Grid:
                 "hitbox": ["0.2", "0.85"],
                 "creative": "0",
                 "invincible": "0",
-                "music": "./ data / music / jumpandgian.wav"
+                "music": "./data/music/jumpandgian.wav"
             }
 
             i = 2
