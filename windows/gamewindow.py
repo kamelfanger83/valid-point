@@ -156,6 +156,8 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
             name = input("Enter the name of the map: ")
             grid.store(name)
             pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        if keys[pygame.K_m]:
+            return "menu"
 
         # player controls
         if creative:
