@@ -256,7 +256,7 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
 
         # update the death counter
         window.text_list = []
-        window.addText("Deaths: " + str(player.deathcounter), (250, 0), 30, (255, 255, 255))
+        window.addText("Deaths: " + str(player.deathcounter), (0.01, 0.01), 30, (255, 255, 255))
         window.draw()
 
         for event in window.getEvents():
