@@ -15,8 +15,8 @@ def init(bigSprite, screen, title_size, activewindow):
     window.addText("Einstellungen:", (0.25, 0.38), 90, (255, 255, 255))
     window.addText("Ändere die Einstellungen wie du willst:", (0.25, 0.48), 30, (100, 255, 0))
 
-    window.addButton("music", "Musik an/ausschalten", 30, (0, 255, 0), (0.132, 0.537), 0.05, 0.0320, (255, 255, 255))
-    window.addButton("player", "Spielsession beitreten", 30, (0, 255, 0), (0.132, 0.600), 0.05, 0.0320, (255, 255, 255))
+    window.addButton("music", "Musik an/ausschalten", 30, (0, 255, 0), (0.132, 0.537), 0.25, 0.0320, (255, 255, 255))
+    window.addButton("player", "Spielsession beitreten", 30, (0, 255, 0), (0.132, 0.600), 0.25, 0.0320, (255, 255, 255))
     window.addButton("back", "Zurück", 30, (0, 255, 0), (0.132, 0.663), 0.5, 0.0320, (255, 255, 255))
 
 def show(bigSprite, screen, tile_size, activewindow, musicplayer):

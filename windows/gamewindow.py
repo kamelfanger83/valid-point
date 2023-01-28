@@ -161,15 +161,16 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
 
         # player controls
         if creative:
-            # get keys and move camera xcen and ycen with wasd
+            # get keys and move camera xcen and ycen with wasd or arrow keys
+
             keys = pygame.key.get_pressed()
-            if keys[pygame.K_w]:
+            if keys[pygame.K_w] or keys[pygame.K_UP]:
                 camera.ycen += creative_speed
-            if keys[pygame.K_s]:
+            if keys[pygame.K_s] or keys[pygame.K_DOWN]:
                 camera.ycen -= creative_speed
-            if keys[pygame.K_a]:
+            if keys[pygame.K_a] or keys[pygame.K_LEFT]:
                 camera.xcen -= creative_speed
-            if keys[pygame.K_d]:
+            if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
                 camera.xcen += creative_speed
             if keys[pygame.K_k] and not lkeys[pygame.K_k]:
                 kActive = not kActive
@@ -255,6 +256,10 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
                 pygame.draw.line(screen, (255, 255, 255), camera.coords_to_screen(column, 0, screen), camera.coords_to_screen(column, len(grid[0]), screen))
             # draw small point at player x/y
             pygame.draw.circle(screen, (255, 255, 255), camera.coords_to_screen(player.x, player.y, screen), 2)
+            # display the mouses tile position
+            window.text_list = []
+            window.addText("Mouse: " + str(camera.screen_to_coords(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1], screen)), (0.01, 0.05), 30, (255, 255, 255))
+            window.draw()
 
         # update the death counter
         window.text_list = []
