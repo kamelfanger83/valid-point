@@ -52,6 +52,7 @@ def init(bigSprite, screen, tile_size, activewindow, maparg, musicplayer):
     global window
     global lActive
     global kActive
+    global teleport
     map = maparg
 
     camera = camera_module.Camera(tile_size)
@@ -102,6 +103,8 @@ def init(bigSprite, screen, tile_size, activewindow, maparg, musicplayer):
     kActive = False
     lActive = False
 
+    teleport = False
+
     if (musicplayer.getSong() != grid.metadata["music"]):
         musicplayer.setSong(grid.metadata["music"])
         musicplayer.startMusic()
@@ -118,6 +121,7 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
     global selectedObject
     global kActive
     global lActive
+    global teleport
     
     while True:
         for event in pygame.event.get():
@@ -125,6 +129,10 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit(0)
+            elif mouse_buttons_pressed[0] and teleport and creative and not kActive and not lActive:
+                tm = camera.screen_to_coords(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1], screen)
+                player.x = tm[0]
+                player.y = tm[1]
             elif mouse_buttons_pressed[0] == True and creative and not kActive and not lActive:
                 mouse.mouseclickleft(grid, camera, screen, "game", selectedBlock)
             elif event.type == pygame.MOUSEBUTTONUP and creative and not lActive and not kActive:
@@ -150,6 +158,8 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
             debug = not debug
         if keys[pygame.K_r] and not lkeys[pygame.K_r] and creative:
             respawn = not respawn
+        if keys[pygame.K_t] and not lkeys[pygame.K_t] and creative:
+            teleport = not teleport
         if keys[pygame.K_q] and not lkeys[pygame.K_q] and creative:
             # set pygame window to not fullscreen so that we can give input
             pygame.display.set_mode((800, 600), pygame.RESIZABLE)
