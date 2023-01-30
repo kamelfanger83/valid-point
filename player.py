@@ -148,7 +148,7 @@ class Player(object.Object):
                 self.y = int(self.y + self.hitbox.half_height) - self.hitbox.half_height - 10 ** -10
             while self.on_ground(grid):
                 self.onFloor = True
-                self.y = int(self.y - self.hitbox.half_height) + 1 + self.hitbox.half_height + 10 ** -10
+                self.y = int(self.y - self.hitbox.half_height - 10**-10) + 1 + self.hitbox.half_height + 1.5 * 10 ** -10
                 self.singleJumped = False
                 self.doubleJumped = False
             self.velocity_up = 0
