@@ -62,6 +62,10 @@ def mouseclickright(camera, screen, tile_size, ud_list, menu, grid, args=None):
                     ud_list.remove(gödio)
         if args == 3:
             spawner.Spawner(int(x), int(y), 100, 30, tile_size, grid, ud_list)
+            grid[int(x)][int(y)] = 0
+            grid[int(x)][int(y) + 1] = 0
+            grid[int(x) + 1][int(y)] = 0
+            grid[int(x) + 1][int(y) + 1] = 0
         elif args == 4:
             gödi.Gödi(x, y, "./data/img/gödi.png", ud_list)
         elif args == 5:

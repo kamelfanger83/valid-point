@@ -153,6 +153,7 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
                 lActive = False
                 window.button_list = []
                 window.image_list = []
+                grid.store("last autosave")
 
         if keys[pygame.K_b] and not lkeys[pygame.K_b] and creative:
             debug = not debug
@@ -224,13 +225,14 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
             if player.dead(grid):
                 if respawn:
                     player.x = player.rx
-                    player.y = player.ry
+                    player.y = player.ry - 0.5 + player.hitbox.half_height
                     player.deathcounter += 1
                 else:
                     return "death"
             for win_block in winblock.winblock_list:
                 if player.collide(win_block):
                     return "win"
+
         lkeys = keys
 
         # DRAWING

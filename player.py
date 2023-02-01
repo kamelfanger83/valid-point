@@ -31,7 +31,7 @@ class Player(object.Object):
 
         self.jump_height = 2
         self.gravity = 0.02
-        self.jump_speed = 0.35
+        self.jumpSpeed = 0.35
 
         self.singleJumped = False
         self.doubleJumped = False
@@ -89,10 +89,10 @@ class Player(object.Object):
 
         if pressed_keys[pygame.K_SPACE] and not lkeys[pygame.K_SPACE] or pressed_keys[pygame.K_w] and not lkeys[pygame.K_w] or pressed_keys[pygame.K_UP] and not lkeys[pygame.K_UP]:
             if not self.singleJumped:
-                self.velocity_up = self.jump_speed
+                self.velocity_up = self.jumpSpeed
                 self.singleJumped = True
             elif not self.doubleJumped:
-                self.velocity_up = 2 / 3 * self.jump_speed
+                self.velocity_up = 2 / 3 * self.jumpSpeed
                 self.doubleJumped = True
 
         toggled = False

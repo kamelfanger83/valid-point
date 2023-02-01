@@ -75,20 +75,23 @@ class Grid:
     def store(self, name):
         # write out the grid to a file
         with open("./data/maps/" + name + ".gr", "w") as file:
-            file.write(name)
+            file.write(name + "\n")
             file.write(str(self.width) + " " + str(self.height) + "\n")
-            file.write("respawn_point:" + input("Respawn x: ") + " " + input("Respawn y: ") + "\n")
-            file.write("speed:" + input("Player speed: ") + "\n")
-            file.write("crouch_speed:" + input("Player crouch speed: ") + "\n")
-            file.write("hitbox:" + str(self.metadata["hitbox"][0]) + " " + str(self.metadata["hitbox"][1]) + "\n")
-            file.write("0\n")
+
+            for key in self.metadata:
+                if type(self.metadata[key]) == list:
+                    file.write(key + ": " + " ".join(self.metadata[key]) + "\n")
+                else:
+                    file.write(key + ": " + self.metadata[key] + "\n")
+
+            file.write("\n")
 
             for y in range(self.height):
                 for x in range(self.width):
                     if self[x][y] != 0 and self[x][y] != 3:
                         file.write(str(x)+" "+str(y)+" "+str(self[x][y])+"\n")
             for spawnero in spawner.spawner_list:
-                file.write(str(spawnero.x)+" "+str(spawnero.y)+" 3\n")
+                file.write(str(spawnero.x)+" "+str(spawnero.y)+" 3 " + str(spawnero.interval) + " " + str(spawnero.spawn_interval) + "\n")
             for gödio in gödi.gödi_list:
                 #write location with 3 decimal places
                 file.write(str(round(gödio.x, 3))+" "+str(round(gödio.y, 3))+" 4\n")
