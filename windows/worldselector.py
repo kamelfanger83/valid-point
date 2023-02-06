@@ -9,6 +9,7 @@ window = None
 
 def init(bigSprite, screen, title_size, activewindow):
     global window
+
     window = utils.windowbuilder.WindowBuilder(screen)
     window.setBackground("menu.png")
 
@@ -34,12 +35,18 @@ def init(bigSprite, screen, title_size, activewindow):
 
 
 def show(bigSprite, screen, tile_size, activewindow, musicplayer):
+
+    pygame.mouse.set_visible(True)
+
     # Music
     if(musicplayer.getSong() != "./data/music/menu.wav"):
         musicplayer.setSong("./data/music/menu.wav")
         musicplayer.startMusic()
 
     global window
+
+    newMousePress = False
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -48,10 +55,15 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
 
         window.draw()
 
+        mouseUp = True
         for event in window.getEvents():
             if event[0] == "left_click":
-                windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, event[1][:-3], musicplayer)
-                return "game"
+                mouseUp = False
+                if (newMousePress):
+                    windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, event[1][:-3], musicplayer)
+                    return "game"
+        if (mouseUp):
+            newMousePress = True
 
         pygame.display.update()
         pygame.time.Clock().tick(60)

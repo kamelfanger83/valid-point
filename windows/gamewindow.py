@@ -59,6 +59,8 @@ def init(bigSprite, screen, tile_size, activewindow, maparg, musicplayer):
 
     window = utils.windowbuilder.WindowBuilder(screen)
 
+    pygame.mouse.set_visible(False)
+
     gödi.gödi_list = []
     sand.sand_list = []
     spawner.spawner_list = []
@@ -157,10 +159,12 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
 
         if keys[pygame.K_b] and not lkeys[pygame.K_b] and creative:
             debug = not debug
+            pygame.mouse.set_visible(debug)
         if keys[pygame.K_r] and not lkeys[pygame.K_r] and creative:
             respawn = not respawn
         if keys[pygame.K_t] and not lkeys[pygame.K_t] and creative:
             teleport = not teleport
+            pygame.mouse.set_visible(teleport)
         if keys[pygame.K_q] and not lkeys[pygame.K_q] and creative:
             # set pygame window to not fullscreen so that we can give input
             pygame.display.set_mode((800, 600), pygame.RESIZABLE)

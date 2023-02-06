@@ -21,6 +21,9 @@ def init(bigSprite, screen, title_size, activewindow):
 
 def show(bigSprite, screen, tile_size, activewindow, musicplayer):
     global window
+
+    pygame.mouse.set_visible(True)
+
     while True:
         start = time.time()
 

@@ -19,7 +19,11 @@ def init(bigSprite, screen, title_size, activewindow):
     window.addButton("player", "Spielsession beitreten", 30, (0, 255, 0), (0.2, 0.6), 0.3, 0.09, (255, 255, 255))
     window.addButton("settings", "Einstellungen", 30, (0, 255, 0), (0.2, 0.7), 0.3, 0.09, (255, 255, 255))
 
+
 def show(bigSprite, screen, tile_size, activewindow, musicplayer):
+
+    pygame.mouse.set_visible(True)
+
     # Music
     if(musicplayer.getSong() != "./data/music/menu.wav"):
         musicplayer.setSong("./data/music/menu.wav")
