@@ -14,6 +14,8 @@ import sand
 import winblock
 import respawnpoint
 import object
+import socket
+import multiplayer.host
 
 grid = None
 player = None
@@ -31,6 +33,12 @@ selectedBlock = 1
 creative_speed = 0.1
 
 ud_list = []
+player_dict = {}
+
+# set own ip to own ip
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect(("8.8.8.8", 80))
+ownIp = s.getsockname()[0]
 
 camera = None
 map = None
@@ -110,6 +118,9 @@ def init(bigSprite, screen, tile_size, activewindow, maparg, musicplayer):
     if (musicplayer.getSong() != grid.metadata["music"]):
         musicplayer.setSong(grid.metadata["music"])
         musicplayer.startMusic()
+
+    player_dict[ownIp] = player
+    multiplayer.host.start()
 
 def show(bigSprite, screen, tile_size, activewindow, musicplayer):
     global creative
