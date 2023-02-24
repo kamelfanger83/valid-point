@@ -3,6 +3,7 @@ import pygame
 import utils.windowbuilder
 import windows.gamewindow
 import windows.settingswindow
+import windows.serverselectorwindow
 import windows.worldselector
 
 window = None
@@ -44,7 +45,7 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
                     windows.worldselector.init(bigSprite, screen, tile_size, activewindow)
                     return "create"
                 elif(event[1] == "player"):
-                    windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, "test")
+                    windows.serverselectorwindow.init(bigSprite, screen, tile_size, activewindow)
                     return "join"
                 elif(event[1] == "settings"):
                     windows.settingswindow.init(bigSprite, screen, tile_size, activewindow)

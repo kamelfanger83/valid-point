@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea0df80c-7b82-479a-a723-d34689ccb24e" name="Changes" comment="Better security settings but tooooooo SMALlllllllllllllllllL!!!!!!!">
-      <change beforePath="$PROJECT_DIR$/utils/musicplayer.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/musicplayer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/winwindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/windows/winwindow.py" afterDir="false" />
+    <list default="true" id="ea0df80c-7b82-479a-a723-d34689ccb24e" name="Changes" comment="gian help plis">
+      <change afterPath="$PROJECT_DIR$/windows/serverselectorwindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_02_2023_16_57__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_02_2023_16_57__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/windowbuilder.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/windowbuilder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/menuwindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/windows/menuwindow.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,16 +56,15 @@
       <method v="2" />
     </configuration>
     <configuration name="Main" type="PythonConfigurationType" factoryName="Python">
-      <module name="hoiii" />
+      <module name="valid-point" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\raspb\PycharmProjects\pythonProject\venv\Scripts\python.exe" />
-      <option name="SDK_NAME" value="Python 3.9 (pythonProject)" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
@@ -140,6 +143,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="Better security settings but tooooooo SMALlllllllllllllllllL!!!!!!!" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/valid_point$Main.coverage" NAME="Main Coverage Results" MODIFIED="1674843855831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/valid_point$Main.coverage" NAME="Main Coverage Results" MODIFIED="1677264576093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/valid_point$main.coverage" NAME="main Coverage Results" MODIFIED="1676995775502" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

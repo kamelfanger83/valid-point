@@ -43,6 +43,10 @@ class WindowBuilder:
 
         self.text_list.append([text, location])
 
+    def removeText(self, text, location):
+        if ([text, location]) in self.text_list:
+            self.text_list.remove([text, location])
+
     def addImage(self, image, location):
         location = (location[0]*self.screen.get_width(), location[1]*self.screen.get_height())
         self.image_list.append([image, location])

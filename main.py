@@ -17,6 +17,7 @@ import windows.deathwindow
 import windows.testwindow
 import windows.winwindow
 import windows.settingswindow
+import windows.serverselectorwindow
 import utils.musicplayer
 
 # initialize a fullscreen pygame window
@@ -80,3 +81,5 @@ while True:
         activewindow = windows.winwindow.show(bigSprite, screen, tile_size, activewindow, musicplayer)
     elif activewindow == "create":
         activewindow = windows.worldselector.show(bigSprite, screen, tile_size, activewindow, musicplayer)
+    elif activewindow == "join":
+        activewindow = windows.serverselectorwindow.show(bigSprite, screen, tile_size, activewindow, musicplayer)
