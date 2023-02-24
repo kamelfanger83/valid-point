@@ -2,6 +2,7 @@ import random
 
 import pygame
 import utils.world
+import utils.server
 import player as player_module
 import camera as camera_module
 import sprites
@@ -15,7 +16,7 @@ import winblock
 import respawnpoint
 import object
 import socket
-import multiplayer.host
+# import multiplayer.host
 
 grid = None
 player = None
@@ -23,6 +24,9 @@ creative = False
 debug = False
 respawn = False
 lkeys = None
+
+server = None
+
 x_y_previous = []
 allBlocks = [[0, "select_nothing"], [1, "tile"], [2, "sand"], [7, "death_block"]]
 allObjects = [[0, "select_nothing"], [3, "select_spawner"], [4, "select_gödi"], [5, "select_respawnpoint"], [6, "select_winblock"]]
@@ -61,6 +65,8 @@ def init(bigSprite, screen, tile_size, activewindow, maparg, musicplayer):
     global lActive
     global kActive
     global teleport
+    global server
+
     map = maparg
 
     camera = camera_module.Camera(tile_size)
@@ -120,7 +126,12 @@ def init(bigSprite, screen, tile_size, activewindow, maparg, musicplayer):
         musicplayer.startMusic()
 
     player_dict[ownIp] = player
-    multiplayer.host.start()
+
+    server = utils.server.Server(grid, 808, player_dict, ud_list)
+    server.startServer()
+    server.startListening()
+
+    print("[  IP: " + server.getIP()+"  ]")
 
 def show(bigSprite, screen, tile_size, activewindow, musicplayer):
     global creative
@@ -135,7 +146,8 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
     global kActive
     global lActive
     global teleport
-    
+    global server
+
     while True:
         for event in pygame.event.get():
             mouse_buttons_pressed = pygame.mouse.get_pressed(num_buttons=3)
@@ -243,6 +255,8 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
                     player.y = player.ry - 0.5 + player.hitbox.half_height
                     player.deathcounter += 1
                 else:
+                    server.stopListening()
+                    server.stopServer()
                     return "death"
             for win_block in winblock.winblock_list:
                 if player.collide(win_block):

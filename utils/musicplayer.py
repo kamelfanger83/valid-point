@@ -3,30 +3,50 @@ from pygame import mixer
 class Mussicplayer:
     def __init__(self):
         mixer.init()
-        mixer.music.set_volume(100)
+        mixer.Channel(0).set_volume(100)
+        mixer.Channel(1).set_volume(0)
+
         self.song = ""
+        self.volume = 100
+        self.active = 0
 
     def setVolume(self, volume):
-        mixer.music.set_volume(volume)
+        mixer.Channel(self.active).set_volume(volume)
+        self.volume = volume
 
     def getVolume(self):
-        return mixer.music.get_volume()
+        return self.volume
 
     def setSong(self, filename):
-        mixer.music.stop()
-        mixer.music.load(filename)
+        channel = 0
+
+        if self.active == 0:
+            channel = 1
+
+        mixer.Channel(channel).stop()
+        mixer.Channel(channel).play(mixer.Sound(filename), -1)
+        mixer.Channel(channel).pause()
+
         self.song = filename
     def getSong(self):
         return self.song
 
     def startMusic(self):
-        mixer.music.play(loops=-1)
+        channel = 0
+
+        if self.active == 0:
+            channel = 1
+
+        mixer.Channel(channel).unpause()
+        mixer.Channel(self.active).fadeout(1000)
+
+        self.active = channel
 
     def stopMusic(self):
-        mixer.music.stop()
+        mixer.Channel(self.active).stop()
 
     def pauseMusic(self):
-        mixer.music.pause()
+        mixer.Channel(self.active).pause()
 
     def unpauseMusic(self):
-        mixer.music.unpause()
+        mixer.Channel(self.active).unpause()
