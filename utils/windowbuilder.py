@@ -43,9 +43,17 @@ class WindowBuilder:
 
         self.text_list.append([text, location])
 
-    def removeText(self, text, location):
-        if ([text, location]) in self.text_list:
-            self.text_list.remove([text, location])
+    def removeText(self, text, location, size, color):
+        font = pygame.font.SysFont("Arial", size)
+        text = font.render(text, True, color)
+
+        location = (location[0] * self.screen.get_width(), location[1] * self.screen.get_height())
+
+        # Loop trought the tex_list and remove the text
+        for i in range(len(self.text_list)):
+            if self.text_list[i] == [text, location]:
+                self.text_list.pop(i)
+                break
 
     def addImage(self, image, location):
         location = (location[0]*self.screen.get_width(), location[1]*self.screen.get_height())

@@ -16,12 +16,13 @@ def init(bigSprite, screen, title_size, activewindow):
     window.addText("pliplis enter the ip address: ", (0.15, 0.2), 30, (100, 255, 0))
     window.addText("", (0.5, 0.2), 30, (100, 255, 0))
 
-    # ten buttons for the numbers, a button for the dot and a button for finish
+    # ten buttons for the numbers, a button for the dot and a button for finish and a button for backspace
     # arranged in the same way as on a numpad
     for i in range(0, 10):
-        window.addButton(str(i), str(i), 30, (0, 255, 0), (0.2 + 0.1 * (i % 3), 0.5 + 0.1 * (i // 3)), 0.05, 0.05, (255, 255, 255))
-    window.addButton(".", ".", 30, (0, 255, 0), (0.3, 0.8), 0.05, 0.05, (255, 255, 255))
-    window.addButton("finish", "finish", 30, (0, 255, 0), (0.4, 0.8), 0.1, 0.05, (255, 255, 255))
+        window.addButton(str(i), str(i), 30, (0, 255, 0), (0.2 + 0.1 * (i % 3), 0.5 + 0.1 * (i // 3)), 0.07, 0.07, (255, 255, 255))
+    window.addButton(".", ".", 30, (0, 255, 0), (0.3, 0.8), 0.07, 0.07, (255, 255, 255))
+    window.addButton("backspace", "back", 30, (0, 255, 0), (0.4, 0.8), 0.1, 0.05, (255, 255, 255))
+    window.addButton("finish", "finish", 30, (0, 255, 0), (0.5, 0.8), 0.1, 0.05, (255, 255, 255))
 
 def show(bigSprite, screen, tile_size, activewindow, musicplayer):
 
@@ -54,10 +55,16 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
                 # when the finish button is pressed break out of while loop
                 if event[1] == "finish":
                     return "menu"
-                window.removeText("".join(ip), (0.5, 0.2))
-                ip.append(event[1])
+                window.text_list.pop()
+                if event[1] == "backspace":
+                    if (len(ip) > 0):
+                        ip.pop()
+                else:
+                    ip.append(event[1])
                 window.addText("".join(ip), (0.5, 0.2), 30, (100, 255, 0))
+                window.removeText("".join(ip), (0.5, 0.2), 30, (100, 255, 0))
                 newMousePress = False
+
         if (mouseUp):
             newMousePress = True
 
