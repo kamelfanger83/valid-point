@@ -1,6 +1,7 @@
 import buttons
 import pygame
 import utils.windowbuilder
+import utils.client
 import windows.gamewindow
 import windows.settingswindow
 import windows.worldselector
@@ -54,7 +55,14 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
             if event[0] == "left_click" and newMousePress:
                 # when the finish button is pressed break out of while loop
                 if event[1] == "finish":
-                    return "menu"
+                    windows.gamewindow.init(bigSprite, screen, tile_size, activewindow, "jumpandgian", musicplayer)
+
+                    client = utils.client.Client("".join(ip), 808)
+                    client.startConnection()
+                    client.startListening()
+
+                    return "game"
+
                 window.text_list.pop()
                 if event[1] == "backspace":
                     if (len(ip) > 0):

@@ -1,6 +1,6 @@
 from pygame import mixer
 
-class Mussicplayer:
+class Musicplayer:
     def __init__(self):
         mixer.init()
         mixer.Channel(0).set_volume(100)

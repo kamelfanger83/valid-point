@@ -36,7 +36,7 @@ class Server:
     def __handleClient(self, client):
         while self.listening:
             try:
-                msg = client.recv(1024).decode()
+                msg = client.recv(102400).decode()
             except Exception as e:
                 print(f"[!] Player Leave: {e}")
                 self.clients.remove(client)
@@ -49,7 +49,7 @@ class Server:
             print(f"[+] Der Spieler mit der IP {client_address} hat das Spiel betreten.")
 
             self.clients.add(client_socket)
-            self.grid.packet = "WorldPackt"
+            self.grid.packet = "WorldPacket"
 
             packet = json.dumps(vars(self.grid))
             client_socket.send(packet.encode(encoding="utf-8"))

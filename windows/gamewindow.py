@@ -316,3 +316,70 @@ def show(bigSprite, screen, tile_size, activewindow, musicplayer):
         # update the screen
         pygame.display.update()
         pygame.time.Clock().tick(60)
+
+def setGrid(g):
+    global grid
+    global player
+    global ud_list
+    global debug
+    global respawn
+    global creative
+    global lkeys
+    global x_y_previous
+    global camera
+    global map
+    global window
+    global lActive
+    global kActive
+    global teleport
+    global server
+
+    pygame.mouse.set_visible(False)
+
+    gödi.gödi_list = []
+    sand.sand_list = []
+    spawner.spawner_list = []
+    winblock.winblock_list = []
+    respawnpoint.respawnpoint_list = []
+    ud_list = []
+
+    grid = utils.world.Grid(g["width"], g["height"])
+
+    grid.width = g["width"]
+    grid.height = g["height"]
+    grid.data = g["data"]
+    grid.metadata = g["metadata"]
+
+    player = player_module.Player(float(grid.metadata["respawn_point"][0]), float(grid.metadata["respawn_point"][1]))
+
+    debug = False
+    respawn = grid.metadata["respawn"] == "1"
+
+    lkeys = pygame.key.get_pressed()
+
+    x_y_previous = [-1, -1]
+
+    player.rx = float(grid.metadata["respawn_point"][0])
+    player.ry = float(grid.metadata["respawn_point"][1])
+
+    player.speed = float(grid.metadata["speed"])
+
+    player.crouch_speed = float(grid.metadata["crouch_speed"])
+
+    player.x_hit = float(grid.metadata["hitbox"][0])
+    player.y_hit = float(grid.metadata["hitbox"][1])
+    player.hitbox = object.RectangularHitbox(player.x_hit, player.y_hit, 0.5)
+
+    camera.xcen = player.x
+    camera.ycen = player.y + player.y_hit
+
+    creative = grid.metadata["creative"] == "1"
+
+    player.invincible = grid.metadata["invincible"] == "1"
+
+    kActive = False
+    lActive = False
+
+    teleport = False
+
+    player_dict[ownIp] = player
